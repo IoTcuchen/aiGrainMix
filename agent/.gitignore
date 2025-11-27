@@ -53,6 +53,7 @@ coverage/
 .parcel-cache/
 
 # Editor directories and files
+api/routes/_pycache_/
 .vscode/*
 !.vscode/extensions.json
 .idea/
