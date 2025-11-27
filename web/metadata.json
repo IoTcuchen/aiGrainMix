@@ -1,0 +1,18 @@
+
+{
+  "name": "Next.js 기반 잡곡 추천 커스텀 챗봇",
+  "description": "사용자의 건강 목표와 식감 선호도에 맞춰 ChatGPT 기반 AI가 개인화된 잡곡 블렌드를 추천해주는 대화형 애플리케이션입니다. Next.js로 재구성되었습니다.",
+  "version": "2.0.0",
+  "tags": [
+    "react",
+    "typescript",
+    "nextjs",
+    "chatbot",
+    "openai",
+    "chatgpt",
+    "tailwindcss"
+  ],
+  "requestFramePermissions": [
+    "microphone"
+  ]
+}
