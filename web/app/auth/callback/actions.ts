@@ -22,14 +22,15 @@ export async function exchangeTokenServerAction(code: string) {
     console.log(`[Server Action] 2. Java 서버 응답 상태: ${response.status}`);
 
     if (!response.ok) {
-        const errorText = await response.text();
-        console.error(`[Server Action] 에러 발생: ${errorText}`);
-        throw new Error(`HTTP Error: ${response.status}`);
+      const errorText = await response.text();
+      console.error(`[Server Action] 에러 발생: ${errorText}`);
+      throw new Error(`HTTP Error: ${response.status}`);
     }
 
     const data = await response.json();
-    
+
     // 3. 응답 데이터 터미널 출력
+    // 12/30 수정 응답 데이터: 1. user, 2. device
     console.log(`[Server Action] 3. Java 서버 응답 데이터:`, JSON.stringify(data, null, 2));
     console.log('----------------------------------------------------');
 
@@ -37,9 +38,9 @@ export async function exchangeTokenServerAction(code: string) {
 
   } catch (error: any) {
     console.error('[Server Action] 치명적 오류:', error);
-    return { 
-        status: 'error', 
-        message: error.message || 'Server Action Error' 
+    return {
+      status: 'error',
+      message: error.message || 'Server Action Error'
     };
   }
 }
