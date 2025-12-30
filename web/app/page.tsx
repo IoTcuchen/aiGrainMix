@@ -2,6 +2,8 @@
 
 import React, { useState } from 'react';
 import { SparklesIcon } from '@/components/icons';
+import { submitSurvey, sendResultToCuchen } from '@/lib/apiClient';
+import { send } from 'process';
 
 const QUESTIONS = [
   { id: 'target_gender', label: '1. 주 섭취 대상 성별', options: ['남성', '여성', '혼성', '임산부'] },
@@ -11,13 +13,13 @@ const QUESTIONS = [
   { id: 'constitution1', label: '5. 체질 개선1', options: ['비만', '피로회복', '체내 염증 감소', '항산화/해당없음'] },
   { id: 'constitution2', label: '6. 체질 개선2', options: ['변비', '면역 강화', '간 건강', '혈중 콜레스테롤/해당없음'] },
   { id: 'expectation', label: '7. 효과 기대', options: ['골다공증', '치매 예방', '불면증', '해당 없음'] },
-  { id: 'avoid_grains', label: '8. 기피곡물', options: ['없음', '기입', '대두 알러지', '글루텐 프리'] }, // '기입' 옵션 확인
+  { id: 'avoid_grains', label: '8. 기피곡물', options: ['없음', '기입', '대두 알러지', '글루텐 프리'] },
   { id: 'frequency', label: '9. 섭취 빈도', options: ['주 1~3회', '주 4~6회', '주 7~9회', '주 10회 이상'] },
 ];
 
 export default function SurveyPage() {
   const [formData, setFormData] = useState<any>({});
-  const [customAvoid, setCustomAvoid] = useState(''); // [추가] 직접 입력값 저장용 상태
+  const [customAvoid, setCustomAvoid] = useState(''); 
   const [result, setResult] = useState<any>(null);
   const [loading, setLoading] = useState(false);
 
@@ -26,12 +28,24 @@ export default function SurveyPage() {
   };
 
   const handleSubmit = async () => {
+    // [유효성 검사] 필수 항목 누락 시 422 에러 방지
+    const requiredFields = QUESTIONS.map(q => q.id);
+    const missingFields = requiredFields.filter(id => {
+      if (id === 'avoid_grains') return false; // 기피곡물은 아래에서 별도 처리
+      return !formData[id]; 
+    });
+
+    if (missingFields.length > 0) {
+      alert("모든 설문 항목을 선택해주세요!");
+      return; 
+    }
+
     setLoading(true);
     try {
-      // [수정] '기입'이 선택되었으면 customAvoid 값을, 아니면 선택된 값을 사용
+      // 기피곡물 처리 로직
       let finalAvoid = formData.avoid_grains;
       if (finalAvoid === '기입') {
-        finalAvoid = customAvoid.trim() || '없음'; // 입력 안 했으면 '없음' 처리
+        finalAvoid = customAvoid.trim() || '없음'; 
       }
 
       const payload = {
@@ -39,7 +53,7 @@ export default function SurveyPage() {
         avoid_grains: finalAvoid ? [finalAvoid] : ['없음']
       };
 
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || '/api'}/survey/submit`, {
+      const res = await fetch('/api/survey/submit', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload),
@@ -49,6 +63,11 @@ export default function SurveyPage() {
 
       const data = await res.json();
       setResult(data);
+
+      sendResultToCuchen({
+        type: 'survey',
+        ...data
+      })
     } catch (e) {
       alert("오류가 발생했습니다. 잠시 후 다시 시도해주세요.");
       console.error(e);
@@ -58,15 +77,16 @@ export default function SurveyPage() {
   };
 
   const handleRestart = () => {
-    setResult(null);      // 결과 화면 닫기
-    setFormData({});      // 선택한 답변들 초기화
-    setCustomAvoid('');   // '기입' 텍스트 초기화
+    setResult(null);      
+    setFormData({});      
+    setCustomAvoid('');   
   };
 
   return (
-    <div className="min-h-screen bg-brand-primary text-brand-text p-4 pb-20">
+    // [레이아웃 수정] 전체 화면 스크롤 문제 해결 (h-full + overflow-y-auto)
+    <div className="h-full overflow-y-auto bg-brand-primary text-brand-text p-4 pb-20 scroll-smooth">
       <div className="max-w-2xl mx-auto">
-        <header className="mb-8 text-center">
+        <header className="mb-8 text-center pt-4">
           <SparklesIcon className="w-6 h-6 text-blue-500"/>
           <h1 className="text-2xl font-bold text-white flex items-center justify-center gap-2">
             맞춤 잡곡 진단
@@ -95,7 +115,6 @@ export default function SurveyPage() {
                   ))}
                 </div>
 
-                {/* [추가] '기입' 선택 시 나타나는 입력창 */}
                 {q.id === 'avoid_grains' && formData['avoid_grains'] === '기입' && (
                   <div className="mt-3 animate-fade-in">
                     <input
@@ -111,12 +130,29 @@ export default function SurveyPage() {
             ))}
             
             <div className="pt-4">
+              {/* [버튼 수정] 로딩 상태 UI 개선 */}
               <button
                 onClick={handleSubmit}
                 disabled={loading}
-                className="w-full py-4 bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-xl font-bold text-lg hover:from-blue-500 hover:to-indigo-500 transition-all shadow-lg disabled:opacity-50 disabled:cursor-not-allowed flex justify-center items-center gap-2"
+                // transition-all 제거 -> transition-colors 사용 (너비 변화 애니메이션 제거로 겹침 현상 방지)
+                className={`w-full py-4 rounded-xl font-bold text-lg transition-colors shadow-lg flex justify-center items-center gap-2
+                  ${loading 
+                    ? 'bg-gray-700 text-gray-400 cursor-not-allowed border border-gray-600' 
+                    : 'bg-gradient-to-r from-blue-600 to-indigo-600 text-white hover:from-blue-500 hover:to-indigo-500'
+                  }`}
               >
-                {loading ? '분석 중...' : '결과 보기'}
+                {loading ? (
+                  <>
+                    {/* 회전하는 스피너 아이콘 추가 */}
+                    <svg className="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    </svg>
+                    <span>분석 중...</span>
+                  </>
+                ) : (
+                  '결과 보기'
+                )}
               </button>
             </div>
           </div>
@@ -129,7 +165,6 @@ export default function SurveyPage() {
               <div className="bg-gray-900 p-4 rounded-xl border border-gray-700">
                 <h3 className="font-bold mb-3 text-white">추천 블렌드</h3>
                 <ul className="space-y-2">
-                  {/* [수정] 안전한 렌더링: result.blend가 있을 때만 map 실행 */}
                   {result?.blend && Array.isArray(result.blend) ? (
                     result.blend.map((item: any, idx: number) => (
                       <li key={idx} className="flex justify-between items-center bg-gray-800 p-3 rounded border border-gray-600">
@@ -147,7 +182,6 @@ export default function SurveyPage() {
             <div className="bg-gray-800/80 border border-gray-700 p-6 rounded-xl shadow-xl">
               <h3 className="font-bold mb-3 text-green-400">추천 이유</h3>
               <ul className="space-y-3">
-                {/* [수정] 안전한 렌더링: result.reasons가 있을 때만 map 실행 */}
                 {result?.reasons && Array.isArray(result.reasons) ? (
                   result.reasons.map((r: string, idx: number) => (
                     <li key={idx} className="flex gap-3 text-gray-300 text-sm leading-relaxed bg-gray-900/50 p-3 rounded-lg border border-gray-700/50">

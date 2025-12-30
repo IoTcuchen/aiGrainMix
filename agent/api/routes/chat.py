@@ -234,7 +234,7 @@ class ChatRequest(BaseModel):
     message: str
     appState: AppState 
 
-@router.post("/")
+@router.post("")
 async def chat_endpoint(request: ChatRequest):
     initial_state = {
         "messages": [HumanMessage(content=request.message)],

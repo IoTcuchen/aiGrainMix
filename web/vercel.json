@@ -1,7 +1,19 @@
 {
   "rewrites": [
     {
-      "source": "/api/:path*",
+      "source": "/api/chat",
+      "destination": "/api/index.py"
+    },
+    {
+      "source": "/api/survey/:path*",
+      "destination": "/api/index.py"
+    },
+    {
+      "source": "/api/docs",
+      "destination": "/api/index.py"
+    },
+    {
+      "source": "/api/openapi.json",
       "destination": "/api/index.py"
     }
   ]

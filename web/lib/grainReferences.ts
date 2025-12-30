@@ -75,7 +75,7 @@ const loadAliasMap = async (): Promise<GrainAliasMap | null> => {
 
 const getAliasMap = async (): Promise<GrainAliasMap | null> => {
   if (cache && cache.expiresAt > Date.now()) {
-    // console.info('[GrainReferences] Using cached grain reference map.');
+    console.info('[GrainReferences] Using cached grain reference map.');
     return cache.map;
   }
   return loadAliasMap();
