@@ -9,7 +9,7 @@ function CallbackContent() {
   const searchParams = useSearchParams();
   const code = searchParams.get('code');
   const isFetchedRef = useRef(false);
-  const returnUrlParam = searchParams.get('returnUrl');
+  //const returnUrlParam = searchParams.get('returnUrl');
 
   useEffect(() => {
     if (!code || isFetchedRef.current) return;
@@ -33,19 +33,24 @@ function CallbackContent() {
           // 1. 토큰 저장 (경로 수정: data.bean.ssoToken)
           localStorage.setItem('accessToken', data.bean.ssoToken);
 
-          if (data.bean.memKey) {
-            localStorage.setItem('memKey', data.bean.memKey);
+          if (data.bean.user.memKey) {
+            localStorage.setItem('memKey', data.bean.user.memKey);
           }
 
-          if (returnUrlParam) {
+          if (data.bean.user.name) {
+            localStorage.setItem('userName', data.bean.user.name);
+          }
+
+          if (data.bean.device.deviceKey && data.bean.device.modelKey) {
             // 1. returnUrl이 있으면 해당 URL로 이동
-            localStorage.setItem('returnUrl', returnUrlParam);
+            const returnUrl = 'http://192.168.128.54:8080/cuchenon/dev/cooker.action?modelKey=' + data.bean.device.modelKey + "&deviceKey";
+            localStorage.setItem('returnUrl', returnUrl);
           } else {
             //localStorage.setItem('returnUrl', '/');
           }
 
           // 2. 채팅 페이지로 이동
-          router.replace('/chat');
+          router.replace('/');
 
         } else {
           // 에러 메시지도 data.message가 없으면 data.errors 등을 확인해야 할 수 있음
@@ -60,7 +65,7 @@ function CallbackContent() {
     };
 
     runExchange();
-  }, [code, router, returnUrlParam]);
+  }, [code, router]);
 
   return (
     <div className="flex h-screen w-full flex-col items-center justify-center gap-4 bg-background text-foreground">

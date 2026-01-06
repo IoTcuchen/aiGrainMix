@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { SparklesIcon } from '@/components/icons';
 import { submitSurvey, sendResultToCuchen } from '@/lib/apiClient';
 import { send } from 'process';
@@ -19,9 +19,18 @@ const QUESTIONS = [
 
 export default function SurveyPage() {
   const [formData, setFormData] = useState<any>({});
-  const [customAvoid, setCustomAvoid] = useState(''); 
+  const [customAvoid, setCustomAvoid] = useState('');
   const [result, setResult] = useState<any>(null);
   const [loading, setLoading] = useState(false);
+
+  const [userName, setUserName] = useState(''); ``
+
+  useEffect(() => {
+    const storedName = localStorage.getItem('userName');
+    if (storedName) {
+      setUserName(storedName);
+    }
+  }, []);
 
   const handleChange = (id: string, value: string) => {
     setFormData((prev: any) => ({ ...prev, [id]: value }));
@@ -32,12 +41,12 @@ export default function SurveyPage() {
     const requiredFields = QUESTIONS.map(q => q.id);
     const missingFields = requiredFields.filter(id => {
       if (id === 'avoid_grains') return false; // 기피곡물은 아래에서 별도 처리
-      return !formData[id]; 
+      return !formData[id];
     });
 
     if (missingFields.length > 0) {
       alert("모든 설문 항목을 선택해주세요!");
-      return; 
+      return;
     }
 
     setLoading(true);
@@ -45,7 +54,7 @@ export default function SurveyPage() {
       // 기피곡물 처리 로직
       let finalAvoid = formData.avoid_grains;
       if (finalAvoid === '기입') {
-        finalAvoid = customAvoid.trim() || '없음'; 
+        finalAvoid = customAvoid.trim() || '없음';
       }
 
       const payload = {
@@ -58,7 +67,7 @@ export default function SurveyPage() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload),
       });
-      
+
       if (!res.ok) throw new Error('서버 통신 오류');
 
       const data = await res.json();
@@ -77,9 +86,9 @@ export default function SurveyPage() {
   };
 
   const handleRestart = () => {
-    setResult(null);      
-    setFormData({});      
-    setCustomAvoid('');   
+    setResult(null);
+    setFormData({});
+    setCustomAvoid('');
   };
 
   return (
@@ -87,28 +96,27 @@ export default function SurveyPage() {
     <div className="h-full overflow-y-auto bg-brand-primary text-brand-text p-4 pb-20 scroll-smooth">
       <div className="max-w-2xl mx-auto">
         <header className="mb-8 text-center pt-4">
-          <SparklesIcon className="w-6 h-6 text-blue-500"/>
+          <SparklesIcon className="w-6 h-6 text-blue-500" />
           <h1 className="text-2xl font-bold text-white flex items-center justify-center gap-2">
-            맞춤 잡곡 진단
+            {userName ? `${userName}님` : ''} 맞춤 잡곡 진단
           </h1>
         </header>
-      
+
         {!result ? (
           <div className="space-y-6 animate-fade-in">
             {QUESTIONS.map((q) => (
               <div key={q.id} className="bg-gray-900/50 border border-gray-800 p-5 rounded-xl shadow-sm backdrop-blur-sm">
                 <label className="block text-sm font-bold mb-3 text-blue-400">{q.label}</label>
-                
+
                 <div className="grid grid-cols-2 gap-2">
                   {q.options.map((opt) => (
                     <button
                       key={opt}
                       onClick={() => handleChange(q.id, opt)}
-                      className={`p-3 rounded-lg text-sm font-medium transition-all duration-200 border ${
-                        formData[q.id] === opt 
-                        ? 'bg-blue-600 border-blue-500 text-white shadow-[0_0_10px_rgba(37,99,235,0.3)]' 
-                        : 'bg-gray-800 border-gray-700 text-gray-400 hover:bg-gray-700 hover:text-gray-200'
-                      }`}
+                      className={`p-3 rounded-lg text-sm font-medium transition-all duration-200 border ${formData[q.id] === opt
+                          ? 'bg-blue-600 border-blue-500 text-white shadow-[0_0_10px_rgba(37,99,235,0.3)]'
+                          : 'bg-gray-800 border-gray-700 text-gray-400 hover:bg-gray-700 hover:text-gray-200'
+                        }`}
                     >
                       {opt}
                     </button>
@@ -128,7 +136,7 @@ export default function SurveyPage() {
                 )}
               </div>
             ))}
-            
+
             <div className="pt-4">
               {/* [버튼 수정] 로딩 상태 UI 개선 */}
               <button
@@ -136,8 +144,8 @@ export default function SurveyPage() {
                 disabled={loading}
                 // transition-all 제거 -> transition-colors 사용 (너비 변화 애니메이션 제거로 겹침 현상 방지)
                 className={`w-full py-4 rounded-xl font-bold text-lg transition-colors shadow-lg flex justify-center items-center gap-2
-                  ${loading 
-                    ? 'bg-gray-700 text-gray-400 cursor-not-allowed border border-gray-600' 
+                  ${loading
+                    ? 'bg-gray-700 text-gray-400 cursor-not-allowed border border-gray-600'
                     : 'bg-gradient-to-r from-blue-600 to-indigo-600 text-white hover:from-blue-500 hover:to-indigo-500'
                   }`}
               >
@@ -161,7 +169,7 @@ export default function SurveyPage() {
           <div className="animate-fade-in space-y-6">
             <div className="bg-gray-800/80 border border-gray-700 p-6 rounded-xl shadow-xl backdrop-blur-md">
               <h2 className="text-xl font-bold mb-4 text-blue-400">추천 결과</h2>
-              
+
               <div className="bg-gray-900 p-4 rounded-xl border border-gray-700">
                 <h3 className="font-bold mb-3 text-white">추천 블렌드</h3>
                 <ul className="space-y-2">
@@ -178,7 +186,7 @@ export default function SurveyPage() {
                 </ul>
               </div>
             </div>
-            
+
             <div className="bg-gray-800/80 border border-gray-700 p-6 rounded-xl shadow-xl">
               <h3 className="font-bold mb-3 text-green-400">추천 이유</h3>
               <ul className="space-y-3">
@@ -194,8 +202,8 @@ export default function SurveyPage() {
                 )}
               </ul>
             </div>
-            
-            <button 
+
+            <button
               onClick={handleRestart}
               className="w-full py-3 mt-4 border border-gray-600 text-gray-300 rounded-xl font-bold hover:bg-gray-800 transition-colors"
             >

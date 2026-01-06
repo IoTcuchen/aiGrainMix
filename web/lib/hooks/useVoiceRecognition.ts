@@ -1,78 +1,74 @@
-'use client';
+import { useState, useEffect, useRef } from 'react';
 
-import { useState, useEffect, useRef, useCallback } from 'react';
-
-interface VoiceRecognitionOptions {
-  onStop?: (transcript: string) => void;
-}
-
-export const useVoiceRecognition = ({ onStop }: VoiceRecognitionOptions = {}) => {
+export const useVoiceRecognition = (onResult: (text: string) => void) => {
   const [isListening, setIsListening] = useState(false);
-  const [transcript, setTranscript] = useState('');
+  const [isSupported, setIsSupported] = useState(false);
   const recognitionRef = useRef<any>(null);
 
+  // onResult 콜백을 ref에 저장하여 useEffect 의존성을 제거 (재실행 방지)
+  const savedCallback = useRef(onResult);
+
   useEffect(() => {
-    // FIX: Cast window to `any` to access non-standard SpeechRecognition properties.
-    const SpeechRecognition = (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
-    if (!SpeechRecognition) {
-      console.warn('Speech recognition is not supported in this browser.');
-      return;
-    }
-    
-    const recognition = new SpeechRecognition();
-    recognition.interimResults = true;
-    recognition.lang = 'ko-KR';
-    recognition.continuous = false; // Stop after a pause
+    savedCallback.current = onResult;
+  }, [onResult]);
 
-    recognition.onresult = (event: any) => {
-      let fullTranscript = '';
-      for (let i = event.resultIndex; i < event.results.length; i++) {
-        fullTranscript += event.results[i][0].transcript;
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const SpeechRecognition = (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
+
+      if (SpeechRecognition) {
+        setIsSupported(true);
+        const recognition = new SpeechRecognition();
+        recognition.continuous = false; // 한 문장 단위로 인식
+        recognition.interimResults = true;
+        recognition.lang = 'ko-KR';
+
+        recognition.onstart = () => setIsListening(true);
+        recognition.onend = () => setIsListening(false);
+        recognition.onerror = (event: any) => {
+          console.error('Speech recognition error', event.error);
+          setIsListening(false);
+        };
+
+        recognition.onresult = (event: any) => {
+          let finalTranscript = '';
+          for (let i = event.resultIndex; i < event.results.length; ++i) {
+            if (event.results[i].isFinal) {
+              finalTranscript += event.results[i][0].transcript;
+            }
+          }
+          if (finalTranscript) {
+            // 저장된 최신 콜백 실행
+            savedCallback.current(finalTranscript);
+          }
+        };
+
+        recognitionRef.current = recognition;
       }
-      setTranscript(fullTranscript);
-    };
-
-    recognition.onend = () => {
-      setIsListening(false);
-    };
-    
-    recognition.onerror = (event: any) => {
-        console.error('Speech recognition error', event.error);
-        setIsListening(false);
-    };
-
-    recognitionRef.current = recognition;
+    }
 
     return () => {
       if (recognitionRef.current) {
-        recognitionRef.current.stop();
+        recognitionRef.current.abort();
       }
     };
   }, []);
-  
-  const onStopRef = useRef(onStop);
-  onStopRef.current = onStop;
-  
-  useEffect(() => {
-    if (!isListening && transcript) {
-        onStopRef.current?.(transcript);
-    }
-  }, [isListening, transcript]);
 
-  const startListening = useCallback(() => {
+  const startListening = () => {
     if (recognitionRef.current && !isListening) {
-      setTranscript('');
-      recognitionRef.current.start();
-      setIsListening(true);
+      try {
+        recognitionRef.current.start();
+      } catch (e) {
+        console.error("Start listening failed:", e);
+      }
     }
-  }, [isListening]);
+  };
 
-  const stopListening = useCallback(() => {
+  const stopListening = () => {
     if (recognitionRef.current && isListening) {
       recognitionRef.current.stop();
-      // onend will fire and trigger the useEffect above
     }
-  }, [isListening]);
+  };
 
-  return { isListening, transcript, startListening, stopListening };
+  return { isListening, startListening, stopListening, isSupported };
 };
