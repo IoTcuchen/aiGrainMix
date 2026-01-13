@@ -42,8 +42,11 @@ function CallbackContent() {
           }
 
           if (data.bean.device.deviceKey && data.bean.device.modelKey) {
+            localStorage.setItem('deviceKey', data.bean.device.deviceKey);
+            localStorage.setItem('modelKey', data.bean.device.modelKey);
             // 1. returnUrl이 있으면 해당 URL로 이동
-            const returnUrl = 'http://192.168.128.54:8080/cuchenon/dev/cooker.action?modelKey=' + data.bean.device.modelKey + "&deviceKey";
+            const localUrl = process.env.LOCAL_API_URL;
+            const returnUrl = `${localUrl}/cuchenon/dev/cooker.action?modelKey=${data.bean.device.modelKey}&deviceKey=${data.bean.device.deviceKey}`;
             localStorage.setItem('returnUrl', returnUrl);
           } else {
             //localStorage.setItem('returnUrl', '/');

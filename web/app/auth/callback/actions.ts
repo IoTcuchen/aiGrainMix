@@ -8,7 +8,8 @@ export async function exchangeTokenServerAction(code: string) {
 
   // ★ Java 서버 주소 (서버 간 통신이므로 실제 IP 또는 localhost 사용 가능)
   // Docker 등을 사용하지 않는다면 localhost도 가능하지만, 확실하게 하기 위해 IP 권장
-  const JAVA_SERVER_URL = 'http://192.168.128.54:8080/cuchenon/api/exchangeToken.action';
+  const localUrl = process.env.LOCAL_API_URL;
+  const JAVA_SERVER_URL = `${localUrl}/cuchenon/api/exchangeToken.action`;
 
   try {
     const response = await fetch(`${JAVA_SERVER_URL}?code=${code}`, {
