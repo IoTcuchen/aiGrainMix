@@ -42,7 +42,7 @@ export default function ChatPage() {
     const initialBotMessage: ChatMessage = {
       id: 'initial-bot-message',
       role: 'bot',
-      content: `안녕하세요, ${displayName}! 고객님의 건강 목표와 식감 선호도에 맞춰 최적의 잡곡 블렌드를 추천해 드립니다. 먼저, 가장 중요하게 생각하는 건강 목표를 알려주시겠어요?`,
+      content: `안녕하세요, ${displayName}! 고객님의 건강 목표와 식감 선호도에 맞춰 최적의 잡곡 블렌드를 추천해 드립니다. 가장 중요하게 생각하는 건강 목표와 식감을 알려주시겠어요?`,
     };
     setMessages([initialBotMessage]);
   }, []);
@@ -86,7 +86,7 @@ export default function ChatPage() {
     const restartMessage: ChatMessage = {
       id: 'initial-bot-message',
       role: 'bot',
-      content: `반갑습니다, ${displayName}! 새로운 추천을 시작합니다. 가장 중요하게 생각하는 건강 목표를 알려주시겠어요?`
+      content: `안녕하세요, ${displayName}! 고객님의 건강 목표와 식감 선호도에 맞춰 최적의 잡곡 블렌드를 추천해 드립니다. 가장 중요하게 생각하는 건강 목표와 식감을 알려주시겠어요?`
     };
     setMessages([restartMessage]);
     setAppState(INITIAL_APP_STATE);
@@ -98,7 +98,7 @@ export default function ChatPage() {
     router.back();
   };
 
-  // [수정됨] iOS 앱 인터셉트용 커스텀 스키마 호출
+  // iOS 앱 인터셉트용 커스텀 스키마 호출
   const goBackToCuchen = () => {
     if (typeof window === 'undefined') return;
 

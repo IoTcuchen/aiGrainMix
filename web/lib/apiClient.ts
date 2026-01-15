@@ -82,7 +82,6 @@ export async function sendResultToCuchen(data: any) {
     formData.append('timestamp', new Date().toISOString());
 
     // 복잡한 객체(result)는 문자열로 변환해서 'resultJson'이라는 파라미터 1개에 담음
-    // -> Java쪽에서는 String resultJson 으로 받아서 Gson/Jackson으로 파싱하면 됨
     formData.append('resultJson', JSON.stringify(data));
 
     const response = await fetch(CUCHEN_API_URL, {

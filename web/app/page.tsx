@@ -118,7 +118,7 @@ export default function Home() {
       </div>
 
       <footer className="absolute bottom-3 text-xs text-gray-400">
-        © 2024 AI Grain Mix. Powered by Cuchen.
+        {/* © 2026 AI Grain Mix. Powered by Cuchen. */}
       </footer>
     </main>
   );
