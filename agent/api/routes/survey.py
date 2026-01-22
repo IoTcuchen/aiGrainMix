@@ -17,7 +17,8 @@ class SurveyRequest(BaseModel):
     disease: str = Field(description="질병 보유")
     constitution1: str = Field(description="체질 개선1")
     constitution2: str = Field(description="체질 개선2")
-    expectation: str = Field(description="효과 기대")
+    expectation1: str = Field(description="효과 기대1")
+    expectation2: str = Field(description="효과 기대2")
     avoid_grains: List[str] = Field(description="기피곡물")
     frequency: str = Field(description="섭취 빈도")
 
@@ -42,7 +43,7 @@ async def submit_survey(data: SurveyRequest):
     - 대상: {data.target_gender}, {data.target_age}
     - 식감: {data.texture_pref}
     - 건강상태: 질병({data.disease}), 체질1({data.constitution1}), 체질2({data.constitution2})
-    - 목표: {data.expectation}
+    - 목표: 효과기대1{data.expectation1}, 효과기대2{data.expectation2}   
     - 기피곡물: {data.avoid_grains}
     - 빈도: {data.frequency}
 
