@@ -1,7 +1,7 @@
 // app/chat/page.tsx
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import ChatWindow from '@/components/ChatWindow';
 import MessageInput from '@/components/MessageInput';
@@ -20,7 +20,7 @@ const INITIAL_APP_STATE: AppState = {
   },
 };
 
-export default function ChatPage() {
+function ChatContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
 
@@ -187,5 +187,13 @@ export default function ChatPage() {
         </div>
       </div>
     </div>
+  );
+}
+
+export default function ChatPage() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <ChatContent />
+    </Suspense>
   );
 }

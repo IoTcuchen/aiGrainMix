@@ -8,20 +8,29 @@ import { QUESTIONS } from '@/lib/constants';
 
 export default function SurveyPage() {
 
-    const modelKey = localStorage.getItem('modelKey');
-    const deviceKey = localStorage.getItem('deviceKey');
-
     const router = useRouter();
     const [formData, setFormData] = useState<any>({});
     const [customAvoid, setCustomAvoid] = useState('');
     const [result, setResult] = useState<any>(null);
     const [loading, setLoading] = useState(false);
     const [userName, setUserName] = useState('');
+    const [modelKey, setModelKey] = useState('');
+    const [deviceKey, setDeviceKey] = useState('');
 
     useEffect(() => {
         const storedName = localStorage.getItem('userName');
         if (storedName) {
             setUserName(storedName);
+        }
+
+        const storedModelKey = localStorage.getItem('modelKey');
+        if (storedModelKey) {
+            setModelKey(storedModelKey);
+        }
+
+        const storedDeviceKey = localStorage.getItem('deviceKey');
+        if (storedDeviceKey) {
+            setDeviceKey(storedDeviceKey);
         }
     }, []);
 
