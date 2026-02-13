@@ -1,6 +1,11 @@
+// components/icons.tsx
+
 import React from 'react';
 
-type IconProps = React.SVGProps<SVGSVGElement>;
+// 공통 Props 정의
+interface IconProps extends React.SVGProps<SVGSVGElement> {
+    className?: string;
+}
 
 // --------------------------------------------------------
 // [User Provided Icons]
@@ -104,10 +109,18 @@ export const RefreshCwIcon = (props: IconProps) => (
     </svg>
 );
 
+// 기본 선형 Send 아이콘 (원래 있던 것)
 export const SendIcon = (props: IconProps) => (
     <svg {...props} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
         <line x1="22" y1="2" x2="11" y2="13" />
         <polygon points="22 2 15 22 11 13 2 9 22 2" />
+    </svg>
+);
+
+// ★ 새로 추가된 PaperAirplaneIcon (전송 버튼용 - 채워진 스타일)
+export const PaperAirplaneIcon = (props: IconProps) => (
+    <svg {...props} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M1.513 1.961a.75.75 0 0 1 1.045-.482l20.25 9a.75.75 0 0 1 0 1.368l-20.25 9a.75.75 0 0 1-1.045-.482c-.123-.323-.022-.697.232-.89l8.25-6.75c.16-.13.368-.198.576-.19h5.434a.75.75 0 0 0 0-1.5h-5.434a.75.75 0 0 1-.576-.19l-8.25-6.75c-.254-.193-.355-.567-.232-.89Z" />
     </svg>
 );
 
@@ -121,7 +134,6 @@ export const MicIcon = (props: IconProps) => (
 
 // --------------------------------------------------------
 // [Additional Icons for Compatibility]
-// 페이지 및 네비게이션 동작을 위해 필수적인 아이콘들을 추가했습니다.
 // --------------------------------------------------------
 
 export const ArrowRightIcon = (props: IconProps) => (
@@ -155,3 +167,10 @@ export const XIcon = (props: IconProps) => (
 
 // 기본 Fallback 아이콘
 export const GrainIcon = BlendIcon;
+
+export const CameraIcon = (props: IconProps) => (
+    <svg {...props} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M3 9a2 2 0 0 1 2-2h.93a2 2 0 0 0 1.664-.89l.812-1.22A2 2 0 0 1 10.07 4h3.86a2 2 0 0 1 1.664.89l.812 1.22A2 2 0 0 0 18.07 7H19a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V9z" />
+        <path d="M15 13a3 3 0 1 1-6 0 3 3 0 0 1 6 0z" />
+    </svg>
+);

@@ -3,7 +3,13 @@
 import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { ArrowRightIcon, SparklesIcon, TagIcon, ArrowLeftIcon } from '@/components/icons';
+import {
+  ArrowRightIcon,
+  SparklesIcon,
+  TagIcon,
+  ArrowLeftIcon,
+  CameraIcon
+} from '@/components/icons';
 
 export default function Home() {
   const router = useRouter();
@@ -19,20 +25,7 @@ export default function Home() {
   }, []);
 
   const goBackToCuchen = () => {
-    // if (typeof window === 'undefined') return;
-
-    // const savedUrl = localStorage.getItem('cuchen_return_url');
-    // const urlParams = new URLSearchParams(window.location.search);
-    // const paramUrl = urlParams.get('returnUrl');
-
-    // const targetUrl = savedUrl || paramUrl;
-
-    // if (targetUrl) {
-    //   // [핵심 수정] href -> replace (히스토리 쌓임 방지)
-    //   window.location.replace(targetUrl);
-    // } else {
     router.back();
-    //}
   };
 
   if (!mounted) return null;
@@ -83,6 +76,7 @@ export default function Home() {
 
         {/* 버튼 영역 */}
         <div className="flex flex-col gap-4 w-full max-w-md mx-auto">
+          {/* 1. 설문 진단 */}
           <Link
             href="/survey"
             className="group relative overflow-hidden bg-white border border-gray-200 hover:border-blue-500 rounded-2xl p-6 transition-all hover:shadow-lg text-left flex items-center justify-between"
@@ -99,6 +93,7 @@ export default function Home() {
             </div>
           </Link>
 
+          {/* 2. 대화형 추천 */}
           <Link
             href="/chat"
             className="group relative overflow-hidden bg-white border border-gray-200 hover:border-brand-accent rounded-2xl p-6 transition-all hover:shadow-lg text-left flex items-center justify-between"
@@ -114,11 +109,28 @@ export default function Home() {
               <ArrowRightIcon className="w-6 h-6 text-brand-accent group-hover:text-white transition-colors" />
             </div>
           </Link>
+
+          {/* 3. 카메라 식재료 인식 (추가됨) */}
+          <Link
+            href="/cooking"
+            className="group relative overflow-hidden bg-white border border-gray-200 hover:border-green-500 rounded-2xl p-6 transition-all hover:shadow-lg text-left flex items-center justify-between"
+          >
+            <div>
+              <h3 className="text-xl font-bold text-brand-text mb-1 flex items-center gap-2">
+                <CameraIcon className="w-5 h-5 text-green-500" />
+                식재료 인식 추천
+              </h3>
+              <p className="text-sm text-gray-500">사진을 찍어 재료에 맞는 잡곡 찾기</p>
+            </div>
+            <div className="bg-green-50 p-2 rounded-full group-hover:bg-green-500 transition-colors">
+              <ArrowRightIcon className="w-6 h-6 text-green-500 group-hover:text-white transition-colors" />
+            </div>
+          </Link>
         </div>
       </div>
 
       <footer className="absolute bottom-3 text-xs text-gray-400">
-        {/* © 2026 AI Grain Mix. Powered by Cuchen. */}
+        © 2026 AI Grain Mix. Powered by Cuchen.
       </footer>
     </main>
   );

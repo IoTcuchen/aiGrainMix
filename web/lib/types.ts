@@ -5,7 +5,7 @@ export interface ChatMessage {
   role: 'user' | 'bot';
   content: string;
   quick_replies?: string[];
-  recommendation?: Recommendation; 
+  recommendation?: Recommendation;
 }
 
 export type SurveyStage =
@@ -30,10 +30,10 @@ export interface AppState {
 
 // Response from the new unified /api/chat endpoint
 export interface ChatApiResponse {
-    message: ChatMessage;
-    appState: AppState;
-    isComplete: boolean;
-    debugLogs?: DebugLogEntry[];
+  message: ChatMessage;
+  appState: AppState;
+  isComplete: boolean;
+  debugLogs?: DebugLogEntry[];
 }
 
 // FIX: Add missing ExtractorResponse type definition.
