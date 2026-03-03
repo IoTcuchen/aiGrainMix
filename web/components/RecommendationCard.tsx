@@ -35,16 +35,16 @@ const RecommendationCard: React.FC<RecommendationCardProps> = ({ recommendation 
 
       <div className="bg-brand-secondary p-3 rounded-lg">
         <div className="flex items-center gap-2 mb-2">
-            <TagIcon className="w-5 h-5 text-brand-accent" />
-            <h4 className="font-semibold">추천 모드</h4>
+          <TagIcon className="w-5 h-5 text-brand-accent" />
+          <h4 className="font-semibold">추천 모드</h4>
         </div>
         <p className="text-sm font-medium bg-user-bubble/20 text-user-bubble py-1 px-2 rounded-md inline-block">{modeText[recommendation.mode]}</p>
       </div>
 
       <div className="bg-brand-secondary p-3 rounded-lg">
         <div className="flex items-center gap-2 mb-2">
-            <BlendIcon className="w-5 h-5 text-brand-accent" />
-            <h4 className="font-semibold">추천 블렌드</h4>
+          <BlendIcon className="w-5 h-5 text-brand-accent" />
+          <h4 className="font-semibold">추천 블렌드</h4>
         </div>
         <ul className="space-y-1 text-sm">
           {recommendation.blend.map((item, index) => (
@@ -58,8 +58,8 @@ const RecommendationCard: React.FC<RecommendationCardProps> = ({ recommendation 
 
       <div className="bg-brand-secondary p-3 rounded-lg">
         <div className="flex items-center gap-2 mb-2">
-            <InfoIcon className="w-5 h-5 text-brand-accent" />
-            <h4 className="font-semibold">추천 이유</h4>
+          <InfoIcon className="w-5 h-5 text-brand-accent" />
+          <h4 className="font-semibold">추천 이유</h4>
         </div>
         <ul className="space-y-2 text-sm list-disc list-inside">
           {recommendation.reasons.map((reason, index) => (
@@ -68,35 +68,41 @@ const RecommendationCard: React.FC<RecommendationCardProps> = ({ recommendation 
         </ul>
       </div>
 
-      <div className="bg-brand-secondary p-3 rounded-lg">
+      {/*  쿠첸온 앱으로 전송 버튼 (TODO: Import ExportButton and define exportData)
+      <div className="pt-2">
+        <ExportButton aiResult={exportData} />
+      </div>
+      */}
+
+      <div className="bg-brand-secondary p-3 rounded-lg mt-4">
         <button
           onClick={() => setShowJson(!showJson)}
           className="w-full flex items-center justify-between gap-2 text-left font-semibold"
           aria-expanded={showJson}
           aria-controls="json-panel"
         >
-            <div className="flex items-center gap-2">
-                <CodeIcon className="w-5 h-5 text-brand-accent" />
-                <h4>API 응답 (JSON)</h4>
-            </div>
-            <span className="text-sm text-gray-400">{showJson ? '숨기기' : '보기'}</span>
+          <div className="flex items-center gap-2">
+            <CodeIcon className="w-5 h-5 text-brand-accent" />
+            <h4>API 응답 (JSON)</h4>
+          </div>
+          <span className="text-sm text-gray-400">{showJson ? '숨기기' : '보기'}</span>
         </button>
         {showJson && (
-            <div id="json-panel" className="mt-3 relative">
-                <pre className="bg-gray-900 text-gray-200 p-3 rounded-md text-xs overflow-x-auto">
-                    <code>
-                        {recommendationJson}
-                    </code>
-                </pre>
-                <button
-                    onClick={handleCopy}
-                    className="absolute top-2 right-2 flex items-center gap-1.5 bg-user-bubble/80 text-white px-2 py-1 text-xs rounded-md hover:bg-user-bubble transition-colors"
-                    aria-label="Copy JSON to clipboard"
-                >
-                    <CopyIcon className="w-3 h-3" />
-                    {copyStatus}
-                </button>
-            </div>
+          <div id="json-panel" className="mt-3 relative">
+            <pre className="bg-gray-900 text-gray-200 p-3 rounded-md text-xs overflow-x-auto">
+              <code>
+                {recommendationJson}
+              </code>
+            </pre>
+            <button
+              onClick={handleCopy}
+              className="absolute top-2 right-2 flex items-center gap-1.5 bg-user-bubble/80 text-white px-2 py-1 text-xs rounded-md hover:bg-user-bubble transition-colors"
+              aria-label="Copy JSON to clipboard"
+            >
+              <CopyIcon className="w-3 h-3" />
+              {copyStatus}
+            </button>
+          </div>
         )}
       </div>
     </div>

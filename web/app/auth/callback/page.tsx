@@ -53,7 +53,8 @@ function CallbackContent() {
           }
 
           // 2. 채팅 페이지로 이동
-          router.replace('/');
+          // href 대신 replace를 사용하여 뒤로가기 시 콜백 페이지를 건너뛰게 함
+          window.location.replace('/');
 
         } else {
           // 에러 메시지도 data.message가 없으면 data.errors 등을 확인해야 할 수 있음

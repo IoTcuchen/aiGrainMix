@@ -17,18 +17,18 @@ function SSOHandler() {
     const name = searchParams.get('name');
 
     logToServer(
-        "SSO 처리 시도!!!", {
-            fullUrl: window.location.href,
-            token: token,
-            id: id,
-            name: name
-        }
+      "SSO 처리 시도!!!", {
+      fullUrl: window.location.href,
+      token: token,
+      id: id,
+      name: name
+    }
     );
 
     if (token) {
       console.log("SSO Token received:", token);
       console.log("User ID:", id);
-      
+
       // 2. 토큰 저장 (필요에 따라 localStorage 또는 Cookie에 저장)
       // 예: 나중에 API 호출 시 Authorization 헤더에 쓰기 위함
       localStorage.setItem('accessToken', token);
@@ -36,7 +36,7 @@ function SSOHandler() {
       // 3. 저장 후 메인 페이지(설문) 또는 채팅 페이지로 이동
       // 설문 페이지로 이동: '/'
       // 채팅 페이지로 이동: '/chat'
-      router.replace('/'); 
+      router.replace('/');
     } else {
       // 토큰이 없는 경우 에러 처리 혹은 로그인 페이지로 이동
       alert("로그인 정보가 유효하지 않습니다.");
@@ -46,7 +46,7 @@ function SSOHandler() {
 
   return (
     <div className="min-h-screen bg-brand-primary flex flex-col items-center justify-center text-white">
-      <SparklesIcon className="w-10 h-10 text-blue-500 animate-spin mb-4"/>
+      <SparklesIcon className="w-10 h-10 text-blue-500 animate-spin mb-4" />
       <h2 className="text-xl font-bold">로그인 처리 중...</h2>
       <p className="text-gray-400 mt-2">잠시만 기다려주세요.</p>
     </div>

@@ -35,7 +35,7 @@ class AgentState(TypedDict):
     final_response: Optional[Dict]
     logs: List[Dict]
 
-llm = ChatOpenAI(model="gpt-4o", temperature=0.2)
+llm = ChatOpenAI(model="gpt-4o-mini", temperature=0.2)
 
 def add_log(state: AgentState, step: str, content: Any, prompt: str = None):
     entry = {"step": step, "content": content, "prompt": prompt, "timestamp": str(os.urandom(2).hex())}

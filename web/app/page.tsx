@@ -3,7 +3,13 @@
 import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { ArrowRightIcon, SparklesIcon, TagIcon, ArrowLeftIcon } from '@/components/icons';
+import {
+  ArrowRightIcon,
+  SparklesIcon,
+  TagIcon,
+  ArrowLeftIcon,
+  MicIcon
+} from '@/components/icons';
 
 export default function Home() {
   const router = useRouter();
@@ -114,11 +120,28 @@ export default function Home() {
               <ArrowRightIcon className="w-6 h-6 text-brand-accent group-hover:text-white transition-colors" />
             </div>
           </Link>
+
+          {/* 3. 빠른 음성 취사 */}
+          <Link
+            href="/cooking"
+            className="group relative overflow-hidden bg-white border border-gray-200 hover:border-green-500 rounded-2xl p-6 transition-all hover:shadow-lg text-left flex items-center justify-between"
+          >
+            <div>
+              <h3 className="text-xl font-bold text-brand-text mb-1 flex items-center gap-2">
+                <MicIcon className="w-5 h-5 text-green-500" />
+                빠른 음성 취사
+              </h3>
+              <p className="text-sm text-gray-500">말로 간편하게 맞춤 메뉴 취사하기</p>
+            </div>
+            <div className="bg-green-50 p-2 rounded-full group-hover:bg-green-500 transition-colors">
+              <ArrowRightIcon className="w-6 h-6 text-green-500 group-hover:text-white transition-colors" />
+            </div>
+          </Link>
         </div>
       </div>
 
-      <footer className="absolute bottom-3 text-xs text-gray-400">
-        {/* © 2026 AI Grain Mix. Powered by Cuchen. */}
+      <footer className="absolute bottom-1 text-xs text-gray-400">
+        © 2026 AI Grain Mix. Powered by Cuchen.
       </footer>
     </main>
   );
