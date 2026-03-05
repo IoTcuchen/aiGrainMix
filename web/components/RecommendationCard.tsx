@@ -1,4 +1,4 @@
-﻿import React, { useState } from 'react';
+import React, { useState } from 'react';
 // FIX: Use Next.js path alias for types.
 import type { Recommendation } from '@/lib/types';
 import { BlendIcon, InfoIcon, TagIcon, CodeIcon, CopyIcon } from './icons';
@@ -14,8 +14,7 @@ const RecommendationCard: React.FC<RecommendationCardProps> = ({ recommendation 
   const modeText = {
     'own_only': '보유 잡곡 활용',
     'hybrid': '보유 잡곡 + 추천',
-    'catalog': '전체 추천',
-    'survey': '설문 기반 추천'
+    'catalog': '전체 추천'
   };
 
   const recommendationJson = JSON.stringify({ recommendation }, null, 2);

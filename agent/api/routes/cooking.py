@@ -68,9 +68,7 @@ def extractor_node(state: AgentState):
     instructions = [
         "- 사용자가 방금 한 말과 이전 대화 맥락을 모두 고려하여 요리 관련 정보를 추출하세요.",
         "- 사용자가 이전 질문에 대답했다면, 그 대답을 반영하여 specific_menu나 ingredient 등을 채우세요.",
-        "- '그걸로 해줘', '첫 번째 거' 등의 지시 대명사를 쓰면, 직전에 AI가 제안한 메뉴 중 매칭되는 메뉴명을 찾아 specific_menu에 넣으세요.",
-        "- [중요] 사용자가 '시작해', '취사해줘', '그걸로 할래' 등 명시적으로 취사 의사를 밝히면 is_ready_to_cook을 True로 설정하세요.",
-        "- [중요] 사용자가 '어떤 메뉴가 있어?', '죽 말고 다른 건 없어?' 등 단순히 옵션을 묻는 탐색 단계이면 is_ready_to_cook을 반드시 False로 설정하세요."
+        "- '그걸로 해줘', '첫 번째 거' 등의 지시 대명사를 쓰면, 직전에 AI가 제안한 메뉴 중 매칭되는 메뉴명을 찾아 specific_menu에 넣으세요."
     ]
 
     system_prompt = f"""
@@ -108,11 +106,10 @@ def manager_node(state: AgentState):
     ingredient = s.get('ingredient')
     purpose = s.get('purpose')
 
-    # [수정] 명시적으로 취사/시작/실행 의도가 있을 때만(is_ready) cook으로 넘어갑니다.
-    # 질문에 대답하면서 메뉴를 확정한 경우에도 is_ready_to_cook이 True로 나옵니다.
-    if is_ready:
+    # 특정 메뉴가 있거나, 명확한 목적/재료로 인해 사용자가 바로 취사를 원한다고 판단되면 cook으로 라우팅
+    if is_ready or specific_menu or (ingredient and purpose):
         decision = "cook_executor"
-    # 단순히 메뉴에 대해 물어보거나(죽 말고 다른 거 없어?), 확정되지 않았다면 다시 질문.
+    # 재료만 던졌거나, 모호한 경우 질문으로 라우팅
     else:
         decision = "question_generator"
 
