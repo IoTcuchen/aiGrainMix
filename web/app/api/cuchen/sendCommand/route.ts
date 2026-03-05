@@ -28,13 +28,18 @@ export async function POST(request: Request) {
         const targetUrl = `${LEGACY_SERVER_URL}/cuchenon/api/sendCommand.action?event=sendCommand`;
 
         // 외부 요청 전송 (CORS 등 브라우저 제약 우회)
+        const headers: any = {
+            'Authorization': `Bearer ${accessToken}`,
+            'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+        };
+
+        if (svcKey) {
+            headers['Service-Identifier'] = svcKey;
+        }
+
         const response = await fetch(targetUrl, {
             method: 'POST',
-            headers: {
-                'Service-Identifier': svcKey as string,
-                'Authorization': `Bearer ${accessToken}`,
-                'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
-            },
+            headers: headers,
             body: bodyParams
         });
 

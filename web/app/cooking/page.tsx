@@ -126,11 +126,10 @@ function CookingContent() {
 
   const executeCook = async (recipeNo: string, recipeKey: string, recipeNm: string) => {
     const currentToken = localStorage.getItem('accessToken');
-    const svcKey = localStorage.getItem('svcKey');
     const deviceKey = localStorage.getItem('deviceKey');
     const modelKey = localStorage.getItem('modelKey');
 
-    if (!deviceKey || !modelKey || !svcKey) {
+    if (!deviceKey || !modelKey || !currentToken) {
       alert("연결 정보가 부족합니다. 다시 로그인해주세요.");
       return;
     }
@@ -162,8 +161,7 @@ function CookingContent() {
           recipeNo,
           deviceKey,
           modelKey,
-          accessToken: currentToken,
-          svcKey
+          accessToken: currentToken
         })
       });
 

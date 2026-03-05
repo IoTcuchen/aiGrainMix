@@ -38,8 +38,9 @@ export async function POST(request: Request) {
     if (data.status === 'success') {
       return NextResponse.json({
         success: true,
-        token: data.ssoToken, // 자바: ssoToken
-        memKey: data.memKey   // 자바: memKey
+        token: data.ssoToken,
+        user: data.user,      // { memKey, id, name, email }
+        device: data.device   // { deviceKey, modelKey }
       });
     } else {
       return NextResponse.json({

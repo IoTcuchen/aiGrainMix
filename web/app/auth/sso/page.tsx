@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import { useEffect, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
@@ -11,37 +11,57 @@ function SSOHandler() {
   const searchParams = useSearchParams();
 
   useEffect(() => {
-    // 1. URL에서 token 파라미터 추출
-    const token = searchParams.get('token');
-    const id = searchParams.get('loginId');
-    const name = searchParams.get('name');
+    // 1. URL에서 code(또는 authCode) 추출
+    const code = searchParams.get('code') || searchParams.get('authCode');
 
-    logToServer(
-      "SSO 처리 시도!!!", {
-      fullUrl: window.location.href,
-      token: token,
-      id: id,
-      name: name
+    logToServer("SSO 처리 시작", { code });
+
+    if (!code) {
+      console.warn("No auth code found in URL");
+      // 만약 토큰이 직접 전달되는 예전 방식도 지원해야 한다면 여기에 추가 로직 필요
+      return;
     }
-    );
 
-    if (token) {
-      console.log("SSO Token received:", token);
-      console.log("User ID:", id);
+    // 2. 서버에 코드를 주고 진짜 토큰/정보로 교환
+    const performExchange = async () => {
+      try {
+        const res = await fetch('/api/auth/exchange', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ code })
+        });
 
-      // 2. 토큰 저장 (필요에 따라 localStorage 또는 Cookie에 저장)
-      // 예: 나중에 API 호출 시 Authorization 헤더에 쓰기 위함
-      localStorage.setItem('accessToken', token);
+        const result = await res.json();
 
-      // 3. 저장 후 메인 페이지(설문) 또는 채팅 페이지로 이동
-      // 설문 페이지로 이동: '/'
-      // 채팅 페이지로 이동: '/chat'
-      router.replace('/');
-    } else {
-      // 토큰이 없는 경우 에러 처리 혹은 로그인 페이지로 이동
-      alert("로그인 정보가 유효하지 않습니다.");
-      router.replace('/');
-    }
+        if (result.success) {
+          console.log("SSO Exchange Success:", result);
+
+          // 데이터 저장
+          localStorage.setItem('accessToken', result.token);
+
+          if (result.user) {
+            localStorage.setItem('userName', result.user.name || '');
+            localStorage.setItem('memKey', result.user.memKey || '');
+          }
+
+          if (result.device) {
+            localStorage.setItem('deviceKey', result.device.deviceKey || '');
+            localStorage.setItem('modelKey', result.device.modelKey || '');
+          }
+
+          // 3. 메인으로 이동
+          router.replace('/');
+        } else {
+          alert("로그인 정보 교환에 실패했습니다: " + result.message);
+          router.replace('/');
+        }
+      } catch (err) {
+        console.error("Exchange Error:", err);
+        alert("서버 통신 중 오류가 발생했습니다.");
+      }
+    };
+
+    performExchange();
   }, [router, searchParams]);
 
   return (
