@@ -1,12 +1,13 @@
-import { NextResponse } from 'next/server';
+﻿import { NextResponse } from 'next/server';
 
 export async function POST(request: Request) {
     try {
         const body = await request.json();
         console.log("[NextJS Proxy] Sending to Python Server (/api/cooking/analyze): payload size", JSON.stringify(body).length);
 
-        // Python 백엔드로 명시적 프록시 (next.config.mjs rewrite에 의존하지 않음)
-        const res = await fetch('http://127.0.0.1:8000/api/cooking/analyze', {
+        // Python 백엔드로 명시적 프록시
+        const pythonUrl = process.env.LEGACY_API_URL || 'http://127.0.0.1:8000';
+        const res = await fetch(`${pythonUrl}/api/cooking/analyze`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(body)

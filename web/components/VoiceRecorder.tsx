@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import { useState, useRef, useEffect } from 'react';
 import { MicIcon } from './icons';
@@ -147,21 +147,13 @@ export default function VoiceRecorder({ onResult, isProcessing: parentProcessing
 
     return (
         <div className="relative flex flex-col items-center">
-            {/* 안내 말풍선 */}
-            {!isRecording && !globalProcessing && (
-                <div className="absolute -top-14 px-4 py-2 bg-orange-500 text-white text-[12px] font-bold rounded-2xl shadow-lg whitespace-nowrap animate-bounce z-30">
-                    말씀하시려면 터치하세요
-                    <div className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-3 h-3 bg-orange-500 rotate-45" />
-                </div>
-            )}
-
             {/* 메인 마이크 버튼 */}
             <button
                 onClick={handleToggle}
                 disabled={globalProcessing}
                 className={`w-20 h-20 rounded-full flex items-center justify-center transition-all shadow-2xl relative z-20 outline-none
-                    ${isRecording ? 'bg-red-500 scale-110 ring-8 ring-red-100' : 'bg-white border-4 border-orange-50'} 
-                    ${globalProcessing ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer active:scale-90'}`}
+                        ${isRecording ? 'bg-red-500 scale-110 ring-8 ring-red-100' : 'bg-white border-4 border-orange-50'} 
+                        ${globalProcessing ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer active:scale-90'}`}
             >
                 {/* 녹음 중 퍼지는 파동 효과 */}
                 {isRecording && (

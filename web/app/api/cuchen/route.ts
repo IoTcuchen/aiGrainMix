@@ -2,8 +2,8 @@
 
 import { NextResponse } from 'next/server';
 
-// 자바 서버 주소
-const BASE_URL = process.env.NEXT_PUBLIC_JAVA_SERVER_URL || "http://localhost:8080";
+// 자바 서버 주소 (LOCAL_API_URL in .env)
+const BASE_URL = process.env.LOCAL_API_URL || "http://localhost:8080";
 const LEGACY_SERVER_URL = `${BASE_URL}/manager/cont/importRecipeApi.action`;
 
 
@@ -69,7 +69,7 @@ export async function POST(request: Request) {
             subFiles: [],
 
             // 주재료
-            materials: aiResult.ingredients.map(ing => ({
+            materials: aiResult.ingredients.map((ing: any) => ({
                 name: ing.name,
                 qty: ing.amount
             })),
@@ -79,7 +79,7 @@ export async function POST(request: Request) {
             // ==========================================
             // [4] 조리 단계 및 기술 파라미터 (30~60번 컬럼)
             // ==========================================
-            steps: aiResult.steps.map(step => ({
+            steps: aiResult.steps.map((step: any) => ({
                 // 기본 텍스트 정보
                 title: step.action,
                 content: step.desc,
