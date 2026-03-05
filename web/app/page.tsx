@@ -17,6 +17,25 @@ export default function Home() {
   const { session, mounted } = useClientSession();
 
   const goBackToCuchen = () => {
+    if (typeof window === 'undefined') {
+      return;
+    }
+
+    const queryReturnUrl = new URLSearchParams(window.location.search).get('returnUrl');
+    const savedReturnUrl = localStorage.getItem('returnUrl') || localStorage.getItem('cuchen_return_url');
+    const targetUrl = queryReturnUrl || savedReturnUrl;
+
+    if (targetUrl) {
+      window.location.replace(targetUrl);
+      return;
+    }
+
+    if (session.modelKey && session.deviceKey) {
+      const customSchemeUrl = `cuchen://start_cooking?modelKey=${session.modelKey}&deviceKey=${session.deviceKey}`;
+      window.location.href = customSchemeUrl;
+      return;
+    }
+
     router.back();
   };
 

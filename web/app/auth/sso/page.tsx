@@ -1,53 +1,47 @@
-'use client';
+﻿'use client';
 
 import { useEffect, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { SparklesIcon } from '@/components/icons';
 import { logToServer } from '@/app/actions';
 
-// useSearchParams를 사용하는 컴포넌트는 Suspense로 감싸야 빌드 에러가 없습니다.
 function SSOHandler() {
   const router = useRouter();
   const searchParams = useSearchParams();
 
   useEffect(() => {
-    // 1. URL에서 파라미터 추출
     const token = searchParams.get('token');
     const id = searchParams.get('loginId');
     const name = searchParams.get('name');
     const deviceKey = searchParams.get('deviceKey');
     const modelKey = searchParams.get('modelKey');
+    const returnUrl = searchParams.get('returnUrl');
 
-    logToServer(
-      "SSO 처리 시도!!!", {
+    logToServer('SSO 처리 시도!!!', {
       fullUrl: window.location.href,
-      token: token,
-      id: id,
-      name: name,
-      deviceKey: deviceKey,
-      modelKey: modelKey
-    }
-    );
+      token,
+      id,
+      name,
+      deviceKey,
+      modelKey,
+      returnUrl,
+    });
 
-    if (token) {
-      console.log("SSO Token received:", token);
-      console.log("User ID:", id);
-      console.log("Device Key:", deviceKey);
-      console.log("Model Key:", modelKey);
-
-      // 2. 토큰 및 디바이스 정보 저장
-      localStorage.setItem('accessToken', token);
-
-      if (deviceKey) localStorage.setItem('deviceKey', deviceKey);
-      if (modelKey) localStorage.setItem('modelKey', modelKey);
-
-      // 3. 저장 후 메인 페이지(설문) 또는 채팅 페이지로 이동
+    if (!token) {
+      alert('로그인 정보가 유효하지 않습니다.');
       router.replace('/');
-    } else {
-      // 토큰이 없는 경우 에러 처리 혹은 로그인 페이지로 이동
-      alert("로그인 정보가 유효하지 않습니다.");
-      router.replace('/');
+      return;
     }
+
+    localStorage.setItem('accessToken', token);
+    if (deviceKey) localStorage.setItem('deviceKey', deviceKey);
+    if (modelKey) localStorage.setItem('modelKey', modelKey);
+    if (returnUrl) {
+      localStorage.setItem('returnUrl', returnUrl);
+      localStorage.setItem('cuchen_return_url', returnUrl);
+    }
+
+    router.replace('/');
   }, [router, searchParams]);
 
   return (
