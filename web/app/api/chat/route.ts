@@ -5,7 +5,7 @@ const PYTHON_API_BASE = process.env.PYTHON_API_BASE_URL || 'http://127.0.0.1:800
 export async function POST(request: Request) {
   try {
     const body = await request.json();
-    const response = await fetch(`${PYTHON_API_BASE}/api/cooking/analyze`, {
+    const response = await fetch(`${PYTHON_API_BASE}/api/chat`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(body),
@@ -16,7 +16,7 @@ export async function POST(request: Request) {
       return NextResponse.json(
         {
           code: `PYTHON_${response.status}`,
-          message: payload?.detail || payload?.message || '요리 분석 요청에 실패했습니다.',
+          message: payload?.detail || payload?.message || '채팅 분석 요청에 실패했습니다.',
           retryable: response.status >= 500,
         },
         { status: response.status },
@@ -27,7 +27,7 @@ export async function POST(request: Request) {
   } catch (error: unknown) {
     const message = error instanceof Error ? error.message : '알 수 없는 오류';
     return NextResponse.json(
-      { code: 'COOKING_PROXY_ERROR', message, retryable: true },
+      { code: 'CHAT_PROXY_ERROR', message, retryable: true },
       { status: 500 },
     );
   }

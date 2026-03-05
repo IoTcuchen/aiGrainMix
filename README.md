@@ -1,80 +1,37 @@
-작성된 코드가 내부적으로 수행하는 계산 과정을 **수식(Formula)**으로 정리해 드립니다.
+﻿# aiGrainMix
 
-크게 **① 무게 설정, ② 점수 산출(가중치), ③ 무게 배분(워터폴 알고리즘)** 3단계로 나뉩니다.
+AI 기반 잡곡 추천/취사 연동 프로젝트입니다. 현재 운영 배포 기준은 **EC2**이며, `web(Next.js)` + `agent(FastAPI)` 2개 서비스 구조입니다.
 
----
+## 디렉토리 구조
 
-### 1. 기본 무게 및 제한 설정 (Initialization)
+```text
+aiGrainMix/
+  web/      # 사용자 웹앱(Next.js)
+  agent/    # AI/오케스트레이션 API(FastAPI)
+  docs/     # 운영/배포 문서
+```
 
-먼저 전체 밥의 양과 각 잡곡이 넘지 말아야 할 상한선을 정합니다.
+## 로컬 실행
 
-*   **전체 무게 ($W_{total}$):**
-    $$W_{total} = \text{인분}(N) \times 150g$$
-*   **베이스 곡물 무게 ($W_{base}$):**
-    $$W_{base} = W_{total} \times \text{베이스비율}(\%)$$
-*   **잡곡 믹스 목표 무게 ($W_{target}$):** (이만큼을 잡곡으로 채워야 함)
-    $$W_{target} = W_{total} - W_{base}$$
-*   **단일 잡곡 상한선 ($Limit$):** (독점 금지, 12%)
-    $$Limit = W_{total} \times 0.12$$
+### 1) Agent API
 
----
+```bash
+cd agent
+python -m venv .venv
+.venv\Scripts\activate
+pip install -r requirements.txt
+uvicorn api.index:app --host 0.0.0.0 --port 8000
+```
 
-### 2. 곡물별 최종 점수 산출 ($Score_g$)
+### 2) Web
 
-선택한 질환들과 식감 선호도를 반영하여 곡물($g$)의 점수를 매깁니다.
+```bash
+cd web
+npm install
+npm run dev
+```
 
-$$Score_g = \sum_{k \in \text{선택질환}} \left( (11 - Rank_{g,k}) \times M_{texture} \right)$$
+## 배포
 
-*   **$Rank_{g,k}$**: 해당 질환($k$)에서 곡물($g$)의 순위 (1~10위)
-*   **$M_{texture}$ (식감 가중치 계수):**
-    사용자의 식감 선택($T$)과 곡물의 찰기 등급($L_{grain}$)에 따라 아래 표의 값이 곱해집니다.
-
-| 곡물 등급 ($L_{grain}$) | 찰기 선택 시 ($M$) | 고슬 선택 시 ($M$) | 일반 ($M$) |
-| :--- | :--- | :--- | :--- |
-| **1등급 (찰기 최상)** | $\times 1.5$ | $\times 0.6$ | $\times 1.0$ |
-| **2등급** | $\times 1.2$ | $\times 0.8$ | $\times 1.0$ |
-| **3등급 (중간)** | $\times 1.0$ | $\times 1.0$ | $\times 1.0$ |
-| **4등급** | $\times 0.85$ | $\times 1.2$ | $\times 1.0$ |
-| **5등급 (찰기 최하)** | $\times 0.7$ | $\times 1.4$ | $\times 1.0$ |
-
----
-
-### 3. 무게 배분 알고리즘 (Waterfall Method)
-
-상위 5개(또는 그 이상) 잡곡을 선정하여 $W_{target}$을 채웁니다. 이때 **12% 제한($Limit$)**을 넘는 양은 하위 순위로 넘깁니다. 이 과정은 반복문(Loop)으로 계산됩니다.
-
-#### [Step 1] 점수 비율($R_g$) 계산
-현재 배분 대상인 곡물들의 점수 합계($S_{sum}$) 대비 내 점수의 비율을 구합니다.
-$$R_g = \frac{Score_g}{S_{sum}}$$
-
-#### [Step 2] 임시 무게($w_{temp}$) 할당
-남아있는 목표 무게($W_{remain}$)를 비율대로 나눕니다.
-$$w_{temp} = R_g \times W_{remain}$$
-
-#### [Step 3] 검증 및 확정 (Capping)
-$$w_{final} = \min(w_{temp}, Limit)$$
-
-*   **조건 A ($w_{temp} > Limit$):**
-    *   해당 곡물은 $Limit$ 무게로 **고정(Fix)**됩니다.
-    *   더 이상 배분 받지 않고 계산에서 빠집니다.
-    *   남은 무게($W_{remain}$)는 줄어듭니다: $W_{remain} = W_{remain} - Limit$
-    *   **재계산:** 고정되지 않은 나머지 곡물끼리 **[Step 1]**부터 다시 수행합니다.
-
-*   **조건 B ($w_{temp} \le Limit$):**
-    *   모든 곡물이 제한 이내라면, $w_{temp}$가 곧 최종 무게가 되며 계산이 종료됩니다.
-
----
-
-### [예시 시뮬레이션]
-*   **상황:** 2인분(300g), 믹스 목표 150g, **상한선 36g(12%)**
-*   **1순위 귀리 점수:** 아주 높아서 비율 계산 시 **60g**이 나옴.
-
-1.  **귀리:** $60g > 36g$ (초과)
-    *   $\rightarrow$ 귀리는 **36g**으로 강제 확정.
-    *   **남은 목표:** $150g - 36g = 114g$
-    *   **낙수 효과:** 귀리가 가져가려던 $60 - 36 = 24g$ 분량이 남아서, 다음 순위(서리태, 율무...)들이 나눠 가질 파이가 커짐.
-
-2.  **재계산:** 남은 114g을 서리태, 율무, 수수 등이 점수 비율대로 다시 나눔.
-    *   만약 서리태도 받다 보니 40g이 되면? $\rightarrow$ 36g 고정, 나머지는 또 밑으로...
-
-이 수식 과정을 통해 **"100% 총량을 맞추면서도, 특정 잡곡이 12%를 넘지 않게 골고루 분배"**하는 결과가 나옵니다.
+- EC2 배포 가이드는 [docs/DEPLOYMENT_EC2.md](docs/DEPLOYMENT_EC2.md) 참고
+- 리포지토리 정리 기준은 [docs/REPO_STRUCTURE.md](docs/REPO_STRUCTURE.md) 참고

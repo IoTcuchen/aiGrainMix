@@ -1,64 +1,19 @@
-# Logs
-logs
-*.log
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-pnpm-debug.log*
-lerna-debug.log*
+﻿# Python cache/venv
+__pycache__/
+*.py[cod]
+.venv/
+venv/
 
-# Dependency directories
-node_modules/
-jspm_packages/
-.pnp/
-.pnp.js
-
-# Build / output
-dist/
-dist-ssr/
-build/
-out/
-.next/
-.next-static/
-.turbo/
-.vercel/
-.
-
-# Testing
-coverage/
-*.lcov
-
-# TypeScript metadata
-*.tsbuildinfo
-
-# Package manager stores
-.npm/
-.yarn/cache/
-.yarn/unplugged/
-.yarn/build-state.yml
-.yarn/install-state.gz
-.pnpm-store/
-
-# Environment files (keep samples such as .env.example tracked)
+# Env
 .env
 .env.*
 !.env.example
-!.env.*.example
 
-# Misc
-*.local
+# Tool cache
+.pytest_cache/
+.mypy_cache/
+
+# OS / Editor
 .DS_Store
-.eslintcache
-.stylelintcache
-.parcel-cache/
-
-# Editor directories and files
-.vscode/*
-!.vscode/extensions.json
+.vscode/
 .idea/
-*.suo
-*.ntvs*
-*.njsproj
-*.sln
-*.sw?
-.vercel

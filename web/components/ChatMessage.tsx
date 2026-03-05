@@ -1,4 +1,4 @@
-import React from 'react';
+﻿import React from 'react';
 import type { ChatMessage as Message } from '@/lib/types';
 import { UserIcon, BotIcon } from './icons';
 import RecommendationCard from './RecommendationCard';
@@ -7,7 +7,7 @@ interface ChatMessageProps {
   message: Message;
 }
 
-const ChatMessage: React.FC<ChatMessageProps> = ({ message }) => {
+function ChatMessageComponent({ message }: ChatMessageProps) {
   const isUser = message.role === 'user';
 
   const contentToRender = message.recommendation ? (
@@ -23,7 +23,7 @@ const ChatMessage: React.FC<ChatMessageProps> = ({ message }) => {
           <BotIcon className="w-5 h-5 text-white" />
         </div>
       )}
-      <div className={`prose prose-invert max-w-full p-3 rounded-lg ${isUser ? 'bg-user-bubble text-white' : 'bg-bot-bubble text-brand-text'}`}>
+      <div className={`max-w-full p-3 rounded-lg ${isUser ? 'bg-user-bubble text-white' : 'bg-bot-bubble text-brand-text'}`}>
         {contentToRender}
       </div>
       {isUser && (
@@ -33,6 +33,8 @@ const ChatMessage: React.FC<ChatMessageProps> = ({ message }) => {
       )}
     </div>
   );
-};
+}
+
+const ChatMessage = React.memo(ChatMessageComponent);
 
 export default ChatMessage;
