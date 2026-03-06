@@ -14,6 +14,7 @@ function CookingContent() {
   const [userName, setUserName] = useState<string | null>(null);
   const [isProcessing, setIsProcessing] = useState(false);
   const [chatStatus, setChatStatus] = useState("원하시는 목적에 맞는 메뉴로 맞춤 취사 해드릴게요. 재료나 식감, 원하는 요리 등을 말씀해주세요.");
+  const [suggestedRecipes, setSuggestedRecipes] = useState<any[]>([]);
 
   // 대화형 오케스트레이터를 위한 상태 추가
   const [messages, setMessages] = useState<any[]>([]);
@@ -49,6 +50,10 @@ function CookingContent() {
         })).sort((a: any, b: any) => parseInt(a.recipeNo) - parseInt(b.recipeNo));
         // 초기 레시피 목록을 appState에 세팅
         setAppState((prev: any) => ({ ...prev, recipe_list: formattedList }));
+
+        // 렌더링 시마다 섞이지 않도록 초기에 4개를 무작위로 뽑아 고정 상태로 저장
+        const randomSelected = [...formattedList].sort(() => 0.5 - Math.random()).slice(0, 4);
+        setSuggestedRecipes(randomSelected);
       })
       .catch(err => console.error("Recipe Load Error:", err));
   }, []);
@@ -305,18 +310,15 @@ function CookingContent() {
         <div className="w-full mt-auto flex flex-col items-center pb-8 animate-in fade-in slide-in-from-bottom-5 duration-700 z-[60]">
           <p className="text-xs text-[#6B7280] dark:text-[#9CA3AF] mb-4 font-medium tracking-wide">이런 메뉴는 어때요?</p>
           <div className="flex flex-wrap justify-center gap-2.5 w-full max-w-[320px]">
-            {appState.recipe_list
-              .sort(() => 0.5 - Math.random()) // 간단한 랜덤 셔플
-              .slice(0, 4) // 4개만 선택
-              .map((r: any) => (
-                <button
-                  key={r.recipeKey}
-                  onClick={() => executeCook(r.recipeNo, r.recipeKey, r.recipeNm)}
-                  className="px-4 py-2.5 bg-white dark:bg-[#1F2937] border border-[#E5E7EB] dark:border-[#374151] rounded-full text-[14px] font-semibold text-[#111827] dark:text-[#F9FAFB] shadow-sm hover:shadow-md transition-shadow active:scale-95 duration-200"
-                >
-                  "{r.recipeNm}"
-                </button>
-              ))}
+            {suggestedRecipes.map((r: any) => (
+              <button
+                key={r.recipeKey}
+                onClick={() => executeCook(r.recipeNo, r.recipeKey, r.recipeNm)}
+                className="px-4 py-2.5 bg-white dark:bg-[#1F2937] border border-[#E5E7EB] dark:border-[#374151] rounded-full text-[14px] font-semibold text-[#111827] dark:text-[#F9FAFB] shadow-sm hover:shadow-md transition-shadow active:scale-95 duration-200"
+              >
+                "{r.recipeNm}"
+              </button>
+            ))}
           </div>
         </div>
       </main>
