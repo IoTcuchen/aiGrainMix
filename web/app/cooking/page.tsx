@@ -243,7 +243,7 @@ function CookingContent() {
           </button>
 
           {isMenuOpen && (
-            <div className="absolute right-0 mt-2 w-64 bg-white dark:bg-[#1F2937] rounded-xl shadow-[0_10px_40px_rgba(0,0,0,0.1)] border border-gray-100 dark:border-gray-700 overflow-hidden z-50">
+            <div className="absolute right-0 mt-2 w-64 bg-white dark:bg-[#1F2937] rounded-xl shadow-[0_10px_40px_rgba(0,0,0,0.1)] border border-gray-100 dark:border-gray-700 overflow-hidden z-[100]">
               <div className="px-4 py-3 bg-gray-50 dark:bg-gray-800 border-b border-gray-100 dark:border-gray-700">
                 <span className="font-semibold text-gray-800 dark:text-gray-200 text-sm">취사가능 메뉴</span>
               </div>
@@ -302,22 +302,21 @@ function CookingContent() {
         </div>
 
         {/* 추천 칩 영역 */}
-        <div className="w-full mt-auto flex flex-col items-center pb-8 animate-in fade-in slide-in-from-bottom-5 duration-700">
-          <p className="text-xs text-[#6B7280] dark:text-[#9CA3AF] mb-4 font-medium tracking-wide">이렇게 말해보세요</p>
+        <div className="w-full mt-auto flex flex-col items-center pb-8 animate-in fade-in slide-in-from-bottom-5 duration-700 z-[60]">
+          <p className="text-xs text-[#6B7280] dark:text-[#9CA3AF] mb-4 font-medium tracking-wide">이런 메뉴는 어때요?</p>
           <div className="flex flex-wrap justify-center gap-2.5 w-full max-w-[320px]">
-            {[
-              "잡곡 쾌속으로 해줘",
-              "부드러운 영양밥",
-              "다이어트용 밥 지어줘"
-            ].map((chip) => (
-              <button
-                key={chip}
-                onClick={() => handleVoiceResult(chip)}
-                className="px-4 py-2.5 bg-white dark:bg-[#1F2937] border border-[#E5E7EB] dark:border-[#374151] rounded-full text-[14px] font-semibold text-[#111827] dark:text-[#F9FAFB] shadow-sm hover:shadow-md transition-shadow active:scale-95 duration-200"
-              >
-                "{chip}"
-              </button>
-            ))}
+            {appState.recipe_list
+              .sort(() => 0.5 - Math.random()) // 간단한 랜덤 셔플
+              .slice(0, 4) // 4개만 선택
+              .map((r: any) => (
+                <button
+                  key={r.recipeKey}
+                  onClick={() => executeCook(r.recipeNo, r.recipeKey, r.recipeNm)}
+                  className="px-4 py-2.5 bg-white dark:bg-[#1F2937] border border-[#E5E7EB] dark:border-[#374151] rounded-full text-[14px] font-semibold text-[#111827] dark:text-[#F9FAFB] shadow-sm hover:shadow-md transition-shadow active:scale-95 duration-200"
+                >
+                  "{r.recipeNm}"
+                </button>
+              ))}
           </div>
         </div>
       </main>

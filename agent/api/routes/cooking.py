@@ -106,14 +106,17 @@ def manager_node(state: AgentState):
     ingredient = s.get('ingredient')
     purpose = s.get('purpose')
 
-    # 특정 메뉴가 있거나, 명확한 목적/재료로 인해 사용자가 바로 취사를 원한다고 판단되면 cook으로 라우팅
-    if is_ready or specific_menu or (ingredient and purpose):
-        decision = "cook_executor"
-    # 재료만 던졌거나, 모호한 경우 질문으로 라우팅
-    else:
-        decision = "question_generator"
+    # 질문성 발화("가장 적합한 메뉴가 뭐야?")인지 파악하기 위해 마지막 메시지를 간단히 검사합니다.
+    last_msg = state['messages'][-1].content if state['messages'] else ""
+    is_question = any(q in last_msg for q in ["뭐야", "어때", "추천", "알려줘", "뭐가", "좋을까"])
 
-    new_logs = add_log(state, "2. Router", {"조건": s, "결정": decision})
+    # 질문이거나, 정보가 불충분하거나, 명확한 취사 의지(is_ready)가 없다면 질문 생성로직으로.
+    if is_question or not (is_ready or specific_menu or (ingredient and purpose)):
+        decision = "question_generator"
+    else:
+        decision = "cook_executor"
+
+    new_logs = add_log(state, "2. Router", {"조건": s, "의도": "질문" if is_question else "명령", "결정": decision})
     return {"next_step": decision, "logs": new_logs}
 
 def question_generator_node(state: AgentState):
@@ -123,20 +126,20 @@ def question_generator_node(state: AgentState):
     recipes_context = "\n".join([f"- {r['recipeNm']}" for r in recipes])
     
     prompt = f"""
-    당신은 쿠첸 스마트 밥솥의 요리 매니저입니다.
-    사용자 정보: {s}
+    당신은 쿠첸 스마트 밥솥의 요리 전문 AI 매니저입니다.
+    사용자 파악 조건: {s}
     가용한 보유 레시피 목록:
     {recipes_context}
 
-    상황: 사용자의 요청이 모호하여 어떤 메뉴를 할지 하나로 확정하기 어렵습니다.
+    상황: 사용자가 레시피를 추천해달라고 질문했거나, 정보가 모호하여 취사를 바로 시작할 수 없습니다.
     지침:
-    1. 사용자가 언급한 재료나 조건에 부합하는 **레시피 목록 내의** 메뉴 후보들을 2~3개 골라 사용자에게 제안하세요.
-    2. "이런 재료로는 A, B, C가 가능한데 어떤 걸로 도와드릴까요?" 처럼 친절하고 간결하게 물어보세요.
-    3. 반드시 내가 할 수 있는 레시피 중에서만 후보를 안내해야 합니다.
-    4. 너무 길지 않게 2문장 이내로 작성하세요.
+    1. 사용자의 질문 내용(예: "갈비찜에 가장 적합한 메뉴가 뭐야?")에 대해, 보유한 레시피 목록 내에서 가장 잘 어울리는 메뉴 1~2개를 찾아 먼저 이유와 함께 답변하세요.
+    2. 완전히 일치하는 메뉴가 없다면 비슷한 조리 방식을 가진 메뉴(예: 찜류에는 만능찜 등)를 추천하세요.
+    3. 답변 마지막에는 "이 메뉴로 취사를 시작해 드릴까요?" 처럼 사용자의 확답(is_ready_to_cook)을 유도하는 질문을 덧붙이세요.
+    4. 친절하고 자연스러운 대화체로, 2~3문장 이내로 작성하세요. 절대 사용 가능한 메뉴 목록 외의 가상의 메뉴를 지어내면 안 됩니다.
     """
     
-    response = llm.invoke([SystemMessage(content=prompt)] + state['messages'][-2:])
+    response = llm.invoke([SystemMessage(content=prompt)] + state['messages'][-3:])
     
     new_logs = add_log(state, "3. Generator", response.content, prompt=prompt)
     return {

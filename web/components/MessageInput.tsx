@@ -16,21 +16,31 @@ const MessageInput: React.FC<MessageInputProps> = ({
   isComplete
 }) => {
   const [input, setInput] = useState('');
+  const [interim, setInterim] = useState('');
 
-  const handleVoiceResult = useCallback((text: string) => {
-    setInput((prev) => {
-      const needsSpace = prev.length > 0 && !prev.endsWith(' ');
-      return prev + (needsSpace ? ' ' : '') + text;
-    });
+  const handleVoiceResult = useCallback((finalText: string, interimText: string) => {
+    setInterim(interimText);
+    if (finalText) {
+      setInput((prev) => {
+        const needsSpace = prev.length > 0 && !prev.endsWith(' ');
+        return prev + (needsSpace ? ' ' : '') + finalText;
+      });
+    }
   }, []);
 
   const { isListening, startListening, stopListening, isSupported } = useVoiceRecognition(handleVoiceResult);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!input.trim() || isLoading) return;
-    onSendMessage(input);
+    const finalSubmitText = (input + (interim ? ' ' + interim : '')).trim();
+    if (!finalSubmitText || isLoading) return;
+
+    // 전송 시 듣기 중지
+    if (isListening) stopListening();
+
+    onSendMessage(finalSubmitText);
     setInput('');
+    setInterim('');
   };
 
   const handleMicClick = (e: React.MouseEvent) => {
@@ -61,10 +71,13 @@ const MessageInput: React.FC<MessageInputProps> = ({
     <form onSubmit={handleSubmit} className="max-w-3xl mx-auto w-full relative flex items-end gap-2 p-4">
       <div className="relative flex-1 bg-[#F2F4F6] dark:bg-[#2C2C2C] rounded-[24px] border border-transparent focus-within:border-[#E5E8EB] dark:focus-within:border-[#3F3F3F] transition-colors flex items-center min-h-[56px] px-4">
         <textarea
-          value={input}
-          onChange={(e) => setInput(e.target.value)}
+          value={input + (interim ? (input.length > 0 && !input.endsWith(' ') ? ' ' : '') + interim : '')}
+          onChange={(e) => {
+            setInput(e.target.value);
+            setInterim('');
+          }}
           placeholder={isListening ? '듣고 있어요...' : '잡곡 추천을 위해 질문해주세요...'}
-          className="w-full bg-transparent border-none focus:ring-0 p-0 text-[15px] text-[#191F28] dark:text-white placeholder:text-[#8B95A1] dark:placeholder:text-[#A0A0A0] resize-none max-h-[120px] py-4"
+          className="w-full bg-transparent border-none focus:ring-0 p-0 text-[16px] text-[#191F28] dark:text-white placeholder:text-[#8B95A1] dark:placeholder:text-[#A0A0A0] resize-none max-h-[120px] py-4"
           rows={1}
           style={{ scrollbarWidth: 'none' }}
           disabled={isLoading}
@@ -90,7 +103,7 @@ const MessageInput: React.FC<MessageInputProps> = ({
 
       <button
         type="submit"
-        disabled={!input.trim() || isLoading}
+        disabled={!(input.trim() || interim.trim()) || isLoading}
         className="flex-none w-12 h-[56px] rounded-[24px] bg-[#FF6B00] flex items-center justify-center text-white shadow-md shadow-[#FF6B00]/20 hover:bg-orange-600 transition-colors active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed"
       >
         <span className="material-symbols-outlined text-xl" style={{ fontVariationSettings: "'FILL' 1" }}>send</span>

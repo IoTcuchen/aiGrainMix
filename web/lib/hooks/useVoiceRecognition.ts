@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 
-export const useVoiceRecognition = (onResult: (text: string) => void) => {
+export const useVoiceRecognition = (onResult: (finalText: string, interimText: string) => void) => {
   const [isListening, setIsListening] = useState(false);
   const [isSupported, setIsSupported] = useState(false);
   const recognitionRef = useRef<any>(null);
@@ -19,7 +19,7 @@ export const useVoiceRecognition = (onResult: (text: string) => void) => {
       if (SpeechRecognition) {
         setIsSupported(true);
         const recognition = new SpeechRecognition();
-        recognition.continuous = false; // 한 문장 단위로 인식
+        recognition.continuous = true; // 끊기지 않고 계속 듣기
         recognition.interimResults = true;
         recognition.lang = 'ko-KR';
 
@@ -32,15 +32,17 @@ export const useVoiceRecognition = (onResult: (text: string) => void) => {
 
         recognition.onresult = (event: any) => {
           let finalTranscript = '';
+          let interimTranscript = '';
+
           for (let i = event.resultIndex; i < event.results.length; ++i) {
             if (event.results[i].isFinal) {
               finalTranscript += event.results[i][0].transcript;
+            } else {
+              interimTranscript += event.results[i][0].transcript;
             }
           }
-          if (finalTranscript) {
-            // 저장된 최신 콜백 실행
-            savedCallback.current(finalTranscript);
-          }
+
+          savedCallback.current(finalTranscript, interimTranscript);
         };
 
         recognitionRef.current = recognition;

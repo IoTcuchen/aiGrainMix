@@ -121,7 +121,7 @@ function ChatContent() {
   };
 
   return (
-    <div className="flex flex-col h-screen bg-white dark:bg-[#121212] text-[#191F28] dark:text-white antialiased transition-colors duration-200 font-['Noto Sans KR']">
+    <div className="flex flex-col h-full bg-white dark:bg-[#121212] text-[#191F28] dark:text-white antialiased transition-colors duration-200 font-['Noto Sans KR']">
       {/* 헤더 */}
       <header className="flex-none px-5 py-4 flex items-center justify-between border-b border-[#E5E8EB] dark:border-[#3F3F3F] bg-white dark:bg-[#121212] sticky top-0 z-10 font-['Noto Sans KR']">
         <div className="flex items-center gap-3">
@@ -145,48 +145,44 @@ function ChatContent() {
         </button>
       </header>
 
-      {/* 채팅창 */}
-      <div className="flex-1 overflow-y-auto p-4 pb-40 scroll-smooth">
+      {/* 채팅창 (flex-1로 남은 공간 모두 차지) */}
+      <div className="flex-1 overflow-y-auto p-4 scroll-smooth min-h-0">
         <ChatWindow messages={messages} />
       </div>
 
-      {/* 입력/버튼 영역 */}
-      <div className="absolute bottom-0 left-0 w-full z-20 pointer-events-none">
-        <div className="absolute bottom-0 left-0 w-full h-32 bg-gradient-to-t from-white via-white/90 to-transparent -z-10" />
-
-        <div className="p-4 pb-4 w-full pointer-events-auto">
-          <div className="max-w-4xl mx-auto w-full space-y-2">
-            {isComplete ? (
-              <div className="grid grid-cols-2 gap-3 animate-fade-in">
-                <button
-                  onClick={handleRestart}
-                  className="py-3 border border-gray-300 text-gray-500 rounded-xl font-bold hover:bg-gray-50 transition-colors bg-white/80 backdrop-blur-sm shadow-sm"
-                >
-                  ↺ 처음으로
-                </button>
-                <button
-                  onClick={goBackToCuchen}
-                  className="py-3 bg-brand-accent text-white rounded-xl font-bold hover:bg-brand-accent-hover transition-colors shadow-lg"
-                >
-                  취사하기
-                </button>
-              </div>
-            ) : (
-              <>
-                <QuickReplyButtons
-                  options={currentQuickReplies}
-                  onSelect={handleSendMessage}
-                  isLoading={isLoading}
-                />
-                <MessageInput
-                  onSendMessage={handleSendMessage}
-                  isLoading={isLoading}
-                  onRestart={handleRestart}
-                  isComplete={isComplete}
-                />
-              </>
-            )}
-          </div>
+      {/* 입력/버튼 영역 (채팅창 하단에 고정) */}
+      <div className="flex-none w-full border-t border-[#E5E8EB] dark:border-[#3F3F3F] bg-white dark:bg-[#121212] p-4">
+        <div className="max-w-4xl mx-auto w-full space-y-2">
+          {isComplete ? (
+            <div className="grid grid-cols-2 gap-3 animate-fade-in">
+              <button
+                onClick={handleRestart}
+                className="py-3 border border-gray-300 text-gray-500 rounded-xl font-bold hover:bg-gray-50 transition-colors bg-white/80 backdrop-blur-sm shadow-sm"
+              >
+                ↺ 처음으로
+              </button>
+              <button
+                onClick={goBackToCuchen}
+                className="py-3 bg-brand-accent text-white rounded-xl font-bold hover:bg-brand-accent-hover transition-colors shadow-lg"
+              >
+                취사하기
+              </button>
+            </div>
+          ) : (
+            <>
+              <QuickReplyButtons
+                options={currentQuickReplies}
+                onSelect={handleSendMessage}
+                isLoading={isLoading}
+              />
+              <MessageInput
+                onSendMessage={handleSendMessage}
+                isLoading={isLoading}
+                onRestart={handleRestart}
+                isComplete={isComplete}
+              />
+            </>
+          )}
         </div>
       </div>
     </div>
