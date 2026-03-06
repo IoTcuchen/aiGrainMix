@@ -4,6 +4,8 @@ import React, { useEffect, useState, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { ArrowLeftIcon } from '@/components/icons';
 import VoiceRecorder from '@/components/VoiceRecorder';
+import { getRecipes, analyzeCookingStatus } from '@/lib/api/cooking';
+import { sendCookCommand } from '@/lib/api/cuchen';
 
 function CookingContent() {
   const router = useRouter();
@@ -37,8 +39,7 @@ function CookingContent() {
       return;
     }
 
-    fetch(`/api/recipes?deviceKey=${deviceKey}&modelKey=${modelKey}`)
-      .then(res => res.json())
+    getRecipes(deviceKey, modelKey)
       .then(data => {
         const formattedList = data.map((r: any) => ({
           ...r,
@@ -61,18 +62,7 @@ function CookingContent() {
     setMessages(updatedMessages);
 
     try {
-      const response = await fetch('/api/cooking/analyze', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          messages: updatedMessages,
-          appState: appState
-        })
-      });
-
-      if (!response.ok) throw new Error("LLM Server Error");
-
-      const result = await response.json();
+      const result = await analyzeCookingStatus(updatedMessages, appState);
 
       // AI 응답 처리
       if (result.message) {
@@ -151,21 +141,13 @@ function CookingContent() {
     bodyParams.append('params', JSON.stringify(params));
 
     try {
-      const response = await fetch('/api/cuchen/sendCommand', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          recipeKey,
-          recipeNo,
-          deviceKey,
-          modelKey,
-          accessToken: currentToken
-        })
+      const result = await sendCookCommand({
+        recipeKey,
+        recipeNo,
+        deviceKey,
+        modelKey,
+        accessToken: currentToken
       });
-
-      const result = await response.json();
       const d = result.bean;
 
       if (result.success === true || (d && !d.error)) {
@@ -214,52 +196,72 @@ function CookingContent() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return (
-    <main className="flex min-h-screen flex-col items-center p-6 bg-white">
-      {/* 상단바: 더 깔끔한 디자인 */}
-      <header className="relative w-full flex items-center justify-between mb-10 mt-2 z-50">
+    <div className="bg-[#F9FAFB] dark:bg-[#111827] text-[#111827] dark:text-[#F9FAFB] flex flex-col h-screen overflow-hidden antialiased font-['Pretendard']">
+      <style jsx global>{`
+        @keyframes pulse-ring {
+          0% { transform: scale(0.8); opacity: 0.5; }
+          100% { transform: scale(1.3); opacity: 0; }
+        }
+        .pulse-circle {
+          position: absolute;
+          left: 0; top: 0;
+          width: 100%; height: 100%;
+          border-radius: 50%;
+          background-color: #FF6D00;
+          animation: pulse-ring 2s cubic-bezier(0.215, 0.61, 0.355, 1) infinite;
+          z-index: -1;
+        }
+        .wave-bar {
+          animation: wave 1s ease-in-out infinite alternate;
+        }
+        .wave-bar:nth-child(1) { animation-delay: 0s; }
+        .wave-bar:nth-child(2) { animation-delay: 0.2s; }
+        .wave-bar:nth-child(3) { animation-delay: 0.4s; }
+        @keyframes wave {
+          0% { transform: scaleY(0.5); }
+          100% { transform: scaleY(1); }
+        }
+      `}</style>
+
+      {/* 헤더 */}
+      <nav className="flex items-center justify-between px-5 py-4 bg-white dark:bg-[#1F2937] sticky top-0 z-10 w-full transition-colors duration-200 shadow-sm border-b border-[#E5E7EB] dark:border-[#374151]">
         <button
           onClick={() => router.back()}
-          className="p-2.5 text-gray-400 hover:text-gray-900 transition-colors"
+          className="p-2 -ml-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors text-[#111827] dark:text-[#F9FAFB]"
         >
-          <ArrowLeftIcon className="w-7 h-7" />
+          <span className="material-icons text-[24px]">arrow_back</span>
         </button>
-        <h2 className="absolute left-1/2 transform -translate-x-1/2 font-bold text-xl tracking-tight text-gray-900">
-          쿠첸 AI 맞춤 취사
-        </h2>
+        <h1 className="text-lg font-bold tracking-tight">쿠첸 AI 맞춤 취사</h1>
 
-        {/* 우측 상단 메뉴 (불러온 레시피 확인/즉시 취사) */}
+        {/* 우측 상단 메뉴 */}
         <div className="relative">
           <button
             onClick={() => setIsMenuOpen(!isMenuOpen)}
-            className="flex items-center gap-2 px-4 py-2 text-gray-700 hover:text-brand-accent transition-all bg-white border border-gray-200 hover:border-brand-accent rounded-full shadow-sm hover:shadow-md"
-            aria-label="레시피 목록"
+            className="p-2 -mr-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors text-[#111827] dark:text-[#F9FAFB]"
           >
-            <span className="text-sm font-semibold tracking-tight">메뉴</span>
-            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-            </svg>
+            <span className="material-icons text-[24px]">menu</span>
           </button>
 
           {isMenuOpen && (
-            <div className="absolute right-0 mt-2 w-64 bg-white rounded-xl shadow-[0_10px_40px_rgba(0,0,0,0.1)] border border-gray-100 overflow-hidden z-50">
-              <div className="px-4 py-3 bg-gray-50 border-b border-gray-100">
-                <span className="font-semibold text-gray-800 text-sm">취사가능 메뉴</span>
+            <div className="absolute right-0 mt-2 w-64 bg-white dark:bg-[#1F2937] rounded-xl shadow-[0_10px_40px_rgba(0,0,0,0.1)] border border-gray-100 dark:border-gray-700 overflow-hidden z-50">
+              <div className="px-4 py-3 bg-gray-50 dark:bg-gray-800 border-b border-gray-100 dark:border-gray-700">
+                <span className="font-semibold text-gray-800 dark:text-gray-200 text-sm">취사가능 메뉴</span>
               </div>
-              <ul className="max-h-60 overflow-y-auto custom-scrollbar">
+              <ul className="max-h-60 overflow-y-auto">
                 {appState.recipe_list.length > 0 ? (
                   appState.recipe_list.map((r: any) => (
-                    <li key={r.recipeKey} className="border-b border-gray-50 last:border-none">
+                    <li key={r.recipeKey} className="border-b border-gray-50 dark:border-gray-700 last:border-none">
                       <button
                         onClick={() => {
                           setIsMenuOpen(false);
                           executeCook(r.recipeNo, r.recipeKey, r.recipeNm);
                         }}
-                        className="w-full text-left px-4 py-3 hover:bg-orange-50 transition-colors flex items-center justify-between group"
+                        className="w-full text-left px-4 py-3 hover:bg-orange-50 dark:hover:bg-orange-900/20 transition-colors flex items-center justify-between group"
                       >
-                        <span className="text-sm font-medium text-gray-800 group-hover:text-brand-accent">
+                        <span className="text-sm font-medium text-gray-800 dark:text-gray-200 group-hover:text-[#FF6D00]">
                           {r.recipeNm}
                         </span>
-                        <span className="text-xs px-2 py-1 bg-gray-100 text-gray-600 rounded-md group-hover:bg-brand-accent group-hover:text-white transition-colors">
+                        <span className="text-xs px-2 py-1 bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 rounded-md group-hover:bg-[#FF6D00] group-hover:text-white transition-colors">
                           취사
                         </span>
                       </button>
@@ -274,50 +276,60 @@ function CookingContent() {
             </div>
           )}
         </div>
-      </header>
+      </nav>
 
-      <div className="w-full max-w-md flex flex-col items-center justify-between flex-1 pb-16">
-        <div className="flex flex-col items-center space-y-12 mt-12 w-full">
-
-          {/* 현대적인 AI Orb 에이전트 */}
-          <div className="relative flex items-center justify-center">
-            {/* 배경 후광 효과 */}
-            <div className={`absolute w-48 h-48 bg-orange-300/20 rounded-full blur-3xl transition-all duration-1000 ${isProcessing ? 'opacity-100 scale-125' : 'opacity-40'}`} />
-
-            {/* 메인 AI 구체 */}
-            <div className={`
-                            relative w-32 h-32 rounded-full flex items-center justify-center 
-                            bg-gradient-to-br from-orange-400 to-orange-600 
-                            shadow-[0_20px_50px_rgba(251,146,60,0.3)]
-                            transition-all duration-700 ease-in-out
-                            ${isProcessing ? 'scale-110 rotate-180' : 'scale-100'}
-                        `}>
-              {/* 화이트 로고/심볼 (추상적인 AI 패턴) */}
-              <div className="flex gap-1.5">
-                <span className={`w-1.5 h-8 bg-white/90 rounded-full ${isProcessing ? 'animate-bounce' : ''}`} style={{ animationDelay: '0ms' }} />
-                <span className={`w-1.5 h-12 bg-white rounded-full ${isProcessing ? 'animate-bounce' : ''}`} style={{ animationDelay: '150ms' }} />
-                <span className={`w-1.5 h-8 bg-white/90 rounded-full ${isProcessing ? 'animate-bounce' : ''}`} style={{ animationDelay: '300ms' }} />
+      {/* 메인 콘텐츠 */}
+      <main className="flex-1 flex flex-col items-center justify-center relative w-full px-6 pt-10 pb-32 overflow-y-auto">
+        <div className="relative flex flex-col items-center justify-center mb-12">
+          {/* AI Orb 부위 */}
+          <div className="relative w-32 h-32 flex items-center justify-center">
+            <div className={`pulse-circle opacity-20 ${isProcessing ? '' : 'hidden'}`}></div>
+            <div className={`pulse-circle opacity-10 ${isProcessing ? '' : 'hidden'}`} style={{ animationDelay: '1s' }}></div>
+            <div className={`w-24 h-24 bg-[#FF6D00] rounded-full flex items-center justify-center shadow-[0_0_40px_-10px_rgba(255,109,0,0.5)] z-10 relative overflow-hidden transition-transform duration-500 ${isProcessing ? 'scale-110' : 'scale-100'}`}>
+              <div className="flex items-center space-x-1.5 h-10">
+                <div className={`wave-bar w-1.5 h-6 bg-white rounded-full ${isProcessing ? '' : 'opacity-50'}`}></div>
+                <div className={`wave-bar w-1.5 h-10 bg-white rounded-full ${isProcessing ? '' : 'opacity-50'}`}></div>
+                <div className={`wave-bar w-1.5 h-6 bg-white rounded-full ${isProcessing ? '' : 'opacity-50'}`}></div>
               </div>
             </div>
           </div>
 
-          {/* 대화 텍스트 박스: 폰트 가독성 향상 */}
-          <div className="text-center px-8 w-full">
-            <p className="text-[22px] font-semibold text-gray-900 leading-[1.4] break-keep tracking-tight">
+          <div className="mt-10 text-center max-w-[300px]">
+            <h2 className="text-[22px] leading-[1.4] font-bold text-[#111827] dark:text-[#F9FAFB] mb-3 break-keep">
               {chatStatus}
-            </p>
+            </h2>
           </div>
         </div>
 
-        {/* 하단 마이크 컨트롤러 영역 */}
-        <div className="w-full flex justify-center">
-          <VoiceRecorder
-            onResult={handleVoiceResult}
-            isProcessing={isProcessing}
-          />
+        {/* 추천 칩 영역 */}
+        <div className="w-full mt-auto flex flex-col items-center pb-8 animate-in fade-in slide-in-from-bottom-5 duration-700">
+          <p className="text-xs text-[#6B7280] dark:text-[#9CA3AF] mb-4 font-medium tracking-wide">이렇게 말해보세요</p>
+          <div className="flex flex-wrap justify-center gap-2.5 w-full max-w-[320px]">
+            {[
+              "잡곡 쾌속으로 해줘",
+              "부드러운 영양밥",
+              "다이어트용 밥 지어줘"
+            ].map((chip) => (
+              <button
+                key={chip}
+                onClick={() => handleVoiceResult(chip)}
+                className="px-4 py-2.5 bg-white dark:bg-[#1F2937] border border-[#E5E7EB] dark:border-[#374151] rounded-full text-[14px] font-semibold text-[#111827] dark:text-[#F9FAFB] shadow-sm hover:shadow-md transition-shadow active:scale-95 duration-200"
+              >
+                "{chip}"
+              </button>
+            ))}
+          </div>
         </div>
+      </main>
+
+      {/* 하단 마이크 버튼 (Floating) */}
+      <div className="absolute bottom-10 left-0 w-full flex justify-center z-20 px-6">
+        <VoiceRecorder
+          onResult={handleVoiceResult}
+          isProcessing={isProcessing}
+        />
       </div>
-    </main>
+    </div>
   );
 }
 

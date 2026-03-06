@@ -2,6 +2,7 @@
 
 import { useState, useRef, useEffect } from 'react';
 import { MicIcon } from './icons';
+import { convertSpeechToText } from '@/lib/api/ai';
 
 interface Props {
     // 부모 컴포넌트(page.tsx)의 함수와 명칭을 맞춥니다.
@@ -96,12 +97,7 @@ export default function VoiceRecorder({ onResult, isProcessing: parentProcessing
                 setIsProcessing(true);
                 try {
                     const audioBlob = new Blob(chunksRef.current, { type: mimeType });
-                    const formData = new FormData();
-                    formData.append('file', audioBlob, `voice.${mimeType.split('/')[1]}`);
-
-                    // 서버의 STT 엔드포인트 호출
-                    const res = await fetch('/api/stt', { method: 'POST', body: formData });
-                    const data = await res.json();
+                    const data = await convertSpeechToText(audioBlob, mimeType);
 
                     if (data.text) {
                         onResult(data.text); // 부모에게 텍스트 전달
@@ -146,26 +142,33 @@ export default function VoiceRecorder({ onResult, isProcessing: parentProcessing
     };
 
     return (
-        <div className="relative flex flex-col items-center">
-            {/* 메인 마이크 버튼 */}
+        <div className="relative flex flex-col items-center pointer-events-auto">
+            {/* 메인 마이크 버튼 (Stitch 디자인 적용) */}
             <button
                 onClick={handleToggle}
                 disabled={globalProcessing}
-                className={`w-20 h-20 rounded-full flex items-center justify-center transition-all shadow-2xl relative z-20 outline-none
-                        ${isRecording ? 'bg-red-500 scale-110 ring-8 ring-red-100' : 'bg-white border-4 border-orange-50'} 
-                        ${globalProcessing ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer active:scale-90'}`}
+                className={`
+                    w-16 h-16 rounded-full flex items-center justify-center 
+                    transition-all duration-200 shadow-[0_8px_30px_rgb(0,0,0,0.12)]
+                    border border-gray-100 dark:border-gray-800 relative z-20 outline-none group
+                    ${isRecording ? 'bg-red-500 scale-110' : 'bg-white dark:bg-[#1F2937] hover:scale-105'} 
+                    ${globalProcessing ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer active:scale-95'}
+                `}
             >
-                {/* 녹음 중 퍼지는 파동 효과 */}
-                {isRecording && (
-                    <span className="absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-50 animate-ping"></span>
-                )}
+                {/* 호버 효과 (Stitch 디자인의 인셋 배경) */}
+                <div className={`absolute inset-0 rounded-full bg-[#FF6D00] transition-opacity duration-300 ${isRecording ? 'opacity-0' : 'opacity-0 group-hover:opacity-10'}`}></div>
 
                 {globalProcessing ? (
-                    <div className="w-8 h-8 border-4 border-orange-500 border-t-transparent rounded-full animate-spin" />
+                    <div className="w-8 h-8 border-4 border-[#FF6D00] border-t-transparent rounded-full animate-spin" />
                 ) : (
-                    <span className={`text-4xl ${isRecording ? 'text-white' : 'text-orange-500'}`}>
-                        {isRecording ? "■" : <MicIcon className="w-5 h-5 text-orange-500" />}
+                    <span className={`material-icons text-[28px] ${isRecording ? 'text-white' : 'text-[#FF6D00]'}`}>
+                        {isRecording ? "stop" : "mic"}
                     </span>
+                )}
+
+                {/* 녹음 중 퍼지는 애니메이션 (isRecording 시 Pulse 처리) */}
+                {isRecording && (
+                    <span className="absolute inset-0 rounded-full bg-red-400 opacity-50 animate-ping -z-10"></span>
                 )}
             </button>
         </div>

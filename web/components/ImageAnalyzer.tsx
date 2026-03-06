@@ -3,6 +3,7 @@
 
 import React, { useRef, useState, useEffect } from 'react';
 import { HfInference } from '@huggingface/inference';
+import { analyzeImageWithAI } from '@/lib/api/ai';
 
 const HF_TOKEN = process.env.HUGGING_FACE_TOKEN;
 
@@ -78,18 +79,7 @@ export default function ImageAnalyzer({ onAnalysisResult }: ImageAnalyzerProps) 
         setError(null);
 
         try {
-            // 내가 만든 서버 API로 요청 전송
-            const response = await fetch('/api/analyze', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ image: capturedImage }),
-            });
-
-            const data = await response.json();
-
-            if (!response.ok) {
-                throw new Error(data.error || "서버 응답 에러");
-            }
+            const data = await analyzeImageWithAI(capturedImage);
 
             // 성공 시 결과 표시
             setAnalysisResult(data.slice(0, 3));

@@ -1,9 +1,10 @@
-'use client';
+﻿'use client';
 
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { SparklesIcon, ArrowLeftIcon } from '@/components/icons';
-import { sendResultToCuchen } from '@/lib/apiClient';
+import { sendResultToCuchen } from '@/lib/api/cuchen';
+import { submitSurveyData } from '@/lib/api/survey';
 import { QUESTIONS } from '@/lib/constants';
 
 export default function SurveyPage() {
@@ -62,15 +63,7 @@ export default function SurveyPage() {
                 avoid_grains: finalAvoid ? [finalAvoid] : ['없음']
             };
 
-            const res = await fetch('/api/survey/submit', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(payload),
-            });
-
-            if (!res.ok) throw new Error('서버 통신 오류');
-
-            const data = await res.json();
+            const data = await submitSurveyData(payload);
             setResult(data);
 
             sendResultToCuchen({
@@ -117,115 +110,117 @@ export default function SurveyPage() {
     };
 
     return (
-        <div className="h-screen flex flex-col bg-brand-primary text-brand-text relative overflow-hidden">
-
-            {/* 헤더 */}
-            <header className="flex-none p-4 border-b border-gray-200 shadow-sm flex items-center justify-between bg-brand-primary z-10">
-                <div className="flex items-center gap-3">
-                    <button onClick={handleGoHome} className="p-1 hover:bg-gray-100 rounded-full transition-colors">
-                        <ArrowLeftIcon className="w-6 h-6 text-gray-500" />
+        <div className="bg-[#F9FAFB] dark:bg-[#111827] text-[#111827] dark:text-[#F9FAFB] antialiased h-screen flex flex-col font-['Pretendard'] overflow-hidden">
+            <header className="sticky top-0 z-10 bg-white/90 dark:bg-[#111827]/90 backdrop-blur-md border-b border-[#E5E7EB] dark:border-[#374151]">
+                {/* 프로그레스 바: 설문 진행률 표시 (임시로 4/5 수준인 80% 적용) */}
+                <div className="h-1 w-full bg-[#E5E7EB] dark:bg-[#374151]">
+                    <div className="h-1 bg-[#FF6B00] w-4/5 rounded-r-full transition-all duration-300"></div>
+                </div>
+                <div className="flex items-center justify-between px-5 py-4">
+                    <button
+                        onClick={handleGoHome}
+                        className="p-2 -ml-2 text-[#111827] dark:text-[#F9FAFB] hover:bg-black/5 dark:hover:bg-white/5 rounded-full transition-colors"
+                    >
+                        <span className="material-symbols-outlined">arrow_back</span>
                     </button>
-                    <SparklesIcon className="w-6 h-6 text-brand-accent" />
-                    <h1 className="text-xl font-bold text-brand-text">
-                        {userName ? `${userName}님` : ''} 맞춤 잡곡 진단
-                    </h1>
+                    <div className="font-semibold text-lg">맞춤 잡곡 진단</div>
+                    <div className="w-10"></div>
                 </div>
             </header>
 
-            {/* 본문 */}
-            <div className="flex-1 overflow-y-auto p-4 pb-10 scroll-smooth">
+            <main className="flex-1 overflow-y-auto no-scrollbar px-5 pb-32">
                 <div className="max-w-2xl mx-auto">
                     {!result ? (
-                        <div className="space-y-6 animate-fade-in">
-                            {QUESTIONS.map((q) => (
-                                <div key={q.id} className="bg-brand-secondary border border-gray-200 p-5 rounded-xl shadow-sm">
-                                    <label className="block text-sm font-bold mb-3 text-brand-text">
-                                        <span className="text-brand-accent mr-1">Q.</span>
-                                        {q.label}
-                                    </label>
-
-                                    <div className="grid grid-cols-2 gap-2">
-                                        {q.options.map((opt) => (
-                                            <button
-                                                key={opt}
-                                                onClick={() => handleChange(q.id, opt)}
-                                                className={`p-3 rounded-lg text-sm font-medium transition-all duration-200 border ${formData[q.id] === opt
-                                                    ? 'bg-brand-accent border-brand-accent text-white shadow-md'
-                                                    : 'bg-white border-gray-200 text-gray-600 hover:bg-gray-50 hover:text-gray-900'
-                                                    }`}
-                                            >
-                                                {opt}
-                                            </button>
-                                        ))}
-                                    </div>
-
-                                    {q.id === 'avoid_grains' && formData['avoid_grains'] === '기입' && (
-                                        <div className="mt-3 animate-fade-in">
-                                            <input
-                                                type="text"
-                                                value={customAvoid}
-                                                onChange={(e) => setCustomAvoid(e.target.value)}
-                                                placeholder="기피하는 곡물을 직접 입력해주세요"
-                                                className="w-full p-3 rounded-lg bg-white border border-gray-300 text-brand-text placeholder-gray-400 focus:outline-none focus:border-brand-accent transition-colors"
-                                            />
-                                        </div>
-                                    )}
+                        <>
+                            <div className="mt-8 mb-10">
+                                <div className="inline-flex items-center justify-center bg-orange-100 dark:bg-orange-900/30 text-[#FF6B00] px-3 py-1 rounded-full text-sm font-semibold mb-4">
+                                    <span>AI 진단</span>
                                 </div>
-                            ))}
-
-                            <div className="mt-12 pt-4">
-                                <button
-                                    onClick={handleSubmit}
-                                    disabled={loading}
-                                    className={`w-full py-4 rounded-xl font-bold text-lg transition-colors shadow-lg flex justify-center items-center gap-2
-                                        ${loading
-                                            ? 'bg-gray-200 text-gray-400 cursor-not-allowed'
-                                            : 'bg-brand-accent text-white hover:bg-brand-accent-hover'
-                                        }`}
-                                >
-                                    {loading ? '분석 중...' : '결과 보기'}
-                                </button>
+                                <h1 className="text-2xl font-bold leading-tight mb-2">
+                                    {userName ? `${userName}님,` : ''} 어떤 효과를 기대하시나요?
+                                </h1>
+                                <p className="text-[#6B7280] dark:text-[#9CA3AF] text-base">원하시는 건강 목표와 식감을 선택해주세요.</p>
                             </div>
-                        </div>
+
+                            <div className="space-y-8 animate-fade-in">
+                                {QUESTIONS.map((q, idx) => (
+                                    <div key={q.id}>
+                                        <div className="flex items-center gap-2 mb-4">
+                                            <span className="text-[#FF6B00] font-bold">Q.{idx + 1}</span>
+                                            <h3 className="font-bold text-lg">{q.label}</h3>
+                                        </div>
+                                        <div className="grid grid-cols-2 gap-3">
+                                            {q.options.map((opt) => (
+                                                <label key={opt} className="cursor-pointer">
+                                                    <input
+                                                        type="radio"
+                                                        name={q.id}
+                                                        checked={formData[q.id] === opt}
+                                                        onChange={() => handleChange(q.id, opt)}
+                                                        className="peer sr-only"
+                                                    />
+                                                    <div className="h-full flex flex-col items-center justify-center p-5 rounded-2xl bg-white dark:bg-[#1F2937] border border-[#E5E7EB] dark:border-[#374151] shadow-sm peer-checked:border-[#FF6B00] peer-checked:border-2 peer-checked:text-[#FF6B00] hover:bg-orange-50 dark:hover:bg-orange-900/10 transition-colors text-center">
+                                                        <span className={`font-semibold ${formData[q.id] === opt ? 'text-[#FF6B00]' : 'text-gray-700 dark:text-gray-200'}`}>
+                                                            {opt}
+                                                        </span>
+                                                    </div>
+                                                </label>
+                                            ))}
+                                        </div>
+                                        {q.id === 'avoid_grains' && formData['avoid_grains'] === '기입' && (
+                                            <div className="mt-3 animate-fade-in">
+                                                <input
+                                                    type="text"
+                                                    value={customAvoid}
+                                                    onChange={(e) => setCustomAvoid(e.target.value)}
+                                                    placeholder="직접 입력해주세요"
+                                                    className="w-full p-4 rounded-xl bg-white dark:bg-[#1F2937] border border-[#E5E7EB] dark:border-[#374151] text-[#111827] dark:text-[#F9FAFB] focus:outline-none focus:border-[#FF6B00] transition-colors"
+                                                />
+                                            </div>
+                                        )}
+                                    </div>
+                                ))}
+                            </div>
+                        </>
                     ) : (
-                        <div className="animate-fade-in space-y-6 pb-10">
-                            <div className="bg-white border border-gray-200 p-6 rounded-xl shadow-xl">
-                                <h2 className="text-xl font-bold mb-4 text-brand-accent">추천 결과</h2>
-                                <div className="bg-brand-secondary p-4 rounded-xl border border-gray-100">
-                                    <h3 className="font-bold mb-3 text-brand-text">추천 블렌드</h3>
+                        <div className="animate-fade-in space-y-6 pb-20 mt-8">
+                            <div className="bg-white dark:bg-[#1F2937] border border-[#E5E7EB] dark:border-[#374151] p-6 rounded-2xl shadow-sm">
+                                <h2 className="text-xl font-bold mb-4 text-[#FF6B00]">추천 결과</h2>
+                                <div className="bg-gray-50 dark:bg-gray-800 p-4 rounded-xl border border-gray-100 dark:border-gray-700">
+                                    <h3 className="font-bold mb-3">추천 블렌드</h3>
                                     <ul className="space-y-2">
                                         {result?.blend?.map((item: any, idx: number) => (
-                                            <li key={idx} className="flex justify-between items-center bg-white p-3 rounded border border-gray-200 shadow-sm">
-                                                <span className="text-gray-700 font-medium">{item.곡물}</span>
-                                                <span className="font-bold text-brand-accent">{item.비율}%</span>
+                                            <li key={idx} className="flex justify-between items-center bg-white dark:bg-[#1F2937] p-3 rounded-lg border border-gray-200 dark:border-gray-700">
+                                                <span className="font-medium">{item.곡물}</span>
+                                                <span className="font-bold text-[#FF6B00]">{item.비율}%</span>
                                             </li>
                                         ))}
                                     </ul>
                                 </div>
                             </div>
 
-                            <div className="bg-white border border-gray-200 p-6 rounded-xl shadow-xl">
-                                <h3 className="font-bold mb-3 text-brand-text">추천 이유</h3>
+                            <div className="bg-white dark:bg-[#1F2937] border border-[#E5E7EB] dark:border-[#374151] p-6 rounded-2xl shadow-sm">
+                                <h3 className="font-bold mb-3">추천 이유</h3>
                                 <ul className="space-y-3">
                                     {result?.reasons?.map((r: string, idx: number) => (
-                                        <li key={idx} className="flex gap-3 text-gray-600 text-sm leading-relaxed bg-brand-secondary p-3 rounded-lg border border-gray-100">
-                                            <span className="text-brand-accent mt-0.5 font-bold">•</span>
+                                        <li key={idx} className="flex gap-3 text-sm leading-relaxed bg-gray-50 dark:bg-gray-800 p-3 rounded-xl border border-gray-100 dark:border-gray-700">
+                                            <span className="text-[#FF6B00] font-bold">•</span>
                                             {r}
                                         </li>
                                     ))}
                                 </ul>
                             </div>
 
-                            <div className="grid grid-cols-2 gap-3 mt-4">
+                            <div className="grid grid-cols-2 gap-3 mt-4 pb-10">
                                 <button
                                     onClick={handleRestart}
-                                    className="w-full py-3 border border-gray-300 text-gray-500 rounded-xl font-bold hover:bg-gray-50 transition-colors"
+                                    className="w-full py-4 border border-[#E5E7EB] dark:border-[#374151] text-gray-500 dark:text-gray-400 rounded-xl font-bold hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
                                 >
                                     ↺ 다시 하기
                                 </button>
                                 <button
                                     onClick={goBackToCuchen}
-                                    className="w-full py-3 bg-brand-accent text-white rounded-xl font-bold hover:bg-brand-accent-hover transition-colors shadow-lg"
+                                    className="w-full py-4 bg-[#FF6B00] text-white rounded-xl font-bold hover:bg-orange-600 transition-colors shadow-lg shadow-orange-500/20"
                                 >
                                     취사하기
                                 </button>
@@ -233,7 +228,19 @@ export default function SurveyPage() {
                         </div>
                     )}
                 </div>
-            </div>
+            </main>
+
+            {!result && (
+                <div className="fixed bottom-0 left-0 right-0 p-5 bg-gradient-to-t from-white via-white to-transparent dark:from-[#111827] dark:via-[#111827] dark:to-transparent z-20">
+                    <button
+                        onClick={handleSubmit}
+                        disabled={loading}
+                        className="w-full bg-[#FF6B00] hover:bg-orange-600 text-white font-bold text-lg py-4 px-6 rounded-xl shadow-lg shadow-orange-500/30 transition-transform active:scale-95 flex items-center justify-center gap-2"
+                    >
+                        {loading ? '분석 중...' : '결과 보기'}
+                    </button>
+                </div>
+            )}
         </div>
     );
 }

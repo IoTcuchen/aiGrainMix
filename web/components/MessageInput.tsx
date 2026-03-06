@@ -45,54 +45,55 @@ const MessageInput: React.FC<MessageInputProps> = ({
   // 추천 완료 시 버튼도 중앙 정렬
   if (isComplete) {
     return (
-      <div className="flex justify-center w-full">
+      <div className="flex justify-center w-full pb-4">
         <button
           onClick={onRestart}
-          className="flex items-center gap-2 px-6 py-3 bg-user-bubble text-white font-semibold rounded-lg hover:bg-opacity-80 transition-colors shadow-lg"
+          className="flex items-center gap-2 px-6 py-3 bg-[#FF6B00] text-white font-semibold rounded-full hover:bg-opacity-90 transition-colors shadow-lg"
         >
-          <RefreshCwIcon className="w-5 h-5" />
+          <span className="material-symbols-outlined">refresh</span>
           새로운 추천받기
         </button>
       </div>
     );
   }
 
-  // [수정] 외곽 div(배경, 테두리, 패딩) 제거 -> 부모 컴포넌트가 레이아웃 제어
   return (
-    <form onSubmit={handleSubmit} className="w-full flex gap-2 items-center relative">
-      <div className="relative flex-1">
-        <input
-          type="text"
+    <form onSubmit={handleSubmit} className="max-w-3xl mx-auto w-full relative flex items-end gap-2 p-4">
+      <div className="relative flex-1 bg-[#F2F4F6] dark:bg-[#2C2C2C] rounded-[24px] border border-transparent focus-within:border-[#E5E8EB] dark:focus-within:border-[#3F3F3F] transition-colors flex items-center min-h-[56px] px-4">
+        <textarea
           value={input}
           onChange={(e) => setInput(e.target.value)}
           placeholder={isListening ? '듣고 있어요...' : '잡곡 추천을 위해 질문해주세요...'}
-          className={`w-full border rounded-full px-4 py-3 pr-12 focus:outline-none focus:ring-2 transition-all shadow-md ${isListening
-              ? 'border-brand-accent ring-2 ring-brand-accent bg-brand-accent/5'
-              : 'border-gray-600 bg-brand-secondary text-brand-text focus:ring-brand-accent focus:border-brand-accent'
-            }`}
+          className="w-full bg-transparent border-none focus:ring-0 p-0 text-[15px] text-[#191F28] dark:text-white placeholder:text-[#8B95A1] dark:placeholder:text-[#A0A0A0] resize-none max-h-[120px] py-4"
+          rows={1}
+          style={{ scrollbarWidth: 'none' }}
           disabled={isLoading}
+          onKeyDown={(e) => {
+            if (e.key === 'Enter' && !e.shiftKey) {
+              e.preventDefault();
+              handleSubmit(e);
+            }
+          }}
         />
-
         <button
           type="button"
           onClick={handleMicClick}
           disabled={!isSupported || isLoading}
-          className={`absolute right-3 top-1/2 -translate-y-1/2 p-1.5 rounded-full transition-colors ${isListening
-              ? 'bg-red-500/10 text-red-500 animate-pulse'
-              : 'text-gray-400 hover:text-brand-accent hover:bg-gray-700/50'
+          className={`p-2 -mr-2 transition-colors flex-none ${isListening
+            ? 'text-red-500 animate-pulse'
+            : 'text-[#8B95A1] dark:text-[#A0A0A0] hover:text-[#FF6B00]'
             } ${!isSupported ? 'opacity-30 cursor-not-allowed' : ''}`}
-          title={isSupported ? "음성으로 입력" : "음성 인식을 지원하지 않는 브라우저입니다"}
         >
-          <MicIcon className="w-5 h-5" />
+          <span className="material-symbols-outlined text-xl">mic</span>
         </button>
       </div>
 
       <button
         type="submit"
         disabled={!input.trim() || isLoading}
-        className="bg-brand-accent text-white p-3 rounded-full hover:bg-opacity-90 disabled:opacity-50 disabled:cursor-not-allowed transition-all shadow-md flex-shrink-0"
+        className="flex-none w-12 h-[56px] rounded-[24px] bg-[#FF6B00] flex items-center justify-center text-white shadow-md shadow-[#FF6B00]/20 hover:bg-orange-600 transition-colors active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed"
       >
-        <SendIcon className="w-5 h-5" />
+        <span className="material-symbols-outlined text-xl" style={{ fontVariationSettings: "'FILL' 1" }}>send</span>
       </button>
     </form>
   );

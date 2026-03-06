@@ -1,4 +1,4 @@
-// app/chat/page.tsx
+﻿// app/chat/page.tsx
 'use client';
 
 import React, { useState, useEffect, Suspense } from 'react';
@@ -7,7 +7,7 @@ import ChatWindow from '@/components/ChatWindow';
 import MessageInput from '@/components/MessageInput';
 import QuickReplyButtons from '@/components/QuickReplyButtons';
 import type { ChatMessage, AppState, DebugLogEntry } from '@/lib/types';
-import { sendChatMessage } from '@/lib/apiClient';
+import { sendChatMessage } from '@/lib/api/chat';
 import { SparklesIcon, ArrowLeftIcon } from '@/components/icons';
 
 const INITIAL_APP_STATE: AppState = {
@@ -25,8 +25,8 @@ function ChatContent() {
   const searchParams = useSearchParams();
 
   // URL 파라미터 추출 (예: ?modelKey=123&deviceKey=456)
-  const modelKey = localStorage.getItem('modelKey');
-  const deviceKey = localStorage.getItem('deviceKey');
+  const modelKey = typeof window !== 'undefined' ? localStorage.getItem('modelKey') : null;
+  const deviceKey = typeof window !== 'undefined' ? localStorage.getItem('deviceKey') : null;
 
   const [userName, setUserName] = useState<string | null>(null);
   const [messages, setMessages] = useState<ChatMessage[]>([]);
@@ -121,24 +121,27 @@ function ChatContent() {
   };
 
   return (
-    <div className="flex flex-col h-screen bg-brand-primary text-brand-text relative overflow-hidden">
+    <div className="flex flex-col h-screen bg-white dark:bg-[#121212] text-[#191F28] dark:text-white antialiased transition-colors duration-200 font-['Noto Sans KR']">
       {/* 헤더 */}
-      <header className="flex-none p-4 border-b border-gray-200 shadow-sm flex items-center justify-between bg-brand-primary z-10">
+      <header className="flex-none px-5 py-4 flex items-center justify-between border-b border-[#E5E8EB] dark:border-[#3F3F3F] bg-white dark:bg-[#121212] sticky top-0 z-10 font-['Noto Sans KR']">
         <div className="flex items-center gap-3">
-          <button onClick={handleGoHome} className="p-1 hover:bg-gray-100 rounded-full transition-colors" aria-label="홈으로 이동">
-            <ArrowLeftIcon className="w-6 h-6 text-gray-500" />
+          <button
+            onClick={handleGoHome}
+            className="p-2 -ml-2 rounded-full hover:bg-[#F2F4F6] dark:hover:bg-[#2C2C2C] transition-colors text-[#191F28] dark:text-white"
+          >
+            <span className="material-symbols-outlined text-2xl">arrow_back</span>
           </button>
-          <SparklesIcon className="w-6 h-6 text-brand-accent" />
-          <div>
-            <h1 className="text-xl font-bold text-brand-text">AI 잡곡 추천 챗봇</h1>
-            {userName && <p className="text-xs text-brand-accent font-medium">접속자: {userName}</p>}
-          </div>
+          <h1 className="text-xl font-bold flex items-center gap-2">
+            <span className="material-symbols-outlined text-[#FF6B00] text-xl" style={{ fontVariationSettings: "'FILL' 1" }}>auto_awesome</span>
+            AI 잡곡 추천 챗봇
+          </h1>
         </div>
         <button
           onClick={handleRestart}
-          className="text-xs px-3 py-1.5 rounded border border-gray-300 text-gray-500 hover:bg-gray-100 hover:text-gray-900 transition-colors flex items-center gap-1"
+          className="flex items-center gap-1 px-3 py-1.5 rounded-full border border-[#E5E8EB] dark:border-[#3F3F3F] text-sm font-medium text-[#8B95A1] dark:text-[#A0A0A0] hover:bg-[#F2F4F6] dark:hover:bg-[#2C2C2C] transition-colors"
         >
-          <span>↺</span> 처음으로
+          <span className="material-symbols-outlined text-sm">refresh</span>
+          처음으로
         </button>
       </header>
 

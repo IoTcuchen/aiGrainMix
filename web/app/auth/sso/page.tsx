@@ -4,6 +4,7 @@ import { useEffect, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { SparklesIcon } from '@/components/icons';
 import { logToServer } from '@/app/actions';
+import { exchangeSsoCode } from '@/lib/api/auth';
 
 // useSearchParams를 사용하는 컴포넌트는 Suspense로 감싸야 빌드 에러가 없습니다.
 function SSOHandler() {
@@ -25,13 +26,7 @@ function SSOHandler() {
     // 2. 서버에 코드를 주고 진짜 토큰/정보로 교환
     const performExchange = async () => {
       try {
-        const res = await fetch('/api/auth/exchange', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ code })
-        });
-
-        const result = await res.json();
+        const result = await exchangeSsoCode(code);
 
         if (result.success) {
           console.log("SSO Exchange Success:", result);
