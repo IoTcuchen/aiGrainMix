@@ -8,7 +8,8 @@ import {
   SparklesIcon,
   TagIcon,
   ArrowLeftIcon,
-  MicIcon
+  MicIcon,
+  CameraIcon
 } from '@/components/icons';
 
 export default function Home() {
@@ -135,6 +136,23 @@ export default function Home() {
             </div>
             <div className="bg-green-50 p-2 rounded-full group-hover:bg-green-500 transition-colors">
               <ArrowRightIcon className="w-6 h-6 text-green-500 group-hover:text-white transition-colors" />
+            </div>
+          </Link>
+
+          {/* 4. 잡곡 패키지 분석 */}
+          <Link
+            href="/ocr"
+            className="group relative overflow-hidden bg-white border border-gray-200 hover:border-purple-500 rounded-2xl p-6 transition-all hover:shadow-lg text-left flex items-center justify-between"
+          >
+            <div>
+              <h3 className="text-xl font-bold text-brand-text mb-1 flex items-center gap-2">
+                <CameraIcon className="w-5 h-5 text-purple-500" />
+                잡곡 패키지 분석
+              </h3>
+              <p className="text-sm text-gray-500">패키지를 촬영해서 들어있는 잡곡을 판별하기</p>
+            </div>
+            <div className="bg-purple-50 p-2 rounded-full group-hover:bg-purple-500 transition-colors">
+              <ArrowRightIcon className="w-6 h-6 text-purple-500 group-hover:text-white transition-colors" />
             </div>
           </Link>
         </div>
