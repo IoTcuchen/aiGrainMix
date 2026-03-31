@@ -53,8 +53,7 @@ export default function UsageDashboard() {
         let e = localStorage.getItem('dashEnd');
         if (!s || !e) {
             const today = new Date();
-            const startObj = new Date(today);
-            startObj.setDate(today.getDate() - 90);
+            const startObj = new Date(today.getFullYear(), 0, 1);
             s = new Date(startObj.getTime() - (startObj.getTimezoneOffset() * 60000)).toISOString().split('T')[0];
             e = new Date(today.getTime() - (today.getTimezoneOffset() * 60000)).toISOString().split('T')[0];
             localStorage.setItem('dashStart', s);
