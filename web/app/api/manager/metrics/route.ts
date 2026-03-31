@@ -8,7 +8,7 @@ interface CacheItem {
     timestamp: number;
 }
 const cache = new Map<string, CacheItem>();
-const CACHE_TTL_MS = 1; // 1 ms to force refresh
+const CACHE_TTL_MS = 5 * 60 * 1000; // 5 minutes cache
 
 export async function GET(request: Request) {
     const { searchParams } = new URL(request.url);

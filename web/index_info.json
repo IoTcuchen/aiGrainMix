@@ -1,0 +1,139 @@
+=== INDEXES FOR SC_COOKER_LOG ===
+[
+  {
+    "Table": "SC_COOKER_LOG",
+    "Column": "REG_DT",
+    "Key_name": "idx_reg_dt",
+    "Seq_in_index": 1,
+    "Cardinality": 1552920
+  }
+]
+
+=== INDEXES FOR SC_DEVICE_STATUS ===
+[
+  {
+    "Table": "SC_DEVICE_STATUS",
+    "Column": "CK_KEY",
+    "Key_name": "PRIMARY",
+    "Seq_in_index": 1,
+    "Cardinality": 8840
+  },
+  {
+    "Table": "SC_DEVICE_STATUS",
+    "Column": "DEVICE_KEY",
+    "Key_name": "DEVICE_KEY_2",
+    "Seq_in_index": 1,
+    "Cardinality": 8857
+  },
+  {
+    "Table": "SC_DEVICE_STATUS",
+    "Column": "DEVICE_KEY",
+    "Key_name": "DEVICE_KEY",
+    "Seq_in_index": 1,
+    "Cardinality": 8857
+  },
+  {
+    "Table": "SC_DEVICE_STATUS",
+    "Column": "SVC_KEY",
+    "Key_name": "DEVICE_KEY",
+    "Seq_in_index": 2,
+    "Cardinality": 8857
+  },
+  {
+    "Table": "SC_DEVICE_STATUS",
+    "Column": "MODEL_KEY",
+    "Key_name": "MODEL_TYPE",
+    "Seq_in_index": 1,
+    "Cardinality": 10
+  }
+]
+
+=== INDEXES FOR SC_DEVICE_WARM_LOG ===
+[
+  {
+    "Table": "SC_DEVICE_WARM_LOG",
+    "Column": "DWL_KEY",
+    "Key_name": "PRIMARY",
+    "Seq_in_index": 1,
+    "Cardinality": 1103342
+  },
+  {
+    "Table": "SC_DEVICE_WARM_LOG",
+    "Column": "REG_DT",
+    "Key_name": "idx_warm_reg_dt",
+    "Seq_in_index": 1,
+    "Cardinality": 1110040
+  }
+]
+
+=== INDEXES FOR SC_DEVICE_RESV_TIME ===
+[
+  {
+    "Table": "SC_DEVICE_RESV_TIME",
+    "Column": "SDRT_KEY",
+    "Key_name": "PRIMARY",
+    "Seq_in_index": 1,
+    "Cardinality": 56421
+  },
+  {
+    "Table": "SC_DEVICE_RESV_TIME",
+    "Column": "DEVICE_KEY",
+    "Key_name": "PRIMARY",
+    "Seq_in_index": 2,
+    "Cardinality": 55115
+  },
+  {
+    "Table": "SC_DEVICE_RESV_TIME",
+    "Column": "SVC_KEY",
+    "Key_name": "PRIMARY",
+    "Seq_in_index": 3,
+    "Cardinality": 56421
+  },
+  {
+    "Table": "SC_DEVICE_RESV_TIME",
+    "Column": "MODEL_KEY",
+    "Key_name": "PRIMARY",
+    "Seq_in_index": 4,
+    "Cardinality": 55872
+  },
+  {
+    "Table": "SC_DEVICE_RESV_TIME",
+    "Column": "DEVICE_KEY",
+    "Key_name": "DEVICE_KEY",
+    "Seq_in_index": 1,
+    "Cardinality": 1848
+  },
+  {
+    "Table": "SC_DEVICE_RESV_TIME",
+    "Column": "SVC_KEY",
+    "Key_name": "DEVICE_KEY",
+    "Seq_in_index": 2,
+    "Cardinality": 2310
+  },
+  {
+    "Table": "SC_DEVICE_RESV_TIME",
+    "Column": "MODEL_KEY",
+    "Key_name": "MODEL_KEY",
+    "Seq_in_index": 1,
+    "Cardinality": 10
+  },
+  {
+    "Table": "SC_DEVICE_RESV_TIME",
+    "Column": "REG_DT",
+    "Key_name": "idx_resv_reg_dt",
+    "Seq_in_index": 1,
+    "Cardinality": 23198
+  }
+]
+
+=== INDEXES FOR SC_DEVICE_COOK_LOG ===
+[
+  {
+    "Table": "SC_DEVICE_COOK_LOG",
+    "Column": "DCL_KEY",
+    "Key_name": "PRIMARY",
+    "Seq_in_index": 1,
+    "Cardinality": 925134
+  }
+]
+

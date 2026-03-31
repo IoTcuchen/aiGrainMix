@@ -1,57 +1,37 @@
-const fs = require('fs');
 const mysql = require('mysql2/promise');
 
-try {
-    const envFileData = fs.readFileSync('.env', 'utf8');
-    envFileData.split('\n').forEach(line => {
-        const parts = line.split('=');
-        if (parts.length >= 2) {
-            const key = parts[0].trim();
-            const val = parts.slice(1).join('=').trim().replace(/^"|"$/g, '').replace(/^'|'$/g, '');
-            if (key) process.env[key] = val;
-        }
-    });
-} catch (e) { }
-
-async function applyIndexes() {
-    const pool = mysql.createPool({
-        host: process.env.DB_HOST,
-        user: process.env.DB_USER,
-        password: process.env.DB_PASSWORD,
-        database: process.env.DB_NAME,
-        port: process.env.DB_HOST === '127.0.0.1' ? 33306 : Number(process.env.DB_PORT) || 3306,
-    });
-
+async function main() {
+    let connection;
     try {
-        console.log("Adding idx_reg_dt on SC_COOKER_LOG...");
+        connection = await mysql.createConnection({
+            host: process.env.DB_HOST || '127.0.0.1',
+            user: process.env.DB_USER || 'admin',
+            password: process.env.DB_PASSWORD || 'lihomwifi!234',
+            database: process.env.DB_NAME || 'cuchenon',
+            port: Number(process.env.DB_PORT) || 33306
+        });
+
+        console.log("Adding missing indexes...");
+
         try {
-            await pool.execute("CREATE INDEX idx_reg_dt ON SC_COOKER_LOG(REG_DT)");
-            console.log("Success: SC_COOKER_LOG index added.");
+            await connection.execute('CREATE INDEX idx_status_reg_dt ON SC_DEVICE_STATUS(REG_DT)');
+            console.log("Created idx_status_reg_dt on SC_DEVICE_STATUS(REG_DT)");
         } catch (e) {
-            console.log("Skipping or Error:", e.message);
+            console.log("idx_status_reg_dt probably exists or error:", e.message);
         }
 
-        console.log("Adding idx_reg_dt on SC_DEVICE_WARM_LOG...");
         try {
-            await pool.execute("CREATE INDEX idx_warm_reg_dt ON SC_DEVICE_WARM_LOG(REG_DT)");
-            console.log("Success: SC_DEVICE_WARM_LOG index added.");
+            await connection.execute('CREATE INDEX idx_cook_log_day ON SC_DEVICE_COOK_LOG(DAY)');
+            console.log("Created idx_cook_log_day on SC_DEVICE_COOK_LOG(DAY)");
         } catch (e) {
-            console.log("Skipping or Error:", e.message);
+            console.log("idx_cook_log_day probably exists or error:", e.message);
         }
 
-        console.log("Adding idx_reg_dt on SC_DEVICE_RESV_TIME...");
-        try {
-            await pool.execute("CREATE INDEX idx_resv_reg_dt ON SC_DEVICE_RESV_TIME(REG_DT)");
-            console.log("Success: SC_DEVICE_RESV_TIME index added.");
-        } catch (e) {
-            console.log("Skipping or Error:", e.message);
-        }
-
-    } catch (err) {
-        console.error(err);
-    } finally {
-        await pool.end();
+        console.log("Optimization complete.");
+        await connection.end();
+    } catch (e) {
+        console.error(e);
+        if (connection) await connection.end();
     }
 }
-
-applyIndexes().catch(console.error);
+main();
