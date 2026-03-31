@@ -123,16 +123,8 @@ export default function ModelsDashboard() {
                     </p>
                 </div>
 
-                <div className="flex flex-wrap items-center gap-3 bg-gray-50 dark:bg-gray-800/50 p-2 rounded-xl border border-gray-100 dark:border-gray-700">
-                    <div className="flex items-center gap-2 px-2 border-r border-gray-200 dark:border-gray-700 mr-2">
-                        <button
-                            onClick={handleAllTime}
-                            className="text-xs font-bold text-gray-500 hover:text-[#FF6B00] transition-colors"
-                        >
-                            전체
-                        </button>
-                    </div>
-                    <div className="flex items-center gap-2">
+                <div className="flex flex-wrap items-center gap-3">
+                    <div className="flex items-center bg-gray-50 dark:bg-gray-800 rounded-xl p-1 border border-gray-100 dark:border-gray-700">
                         <input
                             type="date"
                             value={startDate}

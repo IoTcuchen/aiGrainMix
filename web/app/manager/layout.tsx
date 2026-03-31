@@ -14,9 +14,10 @@ export default function ManagerLayout({
     const navItems = [
         { href: '/manager/cuchenon', icon: <LayoutDashboard size={20} />, label: '요약' },
         { href: '/manager/cuchenon/models', icon: <Cpu size={20} />, label: '기본 모델 현황' },
-        { href: '/manager/cuchenon/usage', icon: <PieChart size={20} />, label: '사용 패턴 통계' },
+        { href: '/manager/cuchenon/usage', icon: <TrendingUp size={20} />, label: '사용 패턴 통계' },
         { href: '/manager/cuchenon/smart', icon: <Smartphone size={20} />, label: '스마트 제어 분석' },
         { href: '/manager/cuchenon/journey', icon: <Activity size={20} />, label: '동작 Flow' },
+        // { href: '/manager/cuchenon/report', icon: <FileText size={20} />, label: 'AI 분석 리포트' },
         // { href: '/manager/cuchenon/insights', icon: <TrendingUp size={20} />, label: '고급 고객 인사이트' },
     ];
 
