@@ -36,7 +36,7 @@ aiGrainMix는 사용자의 건강 상태와 식감 선호도를 분석하여 연
 - **환경**: 백엔드에서 OpenAI API 키를 위한 `.env.local` 로드
 
 ## 의존성
-- **프론트엔드**: 캐싱/지속성을 위한 `ai`, `openai`, `firebase`, `@vercel/kv`
+- **프론트엔드**: 캐싱/지속성을 위한 `ai`, `openai`, `firebase`
 - **백엔드**: `langchain-openai`, `langgraph`, `fastapi`, `uvicorn`
 - **외부 서비스**: 추천용 OpenAI, 인증/데이터용 Firebase, 배포용 Vercel</content>
 <parameter name="filePath">d:\dev\ai_grain\aiGrainMix\.github\copilot-instructions.md

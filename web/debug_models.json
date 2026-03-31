@@ -1,0 +1,4838 @@
+{
+  "connections": [
+    {
+      "modelName": "PS06_LCD",
+      "count": 5617
+    },
+    {
+      "modelName": "PS06_FND",
+      "count": 1195
+    },
+    {
+      "modelName": "PR03_LCD_BEST",
+      "count": 930
+    },
+    {
+      "modelName": "PR03_FND",
+      "count": 863
+    },
+    {
+      "modelName": "PS06_FND_ST",
+      "count": 840
+    },
+    {
+      "modelName": "PS06_FND_DUEL",
+      "count": 677
+    },
+    {
+      "modelName": "PR03_FND_ST",
+      "count": 631
+    },
+    {
+      "modelName": "HEN-ID6A1WLA",
+      "count": 122
+    },
+    {
+      "modelName": "CEN-ID6A0WSA",
+      "count": 83
+    },
+    {
+      "modelName": "PR03_LCD",
+      "count": 55
+    }
+  ],
+  "cooks": [
+    {
+      "modelName": "PS06_LCD",
+      "totalCooks": 673591,
+      "appCooks": "26482"
+    },
+    {
+      "modelName": "PS06_FND",
+      "totalCooks": 143556,
+      "appCooks": "7333"
+    },
+    {
+      "modelName": "PR03_LCD_BEST",
+      "totalCooks": 118307,
+      "appCooks": "9327"
+    },
+    {
+      "modelName": "PR03_FND",
+      "totalCooks": 100325,
+      "appCooks": "9474"
+    },
+    {
+      "modelName": "PR03_FND_ST",
+      "totalCooks": 97197,
+      "appCooks": "9226"
+    },
+    {
+      "modelName": "PS06_FND_ST",
+      "totalCooks": 94551,
+      "appCooks": "7404"
+    },
+    {
+      "modelName": "PS06_FND_DUEL",
+      "totalCooks": 52920,
+      "appCooks": "6482"
+    },
+    {
+      "modelName": "PR03_LCD",
+      "totalCooks": 702,
+      "appCooks": "19"
+    }
+  ],
+  "servings": [
+    {
+      "modelName": "PR03_FND",
+      "menu": "가마솥밥",
+      "servingSize": 1,
+      "count": 182
+    },
+    {
+      "modelName": "PR03_FND",
+      "menu": "가마솥밥",
+      "servingSize": 2,
+      "count": 8
+    },
+    {
+      "modelName": "PR03_FND",
+      "menu": "가마솥밥",
+      "servingSize": 4,
+      "count": 60
+    },
+    {
+      "modelName": "PR03_FND",
+      "menu": "건강콩밥",
+      "servingSize": 1,
+      "count": 13
+    },
+    {
+      "modelName": "PR03_FND",
+      "menu": "건강콩밥",
+      "servingSize": 4,
+      "count": 2
+    },
+    {
+      "modelName": "PR03_FND",
+      "menu": "고슬백미",
+      "servingSize": 1,
+      "count": 6838
+    },
+    {
+      "modelName": "PR03_FND",
+      "menu": "고슬백미",
+      "servingSize": 2,
+      "count": 38
+    },
+    {
+      "modelName": "PR03_FND",
+      "menu": "고슬백미",
+      "servingSize": 4,
+      "count": 8272
+    },
+    {
+      "modelName": "PR03_FND",
+      "menu": "골든퀸3호",
+      "servingSize": 1,
+      "count": 14
+    },
+    {
+      "modelName": "PR03_FND",
+      "menu": "구운달걀",
+      "servingSize": 4,
+      "count": 37
+    },
+    {
+      "modelName": "PR03_FND",
+      "menu": "귀리밥",
+      "servingSize": 1,
+      "count": 5
+    },
+    {
+      "modelName": "PR03_FND",
+      "menu": "귀리밥",
+      "servingSize": 4,
+      "count": 13
+    },
+    {
+      "modelName": "PR03_FND",
+      "menu": "날씬잡곡",
+      "servingSize": 4,
+      "count": 1
+    },
+    {
+      "modelName": "PR03_FND",
+      "menu": "냉동보관백미",
+      "servingSize": 1,
+      "count": 397
+    },
+    {
+      "modelName": "PR03_FND",
+      "menu": "냉동보관백미",
+      "servingSize": 4,
+      "count": 108
+    },
+    {
+      "modelName": "PR03_FND",
+      "menu": "냉동보관잡곡",
+      "servingSize": 1,
+      "count": 197
+    },
+    {
+      "modelName": "PR03_FND",
+      "menu": "냉동보관잡곡",
+      "servingSize": 2,
+      "count": 14
+    },
+    {
+      "modelName": "PR03_FND",
+      "menu": "냉동보관잡곡",
+      "servingSize": 4,
+      "count": 64
+    },
+    {
+      "modelName": "PR03_FND",
+      "menu": "누룽지",
+      "servingSize": 1,
+      "count": 14
+    },
+    {
+      "modelName": "PR03_FND",
+      "menu": "누룽지",
+      "servingSize": 2,
+      "count": 1
+    },
+    {
+      "modelName": "PR03_FND",
+      "menu": "누룽지",
+      "servingSize": 4,
+      "count": 12
+    },
+    {
+      "modelName": "PR03_FND",
+      "menu": "렌틸콩밥",
+      "servingSize": 1,
+      "count": 1
+    },
+    {
+      "modelName": "PR03_FND",
+      "menu": "렌틸콩밥",
+      "servingSize": 4,
+      "count": 1
+    },
+    {
+      "modelName": "PR03_FND",
+      "menu": "만능찜",
+      "servingSize": 1,
+      "count": 1
+    },
+    {
+      "modelName": "PR03_FND",
+      "menu": "만능찜",
+      "servingSize": 4,
+      "count": 59
+    },
+    {
+      "modelName": "PR03_FND",
+      "menu": "백미쾌속",
+      "servingSize": 1,
+      "count": 2563
+    },
+    {
+      "modelName": "PR03_FND",
+      "menu": "백미쾌속",
+      "servingSize": 2,
+      "count": 899
+    },
+    {
+      "modelName": "PR03_FND",
+      "menu": "백미쾌속",
+      "servingSize": 3,
+      "count": 400
+    },
+    {
+      "modelName": "PR03_FND",
+      "menu": "백미쾌속",
+      "servingSize": 4,
+      "count": 3496
+    },
+    {
+      "modelName": "PR03_FND",
+      "menu": "병아리콩밥",
+      "servingSize": 1,
+      "count": 1
+    },
+    {
+      "modelName": "PR03_FND",
+      "menu": "병아리콩밥",
+      "servingSize": 4,
+      "count": 6
+    },
+    {
+      "modelName": "PR03_FND",
+      "menu": "보리잡곡밥",
+      "servingSize": 1,
+      "count": 317
+    },
+    {
+      "modelName": "PR03_FND",
+      "menu": "보리잡곡밥",
+      "servingSize": 4,
+      "count": 77
+    },
+    {
+      "modelName": "PR03_FND",
+      "menu": "삶은 달걀",
+      "servingSize": 4,
+      "count": 1
+    },
+    {
+      "modelName": "PR03_FND",
+      "menu": "삼광",
+      "servingSize": 1,
+      "count": 7
+    },
+    {
+      "modelName": "PR03_FND",
+      "menu": "삼광",
+      "servingSize": 4,
+      "count": 12
+    },
+    {
+      "modelName": "PR03_FND",
+      "menu": "새청무",
+      "servingSize": 1,
+      "count": 1
+    },
+    {
+      "modelName": "PR03_FND",
+      "menu": "새청무",
+      "servingSize": 4,
+      "count": 1
+    },
+    {
+      "modelName": "PR03_FND",
+      "menu": "슈퍼곡물밥",
+      "servingSize": 1,
+      "count": 37
+    },
+    {
+      "modelName": "PR03_FND",
+      "menu": "슈퍼곡물밥",
+      "servingSize": 4,
+      "count": 26
+    },
+    {
+      "modelName": "PR03_FND",
+      "menu": "신동진",
+      "servingSize": 1,
+      "count": 6
+    },
+    {
+      "modelName": "PR03_FND",
+      "menu": "신동진",
+      "servingSize": 4,
+      "count": 19
+    },
+    {
+      "modelName": "PR03_FND",
+      "menu": "알찬미",
+      "servingSize": 1,
+      "count": 16
+    },
+    {
+      "modelName": "PR03_FND",
+      "menu": "알찬미",
+      "servingSize": 4,
+      "count": 7
+    },
+    {
+      "modelName": "PR03_FND",
+      "menu": "영양솥밥",
+      "servingSize": 1,
+      "count": 25
+    },
+    {
+      "modelName": "PR03_FND",
+      "menu": "영양솥밥",
+      "servingSize": 4,
+      "count": 45
+    },
+    {
+      "modelName": "PR03_FND",
+      "menu": "오대미",
+      "servingSize": 1,
+      "count": 13
+    },
+    {
+      "modelName": "PR03_FND",
+      "menu": "오대미",
+      "servingSize": 4,
+      "count": 16
+    },
+    {
+      "modelName": "PR03_FND",
+      "menu": "일품벼",
+      "servingSize": 4,
+      "count": 1
+    },
+    {
+      "modelName": "PR03_FND",
+      "menu": "잡곡쾌속",
+      "servingSize": 1,
+      "count": 468
+    },
+    {
+      "modelName": "PR03_FND",
+      "menu": "잡곡쾌속",
+      "servingSize": 2,
+      "count": 32
+    },
+    {
+      "modelName": "PR03_FND",
+      "menu": "잡곡쾌속",
+      "servingSize": 4,
+      "count": 599
+    },
+    {
+      "modelName": "PR03_FND",
+      "menu": "저당잡곡",
+      "servingSize": 1,
+      "count": 13
+    },
+    {
+      "modelName": "PR03_FND",
+      "menu": "저당잡곡",
+      "servingSize": 2,
+      "count": 2
+    },
+    {
+      "modelName": "PR03_FND",
+      "menu": "저당잡곡",
+      "servingSize": 4,
+      "count": 20
+    },
+    {
+      "modelName": "PR03_FND",
+      "menu": "찰진백미",
+      "servingSize": 1,
+      "count": 15816
+    },
+    {
+      "modelName": "PR03_FND",
+      "menu": "찰진백미",
+      "servingSize": 2,
+      "count": 308
+    },
+    {
+      "modelName": "PR03_FND",
+      "menu": "찰진백미",
+      "servingSize": 3,
+      "count": 4
+    },
+    {
+      "modelName": "PR03_FND",
+      "menu": "찰진백미",
+      "servingSize": 4,
+      "count": 18084
+    },
+    {
+      "modelName": "PR03_FND",
+      "menu": "카무트밥",
+      "servingSize": 1,
+      "count": 1
+    },
+    {
+      "modelName": "PR03_FND",
+      "menu": "카무트밥",
+      "servingSize": 4,
+      "count": 2
+    },
+    {
+      "modelName": "PR03_FND",
+      "menu": "퀴노아밥",
+      "servingSize": 1,
+      "count": 2
+    },
+    {
+      "modelName": "PR03_FND",
+      "menu": "튼튼잡곡",
+      "servingSize": 1,
+      "count": 1
+    },
+    {
+      "modelName": "PR03_FND",
+      "menu": "튼튼잡곡",
+      "servingSize": 4,
+      "count": 1
+    },
+    {
+      "modelName": "PR03_FND",
+      "menu": "해들",
+      "servingSize": 4,
+      "count": 2
+    },
+    {
+      "modelName": "PR03_FND",
+      "menu": "현미100",
+      "servingSize": 1,
+      "count": 2309
+    },
+    {
+      "modelName": "PR03_FND",
+      "menu": "현미100",
+      "servingSize": 4,
+      "count": 547
+    },
+    {
+      "modelName": "PR03_FND",
+      "menu": "혼합잡곡",
+      "servingSize": 1,
+      "count": 6378
+    },
+    {
+      "modelName": "PR03_FND",
+      "menu": "혼합잡곡",
+      "servingSize": 2,
+      "count": 77
+    },
+    {
+      "modelName": "PR03_FND",
+      "menu": "혼합잡곡",
+      "servingSize": 3,
+      "count": 1
+    },
+    {
+      "modelName": "PR03_FND",
+      "menu": "혼합잡곡",
+      "servingSize": 4,
+      "count": 1791
+    },
+    {
+      "modelName": "PR03_FND",
+      "menu": "활력잡곡",
+      "servingSize": 1,
+      "count": 1
+    },
+    {
+      "modelName": "PR03_FND",
+      "menu": "활력잡곡",
+      "servingSize": 4,
+      "count": 1
+    },
+    {
+      "modelName": "PR03_FND_ST",
+      "menu": "가마솥밥",
+      "servingSize": 1,
+      "count": 241
+    },
+    {
+      "modelName": "PR03_FND_ST",
+      "menu": "가마솥밥",
+      "servingSize": 2,
+      "count": 1
+    },
+    {
+      "modelName": "PR03_FND_ST",
+      "menu": "가마솥밥",
+      "servingSize": 4,
+      "count": 284
+    },
+    {
+      "modelName": "PR03_FND_ST",
+      "menu": "감자당근죽",
+      "servingSize": 4,
+      "count": 1
+    },
+    {
+      "modelName": "PR03_FND_ST",
+      "menu": "건강콩밥",
+      "servingSize": 1,
+      "count": 20
+    },
+    {
+      "modelName": "PR03_FND_ST",
+      "menu": "건강콩밥",
+      "servingSize": 2,
+      "count": 7
+    },
+    {
+      "modelName": "PR03_FND_ST",
+      "menu": "건강콩밥",
+      "servingSize": 4,
+      "count": 15
+    },
+    {
+      "modelName": "PR03_FND_ST",
+      "menu": "고슬백미",
+      "servingSize": 1,
+      "count": 6189
+    },
+    {
+      "modelName": "PR03_FND_ST",
+      "menu": "고슬백미",
+      "servingSize": 2,
+      "count": 3
+    },
+    {
+      "modelName": "PR03_FND_ST",
+      "menu": "고슬백미",
+      "servingSize": 4,
+      "count": 10231
+    },
+    {
+      "modelName": "PR03_FND_ST",
+      "menu": "곤약밥",
+      "servingSize": 1,
+      "count": 2
+    },
+    {
+      "modelName": "PR03_FND_ST",
+      "menu": "곤약밥",
+      "servingSize": 2,
+      "count": 3
+    },
+    {
+      "modelName": "PR03_FND_ST",
+      "menu": "곤약밥",
+      "servingSize": 4,
+      "count": 3
+    },
+    {
+      "modelName": "PR03_FND_ST",
+      "menu": "골든퀸3호",
+      "servingSize": 1,
+      "count": 14
+    },
+    {
+      "modelName": "PR03_FND_ST",
+      "menu": "골든퀸3호",
+      "servingSize": 4,
+      "count": 1
+    },
+    {
+      "modelName": "PR03_FND_ST",
+      "menu": "귀리밥",
+      "servingSize": 1,
+      "count": 3
+    },
+    {
+      "modelName": "PR03_FND_ST",
+      "menu": "내솥불림",
+      "servingSize": 4,
+      "count": 2
+    },
+    {
+      "modelName": "PR03_FND_ST",
+      "menu": "냉동보관백미",
+      "servingSize": 1,
+      "count": 306
+    },
+    {
+      "modelName": "PR03_FND_ST",
+      "menu": "냉동보관백미",
+      "servingSize": 4,
+      "count": 370
+    },
+    {
+      "modelName": "PR03_FND_ST",
+      "menu": "냉동보관잡곡",
+      "servingSize": 1,
+      "count": 173
+    },
+    {
+      "modelName": "PR03_FND_ST",
+      "menu": "냉동보관잡곡",
+      "servingSize": 2,
+      "count": 22
+    },
+    {
+      "modelName": "PR03_FND_ST",
+      "menu": "냉동보관잡곡",
+      "servingSize": 3,
+      "count": 1
+    },
+    {
+      "modelName": "PR03_FND_ST",
+      "menu": "냉동보관잡곡",
+      "servingSize": 4,
+      "count": 138
+    },
+    {
+      "modelName": "PR03_FND_ST",
+      "menu": "누룽지",
+      "servingSize": 1,
+      "count": 40
+    },
+    {
+      "modelName": "PR03_FND_ST",
+      "menu": "누룽지",
+      "servingSize": 2,
+      "count": 1
+    },
+    {
+      "modelName": "PR03_FND_ST",
+      "menu": "누룽지",
+      "servingSize": 4,
+      "count": 96
+    },
+    {
+      "modelName": "PR03_FND_ST",
+      "menu": "렌틸콩밥",
+      "servingSize": 1,
+      "count": 2
+    },
+    {
+      "modelName": "PR03_FND_ST",
+      "menu": "렌틸콩밥",
+      "servingSize": 4,
+      "count": 1
+    },
+    {
+      "modelName": "PR03_FND_ST",
+      "menu": "만능찜",
+      "servingSize": 4,
+      "count": 19
+    },
+    {
+      "modelName": "PR03_FND_ST",
+      "menu": "백미쾌속",
+      "servingSize": 1,
+      "count": 1543
+    },
+    {
+      "modelName": "PR03_FND_ST",
+      "menu": "백미쾌속",
+      "servingSize": 2,
+      "count": 295
+    },
+    {
+      "modelName": "PR03_FND_ST",
+      "menu": "백미쾌속",
+      "servingSize": 3,
+      "count": 172
+    },
+    {
+      "modelName": "PR03_FND_ST",
+      "menu": "백미쾌속",
+      "servingSize": 4,
+      "count": 4917
+    },
+    {
+      "modelName": "PR03_FND_ST",
+      "menu": "병아리콩밥",
+      "servingSize": 1,
+      "count": 9
+    },
+    {
+      "modelName": "PR03_FND_ST",
+      "menu": "병아리콩밥",
+      "servingSize": 2,
+      "count": 1
+    },
+    {
+      "modelName": "PR03_FND_ST",
+      "menu": "병아리콩밥",
+      "servingSize": 4,
+      "count": 3
+    },
+    {
+      "modelName": "PR03_FND_ST",
+      "menu": "보리잡곡밥",
+      "servingSize": 1,
+      "count": 107
+    },
+    {
+      "modelName": "PR03_FND_ST",
+      "menu": "보리잡곡밥",
+      "servingSize": 2,
+      "count": 5
+    },
+    {
+      "modelName": "PR03_FND_ST",
+      "menu": "보리잡곡밥",
+      "servingSize": 4,
+      "count": 20
+    },
+    {
+      "modelName": "PR03_FND_ST",
+      "menu": "브로콜리죽",
+      "servingSize": 4,
+      "count": 1
+    },
+    {
+      "modelName": "PR03_FND_ST",
+      "menu": "삼광",
+      "servingSize": 1,
+      "count": 3
+    },
+    {
+      "modelName": "PR03_FND_ST",
+      "menu": "삼광",
+      "servingSize": 4,
+      "count": 10
+    },
+    {
+      "modelName": "PR03_FND_ST",
+      "menu": "샐러드잡곡 보리",
+      "servingSize": 4,
+      "count": 2
+    },
+    {
+      "modelName": "PR03_FND_ST",
+      "menu": "슈퍼곡물밥",
+      "servingSize": 1,
+      "count": 15
+    },
+    {
+      "modelName": "PR03_FND_ST",
+      "menu": "슈퍼곡물밥",
+      "servingSize": 2,
+      "count": 1
+    },
+    {
+      "modelName": "PR03_FND_ST",
+      "menu": "슈퍼곡물밥",
+      "servingSize": 4,
+      "count": 8
+    },
+    {
+      "modelName": "PR03_FND_ST",
+      "menu": "신동진",
+      "servingSize": 4,
+      "count": 351
+    },
+    {
+      "modelName": "PR03_FND_ST",
+      "menu": "알찬미",
+      "servingSize": 1,
+      "count": 22
+    },
+    {
+      "modelName": "PR03_FND_ST",
+      "menu": "알찬미",
+      "servingSize": 4,
+      "count": 34
+    },
+    {
+      "modelName": "PR03_FND_ST",
+      "menu": "영양솥밥",
+      "servingSize": 1,
+      "count": 18
+    },
+    {
+      "modelName": "PR03_FND_ST",
+      "menu": "영양솥밥",
+      "servingSize": 2,
+      "count": 2
+    },
+    {
+      "modelName": "PR03_FND_ST",
+      "menu": "영양솥밥",
+      "servingSize": 4,
+      "count": 56
+    },
+    {
+      "modelName": "PR03_FND_ST",
+      "menu": "영호진미",
+      "servingSize": 4,
+      "count": 1
+    },
+    {
+      "modelName": "PR03_FND_ST",
+      "menu": "오대미",
+      "servingSize": 1,
+      "count": 8
+    },
+    {
+      "modelName": "PR03_FND_ST",
+      "menu": "오대미",
+      "servingSize": 2,
+      "count": 3
+    },
+    {
+      "modelName": "PR03_FND_ST",
+      "menu": "오대미",
+      "servingSize": 4,
+      "count": 14
+    },
+    {
+      "modelName": "PR03_FND_ST",
+      "menu": "잡곡쾌속",
+      "servingSize": 1,
+      "count": 1017
+    },
+    {
+      "modelName": "PR03_FND_ST",
+      "menu": "잡곡쾌속",
+      "servingSize": 2,
+      "count": 56
+    },
+    {
+      "modelName": "PR03_FND_ST",
+      "menu": "잡곡쾌속",
+      "servingSize": 4,
+      "count": 451
+    },
+    {
+      "modelName": "PR03_FND_ST",
+      "menu": "저당잡곡",
+      "servingSize": 1,
+      "count": 63
+    },
+    {
+      "modelName": "PR03_FND_ST",
+      "menu": "저당잡곡",
+      "servingSize": 4,
+      "count": 26
+    },
+    {
+      "modelName": "PR03_FND_ST",
+      "menu": "찰진백미",
+      "servingSize": 1,
+      "count": 12498
+    },
+    {
+      "modelName": "PR03_FND_ST",
+      "menu": "찰진백미",
+      "servingSize": 2,
+      "count": 87
+    },
+    {
+      "modelName": "PR03_FND_ST",
+      "menu": "찰진백미",
+      "servingSize": 3,
+      "count": 4
+    },
+    {
+      "modelName": "PR03_FND_ST",
+      "menu": "찰진백미",
+      "servingSize": 4,
+      "count": 13031
+    },
+    {
+      "modelName": "PR03_FND_ST",
+      "menu": "참드림",
+      "servingSize": 4,
+      "count": 2
+    },
+    {
+      "modelName": "PR03_FND_ST",
+      "menu": "카무트밥",
+      "servingSize": 1,
+      "count": 3
+    },
+    {
+      "modelName": "PR03_FND_ST",
+      "menu": "카무트밥",
+      "servingSize": 2,
+      "count": 1
+    },
+    {
+      "modelName": "PR03_FND_ST",
+      "menu": "카무트밥",
+      "servingSize": 4,
+      "count": 2
+    },
+    {
+      "modelName": "PR03_FND_ST",
+      "menu": "튼튼잡곡",
+      "servingSize": 1,
+      "count": 4
+    },
+    {
+      "modelName": "PR03_FND_ST",
+      "menu": "하이아미",
+      "servingSize": 1,
+      "count": 1
+    },
+    {
+      "modelName": "PR03_FND_ST",
+      "menu": "해들",
+      "servingSize": 4,
+      "count": 1
+    },
+    {
+      "modelName": "PR03_FND_ST",
+      "menu": "현미100",
+      "servingSize": 1,
+      "count": 1713
+    },
+    {
+      "modelName": "PR03_FND_ST",
+      "menu": "현미100",
+      "servingSize": 4,
+      "count": 748
+    },
+    {
+      "modelName": "PR03_FND_ST",
+      "menu": "혼합잡곡",
+      "servingSize": 1,
+      "count": 6894
+    },
+    {
+      "modelName": "PR03_FND_ST",
+      "menu": "혼합잡곡",
+      "servingSize": 2,
+      "count": 586
+    },
+    {
+      "modelName": "PR03_FND_ST",
+      "menu": "혼합잡곡",
+      "servingSize": 3,
+      "count": 1
+    },
+    {
+      "modelName": "PR03_FND_ST",
+      "menu": "혼합잡곡",
+      "servingSize": 4,
+      "count": 5194
+    },
+    {
+      "modelName": "PR03_FND_ST",
+      "menu": "활력잡곡",
+      "servingSize": 1,
+      "count": 1
+    },
+    {
+      "modelName": "PR03_FND_ST",
+      "menu": "활력잡곡",
+      "servingSize": 4,
+      "count": 3
+    },
+    {
+      "modelName": "PR03_LCD",
+      "menu": "가마솥밥",
+      "servingSize": 1,
+      "count": 45
+    },
+    {
+      "modelName": "PR03_LCD",
+      "menu": "가마솥밥",
+      "servingSize": 4,
+      "count": 7
+    },
+    {
+      "modelName": "PR03_LCD",
+      "menu": "건강콩밥",
+      "servingSize": 1,
+      "count": 4
+    },
+    {
+      "modelName": "PR03_LCD",
+      "menu": "건강콩밥",
+      "servingSize": 4,
+      "count": 7
+    },
+    {
+      "modelName": "PR03_LCD",
+      "menu": "만능찜",
+      "servingSize": 4,
+      "count": 1
+    },
+    {
+      "modelName": "PR03_LCD",
+      "menu": "백미고슬밥",
+      "servingSize": 1,
+      "count": 1
+    },
+    {
+      "modelName": "PR03_LCD",
+      "menu": "백미고슬밥",
+      "servingSize": 4,
+      "count": 21
+    },
+    {
+      "modelName": "PR03_LCD",
+      "menu": "백미찰진밥",
+      "servingSize": 1,
+      "count": 77
+    },
+    {
+      "modelName": "PR03_LCD",
+      "menu": "백미찰진밥",
+      "servingSize": 2,
+      "count": 12
+    },
+    {
+      "modelName": "PR03_LCD",
+      "menu": "백미찰진밥",
+      "servingSize": 4,
+      "count": 182
+    },
+    {
+      "modelName": "PR03_LCD",
+      "menu": "백미쾌속",
+      "servingSize": 1,
+      "count": 13
+    },
+    {
+      "modelName": "PR03_LCD",
+      "menu": "백미쾌속",
+      "servingSize": 2,
+      "count": 9
+    },
+    {
+      "modelName": "PR03_LCD",
+      "menu": "백미쾌속",
+      "servingSize": 3,
+      "count": 1
+    },
+    {
+      "modelName": "PR03_LCD",
+      "menu": "백미쾌속",
+      "servingSize": 4,
+      "count": 145
+    },
+    {
+      "modelName": "PR03_LCD",
+      "menu": "영양솥밥",
+      "servingSize": 1,
+      "count": 3
+    },
+    {
+      "modelName": "PR03_LCD",
+      "menu": "잡곡쾌속",
+      "servingSize": 4,
+      "count": 1
+    },
+    {
+      "modelName": "PR03_LCD",
+      "menu": "현미100",
+      "servingSize": 1,
+      "count": 22
+    },
+    {
+      "modelName": "PR03_LCD",
+      "menu": "혼합잡곡밥",
+      "servingSize": 1,
+      "count": 66
+    },
+    {
+      "modelName": "PR03_LCD",
+      "menu": "혼합잡곡밥",
+      "servingSize": 4,
+      "count": 17
+    },
+    {
+      "modelName": "PR03_LCD_BEST",
+      "menu": "가마솥밥",
+      "servingSize": 1,
+      "count": 3645
+    },
+    {
+      "modelName": "PR03_LCD_BEST",
+      "menu": "가마솥밥",
+      "servingSize": 2,
+      "count": 41
+    },
+    {
+      "modelName": "PR03_LCD_BEST",
+      "menu": "가마솥밥",
+      "servingSize": 4,
+      "count": 2498
+    },
+    {
+      "modelName": "PR03_LCD_BEST",
+      "menu": "건강죽",
+      "servingSize": 4,
+      "count": 7
+    },
+    {
+      "modelName": "PR03_LCD_BEST",
+      "menu": "건강콩밥",
+      "servingSize": 1,
+      "count": 460
+    },
+    {
+      "modelName": "PR03_LCD_BEST",
+      "menu": "건강콩밥",
+      "servingSize": 2,
+      "count": 22
+    },
+    {
+      "modelName": "PR03_LCD_BEST",
+      "menu": "건강콩밥",
+      "servingSize": 4,
+      "count": 369
+    },
+    {
+      "modelName": "PR03_LCD_BEST",
+      "menu": "곤약밥",
+      "servingSize": 1,
+      "count": 10
+    },
+    {
+      "modelName": "PR03_LCD_BEST",
+      "menu": "곤약밥",
+      "servingSize": 4,
+      "count": 7
+    },
+    {
+      "modelName": "PR03_LCD_BEST",
+      "menu": "골든퀸3호",
+      "servingSize": 1,
+      "count": 51
+    },
+    {
+      "modelName": "PR03_LCD_BEST",
+      "menu": "골든퀸3호",
+      "servingSize": 2,
+      "count": 1
+    },
+    {
+      "modelName": "PR03_LCD_BEST",
+      "menu": "골든퀸3호",
+      "servingSize": 4,
+      "count": 26
+    },
+    {
+      "modelName": "PR03_LCD_BEST",
+      "menu": "구운달걀",
+      "servingSize": 4,
+      "count": 3
+    },
+    {
+      "modelName": "PR03_LCD_BEST",
+      "menu": "귀리밥",
+      "servingSize": 1,
+      "count": 41
+    },
+    {
+      "modelName": "PR03_LCD_BEST",
+      "menu": "귀리밥",
+      "servingSize": 4,
+      "count": 9
+    },
+    {
+      "modelName": "PR03_LCD_BEST",
+      "menu": "내솥불림",
+      "servingSize": 1,
+      "count": 57
+    },
+    {
+      "modelName": "PR03_LCD_BEST",
+      "menu": "내솥불림",
+      "servingSize": 2,
+      "count": 2
+    },
+    {
+      "modelName": "PR03_LCD_BEST",
+      "menu": "내솥불림",
+      "servingSize": 4,
+      "count": 109
+    },
+    {
+      "modelName": "PR03_LCD_BEST",
+      "menu": "냉동보관백미",
+      "servingSize": 1,
+      "count": 129
+    },
+    {
+      "modelName": "PR03_LCD_BEST",
+      "menu": "냉동보관백미",
+      "servingSize": 4,
+      "count": 161
+    },
+    {
+      "modelName": "PR03_LCD_BEST",
+      "menu": "냉동보관잡곡",
+      "servingSize": 1,
+      "count": 162
+    },
+    {
+      "modelName": "PR03_LCD_BEST",
+      "menu": "냉동보관잡곡",
+      "servingSize": 2,
+      "count": 9
+    },
+    {
+      "modelName": "PR03_LCD_BEST",
+      "menu": "냉동보관잡곡",
+      "servingSize": 3,
+      "count": 2
+    },
+    {
+      "modelName": "PR03_LCD_BEST",
+      "menu": "냉동보관잡곡",
+      "servingSize": 4,
+      "count": 38
+    },
+    {
+      "modelName": "PR03_LCD_BEST",
+      "menu": "렌틸콩밥",
+      "servingSize": 1,
+      "count": 5
+    },
+    {
+      "modelName": "PR03_LCD_BEST",
+      "menu": "렌틸콩밥",
+      "servingSize": 2,
+      "count": 3
+    },
+    {
+      "modelName": "PR03_LCD_BEST",
+      "menu": "렌틸콩밥",
+      "servingSize": 4,
+      "count": 5
+    },
+    {
+      "modelName": "PR03_LCD_BEST",
+      "menu": "만능찜",
+      "servingSize": 1,
+      "count": 1
+    },
+    {
+      "modelName": "PR03_LCD_BEST",
+      "menu": "만능찜",
+      "servingSize": 4,
+      "count": 15
+    },
+    {
+      "modelName": "PR03_LCD_BEST",
+      "menu": "백미고슬밥",
+      "servingSize": 1,
+      "count": 3935
+    },
+    {
+      "modelName": "PR03_LCD_BEST",
+      "menu": "백미고슬밥",
+      "servingSize": 2,
+      "count": 10
+    },
+    {
+      "modelName": "PR03_LCD_BEST",
+      "menu": "백미고슬밥",
+      "servingSize": 4,
+      "count": 9931
+    },
+    {
+      "modelName": "PR03_LCD_BEST",
+      "menu": "백미찰진밥",
+      "servingSize": 1,
+      "count": 15527
+    },
+    {
+      "modelName": "PR03_LCD_BEST",
+      "menu": "백미찰진밥",
+      "servingSize": 2,
+      "count": 183
+    },
+    {
+      "modelName": "PR03_LCD_BEST",
+      "menu": "백미찰진밥",
+      "servingSize": 3,
+      "count": 6
+    },
+    {
+      "modelName": "PR03_LCD_BEST",
+      "menu": "백미찰진밥",
+      "servingSize": 4,
+      "count": 19268
+    },
+    {
+      "modelName": "PR03_LCD_BEST",
+      "menu": "백미쾌속",
+      "servingSize": 1,
+      "count": 1753
+    },
+    {
+      "modelName": "PR03_LCD_BEST",
+      "menu": "백미쾌속",
+      "servingSize": 2,
+      "count": 256
+    },
+    {
+      "modelName": "PR03_LCD_BEST",
+      "menu": "백미쾌속",
+      "servingSize": 3,
+      "count": 175
+    },
+    {
+      "modelName": "PR03_LCD_BEST",
+      "menu": "백미쾌속",
+      "servingSize": 4,
+      "count": 8395
+    },
+    {
+      "modelName": "PR03_LCD_BEST",
+      "menu": "병아리콩밥",
+      "servingSize": 1,
+      "count": 10
+    },
+    {
+      "modelName": "PR03_LCD_BEST",
+      "menu": "병아리콩밥",
+      "servingSize": 2,
+      "count": 1
+    },
+    {
+      "modelName": "PR03_LCD_BEST",
+      "menu": "병아리콩밥",
+      "servingSize": 4,
+      "count": 1
+    },
+    {
+      "modelName": "PR03_LCD_BEST",
+      "menu": "보리잡곡밥",
+      "servingSize": 1,
+      "count": 1244
+    },
+    {
+      "modelName": "PR03_LCD_BEST",
+      "menu": "보리잡곡밥",
+      "servingSize": 2,
+      "count": 12
+    },
+    {
+      "modelName": "PR03_LCD_BEST",
+      "menu": "보리잡곡밥",
+      "servingSize": 4,
+      "count": 251
+    },
+    {
+      "modelName": "PR03_LCD_BEST",
+      "menu": "삼광",
+      "servingSize": 1,
+      "count": 2
+    },
+    {
+      "modelName": "PR03_LCD_BEST",
+      "menu": "삼광",
+      "servingSize": 4,
+      "count": 5
+    },
+    {
+      "modelName": "PR03_LCD_BEST",
+      "menu": "샐러드잡곡 병아리콩",
+      "servingSize": 4,
+      "count": 1
+    },
+    {
+      "modelName": "PR03_LCD_BEST",
+      "menu": "슈퍼곡물밥",
+      "servingSize": 1,
+      "count": 180
+    },
+    {
+      "modelName": "PR03_LCD_BEST",
+      "menu": "슈퍼곡물밥",
+      "servingSize": 2,
+      "count": 103
+    },
+    {
+      "modelName": "PR03_LCD_BEST",
+      "menu": "슈퍼곡물밥",
+      "servingSize": 4,
+      "count": 360
+    },
+    {
+      "modelName": "PR03_LCD_BEST",
+      "menu": "슬림잡곡",
+      "servingSize": 1,
+      "count": 1
+    },
+    {
+      "modelName": "PR03_LCD_BEST",
+      "menu": "신동진",
+      "servingSize": 1,
+      "count": 47
+    },
+    {
+      "modelName": "PR03_LCD_BEST",
+      "menu": "신동진",
+      "servingSize": 4,
+      "count": 20
+    },
+    {
+      "modelName": "PR03_LCD_BEST",
+      "menu": "알찬미",
+      "servingSize": 1,
+      "count": 22
+    },
+    {
+      "modelName": "PR03_LCD_BEST",
+      "menu": "알찬미",
+      "servingSize": 4,
+      "count": 78
+    },
+    {
+      "modelName": "PR03_LCD_BEST",
+      "menu": "영양솥밥",
+      "servingSize": 1,
+      "count": 121
+    },
+    {
+      "modelName": "PR03_LCD_BEST",
+      "menu": "영양솥밥",
+      "servingSize": 2,
+      "count": 1
+    },
+    {
+      "modelName": "PR03_LCD_BEST",
+      "menu": "영양솥밥",
+      "servingSize": 4,
+      "count": 164
+    },
+    {
+      "modelName": "PR03_LCD_BEST",
+      "menu": "영호진미",
+      "servingSize": 1,
+      "count": 1
+    },
+    {
+      "modelName": "PR03_LCD_BEST",
+      "menu": "오대미",
+      "servingSize": 1,
+      "count": 3
+    },
+    {
+      "modelName": "PR03_LCD_BEST",
+      "menu": "오대미",
+      "servingSize": 4,
+      "count": 1
+    },
+    {
+      "modelName": "PR03_LCD_BEST",
+      "menu": "운광",
+      "servingSize": 1,
+      "count": 1
+    },
+    {
+      "modelName": "PR03_LCD_BEST",
+      "menu": "운광",
+      "servingSize": 4,
+      "count": 1
+    },
+    {
+      "modelName": "PR03_LCD_BEST",
+      "menu": "잡곡쾌속",
+      "servingSize": 1,
+      "count": 998
+    },
+    {
+      "modelName": "PR03_LCD_BEST",
+      "menu": "잡곡쾌속",
+      "servingSize": 2,
+      "count": 44
+    },
+    {
+      "modelName": "PR03_LCD_BEST",
+      "menu": "잡곡쾌속",
+      "servingSize": 4,
+      "count": 922
+    },
+    {
+      "modelName": "PR03_LCD_BEST",
+      "menu": "저당잡곡",
+      "servingSize": 1,
+      "count": 2
+    },
+    {
+      "modelName": "PR03_LCD_BEST",
+      "menu": "저당잡곡",
+      "servingSize": 4,
+      "count": 1
+    },
+    {
+      "modelName": "PR03_LCD_BEST",
+      "menu": "카무트밥",
+      "servingSize": 1,
+      "count": 8
+    },
+    {
+      "modelName": "PR03_LCD_BEST",
+      "menu": "카무트밥",
+      "servingSize": 2,
+      "count": 1
+    },
+    {
+      "modelName": "PR03_LCD_BEST",
+      "menu": "카무트밥",
+      "servingSize": 4,
+      "count": 1
+    },
+    {
+      "modelName": "PR03_LCD_BEST",
+      "menu": "하이아미",
+      "servingSize": 1,
+      "count": 1
+    },
+    {
+      "modelName": "PR03_LCD_BEST",
+      "menu": "해들",
+      "servingSize": 1,
+      "count": 8
+    },
+    {
+      "modelName": "PR03_LCD_BEST",
+      "menu": "해들",
+      "servingSize": 4,
+      "count": 8
+    },
+    {
+      "modelName": "PR03_LCD_BEST",
+      "menu": "현미100",
+      "servingSize": 1,
+      "count": 1961
+    },
+    {
+      "modelName": "PR03_LCD_BEST",
+      "menu": "현미100",
+      "servingSize": 4,
+      "count": 926
+    },
+    {
+      "modelName": "PR03_LCD_BEST",
+      "menu": "혼합잡곡밥",
+      "servingSize": 1,
+      "count": 8119
+    },
+    {
+      "modelName": "PR03_LCD_BEST",
+      "menu": "혼합잡곡밥",
+      "servingSize": 2,
+      "count": 457
+    },
+    {
+      "modelName": "PR03_LCD_BEST",
+      "menu": "혼합잡곡밥",
+      "servingSize": 4,
+      "count": 5892
+    },
+    {
+      "modelName": "PR03_LCD_BEST",
+      "menu": "활력잡곡",
+      "servingSize": 1,
+      "count": 5
+    },
+    {
+      "modelName": "PS06_FND",
+      "menu": "가마솥밥",
+      "servingSize": 1,
+      "count": 185
+    },
+    {
+      "modelName": "PS06_FND",
+      "menu": "가마솥밥",
+      "servingSize": 2,
+      "count": 49
+    },
+    {
+      "modelName": "PS06_FND",
+      "menu": "가마솥밥",
+      "servingSize": 3,
+      "count": 13
+    },
+    {
+      "modelName": "PS06_FND",
+      "menu": "가마솥밥",
+      "servingSize": 4,
+      "count": 8
+    },
+    {
+      "modelName": "PS06_FND",
+      "menu": "가마솥밥",
+      "servingSize": 5,
+      "count": 3
+    },
+    {
+      "modelName": "PS06_FND",
+      "menu": "건강콩밥",
+      "servingSize": 1,
+      "count": 15
+    },
+    {
+      "modelName": "PS06_FND",
+      "menu": "건강콩밥",
+      "servingSize": 2,
+      "count": 25
+    },
+    {
+      "modelName": "PS06_FND",
+      "menu": "건강콩밥",
+      "servingSize": 5,
+      "count": 7
+    },
+    {
+      "modelName": "PS06_FND",
+      "menu": "고슬백미",
+      "servingSize": 1,
+      "count": 3385
+    },
+    {
+      "modelName": "PS06_FND",
+      "menu": "고슬백미",
+      "servingSize": 2,
+      "count": 2207
+    },
+    {
+      "modelName": "PS06_FND",
+      "menu": "고슬백미",
+      "servingSize": 3,
+      "count": 1656
+    },
+    {
+      "modelName": "PS06_FND",
+      "menu": "고슬백미",
+      "servingSize": 4,
+      "count": 781
+    },
+    {
+      "modelName": "PS06_FND",
+      "menu": "고슬백미",
+      "servingSize": 5,
+      "count": 165
+    },
+    {
+      "modelName": "PS06_FND",
+      "menu": "골든퀸3호",
+      "servingSize": 1,
+      "count": 3
+    },
+    {
+      "modelName": "PS06_FND",
+      "menu": "골든퀸3호",
+      "servingSize": 2,
+      "count": 2
+    },
+    {
+      "modelName": "PS06_FND",
+      "menu": "골든퀸3호",
+      "servingSize": 4,
+      "count": 1
+    },
+    {
+      "modelName": "PS06_FND",
+      "menu": "귀리밥",
+      "servingSize": 1,
+      "count": 8
+    },
+    {
+      "modelName": "PS06_FND",
+      "menu": "귀리밥",
+      "servingSize": 2,
+      "count": 1
+    },
+    {
+      "modelName": "PS06_FND",
+      "menu": "귀리밥",
+      "servingSize": 5,
+      "count": 1
+    },
+    {
+      "modelName": "PS06_FND",
+      "menu": "김밥용밥",
+      "servingSize": 1,
+      "count": 19
+    },
+    {
+      "modelName": "PS06_FND",
+      "menu": "김밥용밥",
+      "servingSize": 2,
+      "count": 14
+    },
+    {
+      "modelName": "PS06_FND",
+      "menu": "김밥용밥",
+      "servingSize": 3,
+      "count": 6
+    },
+    {
+      "modelName": "PS06_FND",
+      "menu": "김밥용밥",
+      "servingSize": 4,
+      "count": 1
+    },
+    {
+      "modelName": "PS06_FND",
+      "menu": "나물솥밥",
+      "servingSize": 1,
+      "count": 70
+    },
+    {
+      "modelName": "PS06_FND",
+      "menu": "나물솥밥",
+      "servingSize": 2,
+      "count": 61
+    },
+    {
+      "modelName": "PS06_FND",
+      "menu": "나물솥밥",
+      "servingSize": 3,
+      "count": 27
+    },
+    {
+      "modelName": "PS06_FND",
+      "menu": "나물솥밥",
+      "servingSize": 4,
+      "count": 20
+    },
+    {
+      "modelName": "PS06_FND",
+      "menu": "나물솥밥",
+      "servingSize": 5,
+      "count": 12
+    },
+    {
+      "modelName": "PS06_FND",
+      "menu": "날씬잡곡",
+      "servingSize": 1,
+      "count": 1
+    },
+    {
+      "modelName": "PS06_FND",
+      "menu": "냉동보관백미",
+      "servingSize": 1,
+      "count": 205
+    },
+    {
+      "modelName": "PS06_FND",
+      "menu": "냉동보관백미",
+      "servingSize": 2,
+      "count": 227
+    },
+    {
+      "modelName": "PS06_FND",
+      "menu": "냉동보관백미",
+      "servingSize": 3,
+      "count": 172
+    },
+    {
+      "modelName": "PS06_FND",
+      "menu": "냉동보관백미",
+      "servingSize": 4,
+      "count": 102
+    },
+    {
+      "modelName": "PS06_FND",
+      "menu": "냉동보관백미",
+      "servingSize": 5,
+      "count": 179
+    },
+    {
+      "modelName": "PS06_FND",
+      "menu": "냉동보관잡곡",
+      "servingSize": 1,
+      "count": 142
+    },
+    {
+      "modelName": "PS06_FND",
+      "menu": "냉동보관잡곡",
+      "servingSize": 2,
+      "count": 157
+    },
+    {
+      "modelName": "PS06_FND",
+      "menu": "냉동보관잡곡",
+      "servingSize": 5,
+      "count": 237
+    },
+    {
+      "modelName": "PS06_FND",
+      "menu": "렌틸콩밥",
+      "servingSize": 1,
+      "count": 1
+    },
+    {
+      "modelName": "PS06_FND",
+      "menu": "렌틸콩밥",
+      "servingSize": 2,
+      "count": 1
+    },
+    {
+      "modelName": "PS06_FND",
+      "menu": "렌틸콩밥",
+      "servingSize": 5,
+      "count": 1
+    },
+    {
+      "modelName": "PS06_FND",
+      "menu": "만능찜",
+      "servingSize": 1,
+      "count": 1
+    },
+    {
+      "modelName": "PS06_FND",
+      "menu": "만능찜",
+      "servingSize": 5,
+      "count": 25
+    },
+    {
+      "modelName": "PS06_FND",
+      "menu": "모듬버섯솥밥",
+      "servingSize": 1,
+      "count": 2
+    },
+    {
+      "modelName": "PS06_FND",
+      "menu": "백미쾌속",
+      "servingSize": 1,
+      "count": 2914
+    },
+    {
+      "modelName": "PS06_FND",
+      "menu": "백미쾌속",
+      "servingSize": 2,
+      "count": 3528
+    },
+    {
+      "modelName": "PS06_FND",
+      "menu": "백미쾌속",
+      "servingSize": 3,
+      "count": 3593
+    },
+    {
+      "modelName": "PS06_FND",
+      "menu": "백미쾌속",
+      "servingSize": 4,
+      "count": 1524
+    },
+    {
+      "modelName": "PS06_FND",
+      "menu": "백미쾌속",
+      "servingSize": 5,
+      "count": 449
+    },
+    {
+      "modelName": "PS06_FND",
+      "menu": "병아리콩밥",
+      "servingSize": 1,
+      "count": 3
+    },
+    {
+      "modelName": "PS06_FND",
+      "menu": "병아리콩밥",
+      "servingSize": 2,
+      "count": 3
+    },
+    {
+      "modelName": "PS06_FND",
+      "menu": "병아리콩밥",
+      "servingSize": 5,
+      "count": 9
+    },
+    {
+      "modelName": "PS06_FND",
+      "menu": "보리잡곡밥",
+      "servingSize": 1,
+      "count": 16
+    },
+    {
+      "modelName": "PS06_FND",
+      "menu": "보리잡곡밥",
+      "servingSize": 2,
+      "count": 11
+    },
+    {
+      "modelName": "PS06_FND",
+      "menu": "보리잡곡밥",
+      "servingSize": 5,
+      "count": 16
+    },
+    {
+      "modelName": "PS06_FND",
+      "menu": "삼광",
+      "servingSize": 1,
+      "count": 6
+    },
+    {
+      "modelName": "PS06_FND",
+      "menu": "삼광",
+      "servingSize": 2,
+      "count": 7
+    },
+    {
+      "modelName": "PS06_FND",
+      "menu": "삼광",
+      "servingSize": 3,
+      "count": 8
+    },
+    {
+      "modelName": "PS06_FND",
+      "menu": "삼광",
+      "servingSize": 4,
+      "count": 1
+    },
+    {
+      "modelName": "PS06_FND",
+      "menu": "삼광",
+      "servingSize": 5,
+      "count": 1
+    },
+    {
+      "modelName": "PS06_FND",
+      "menu": "새청무",
+      "servingSize": 1,
+      "count": 10
+    },
+    {
+      "modelName": "PS06_FND",
+      "menu": "새청무",
+      "servingSize": 2,
+      "count": 4
+    },
+    {
+      "modelName": "PS06_FND",
+      "menu": "소고기모듬버섯솥밥",
+      "servingSize": 1,
+      "count": 1
+    },
+    {
+      "modelName": "PS06_FND",
+      "menu": "소고기콩나물솥밥",
+      "servingSize": 1,
+      "count": 6
+    },
+    {
+      "modelName": "PS06_FND",
+      "menu": "수비드",
+      "servingSize": 5,
+      "count": 8
+    },
+    {
+      "modelName": "PS06_FND",
+      "menu": "슈퍼곡물밥",
+      "servingSize": 1,
+      "count": 7
+    },
+    {
+      "modelName": "PS06_FND",
+      "menu": "슈퍼곡물밥",
+      "servingSize": 2,
+      "count": 16
+    },
+    {
+      "modelName": "PS06_FND",
+      "menu": "슈퍼곡물밥",
+      "servingSize": 5,
+      "count": 1
+    },
+    {
+      "modelName": "PS06_FND",
+      "menu": "신동진",
+      "servingSize": 1,
+      "count": 1
+    },
+    {
+      "modelName": "PS06_FND",
+      "menu": "신동진",
+      "servingSize": 2,
+      "count": 1
+    },
+    {
+      "modelName": "PS06_FND",
+      "menu": "신동진",
+      "servingSize": 3,
+      "count": 2
+    },
+    {
+      "modelName": "PS06_FND",
+      "menu": "알찬미",
+      "servingSize": 1,
+      "count": 1
+    },
+    {
+      "modelName": "PS06_FND",
+      "menu": "알찬미",
+      "servingSize": 2,
+      "count": 3
+    },
+    {
+      "modelName": "PS06_FND",
+      "menu": "영양솥밥",
+      "servingSize": 1,
+      "count": 195
+    },
+    {
+      "modelName": "PS06_FND",
+      "menu": "영양솥밥",
+      "servingSize": 2,
+      "count": 713
+    },
+    {
+      "modelName": "PS06_FND",
+      "menu": "영양솥밥",
+      "servingSize": 3,
+      "count": 711
+    },
+    {
+      "modelName": "PS06_FND",
+      "menu": "영양솥밥",
+      "servingSize": 4,
+      "count": 336
+    },
+    {
+      "modelName": "PS06_FND",
+      "menu": "영양솥밥",
+      "servingSize": 5,
+      "count": 220
+    },
+    {
+      "modelName": "PS06_FND",
+      "menu": "오대미",
+      "servingSize": 1,
+      "count": 6
+    },
+    {
+      "modelName": "PS06_FND",
+      "menu": "오대미",
+      "servingSize": 2,
+      "count": 3
+    },
+    {
+      "modelName": "PS06_FND",
+      "menu": "오대미",
+      "servingSize": 3,
+      "count": 3
+    },
+    {
+      "modelName": "PS06_FND",
+      "menu": "일품벼",
+      "servingSize": 1,
+      "count": 1
+    },
+    {
+      "modelName": "PS06_FND",
+      "menu": "잡곡쾌속",
+      "servingSize": 1,
+      "count": 1290
+    },
+    {
+      "modelName": "PS06_FND",
+      "menu": "잡곡쾌속",
+      "servingSize": 2,
+      "count": 355
+    },
+    {
+      "modelName": "PS06_FND",
+      "menu": "잡곡쾌속",
+      "servingSize": 5,
+      "count": 648
+    },
+    {
+      "modelName": "PS06_FND",
+      "menu": "저당잡곡",
+      "servingSize": 1,
+      "count": 6
+    },
+    {
+      "modelName": "PS06_FND",
+      "menu": "저당잡곡",
+      "servingSize": 2,
+      "count": 2
+    },
+    {
+      "modelName": "PS06_FND",
+      "menu": "전복솥밥",
+      "servingSize": 1,
+      "count": 2
+    },
+    {
+      "modelName": "PS06_FND",
+      "menu": "찰진백미",
+      "servingSize": 1,
+      "count": 17423
+    },
+    {
+      "modelName": "PS06_FND",
+      "menu": "찰진백미",
+      "servingSize": 2,
+      "count": 17234
+    },
+    {
+      "modelName": "PS06_FND",
+      "menu": "찰진백미",
+      "servingSize": 3,
+      "count": 22622
+    },
+    {
+      "modelName": "PS06_FND",
+      "menu": "찰진백미",
+      "servingSize": 4,
+      "count": 6501
+    },
+    {
+      "modelName": "PS06_FND",
+      "menu": "찰진백미",
+      "servingSize": 5,
+      "count": 5669
+    },
+    {
+      "modelName": "PS06_FND",
+      "menu": "참드림",
+      "servingSize": 4,
+      "count": 1
+    },
+    {
+      "modelName": "PS06_FND",
+      "menu": "카무트밥",
+      "servingSize": 1,
+      "count": 11
+    },
+    {
+      "modelName": "PS06_FND",
+      "menu": "해들",
+      "servingSize": 1,
+      "count": 1
+    },
+    {
+      "modelName": "PS06_FND",
+      "menu": "해들",
+      "servingSize": 2,
+      "count": 1
+    },
+    {
+      "modelName": "PS06_FND",
+      "menu": "해들",
+      "servingSize": 3,
+      "count": 1
+    },
+    {
+      "modelName": "PS06_FND",
+      "menu": "현미100",
+      "servingSize": 1,
+      "count": 789
+    },
+    {
+      "modelName": "PS06_FND",
+      "menu": "현미100",
+      "servingSize": 2,
+      "count": 426
+    },
+    {
+      "modelName": "PS06_FND",
+      "menu": "현미100",
+      "servingSize": 5,
+      "count": 1154
+    },
+    {
+      "modelName": "PS06_FND",
+      "menu": "혼합잡곡",
+      "servingSize": 1,
+      "count": 5553
+    },
+    {
+      "modelName": "PS06_FND",
+      "menu": "혼합잡곡",
+      "servingSize": 2,
+      "count": 5802
+    },
+    {
+      "modelName": "PS06_FND",
+      "menu": "혼합잡곡",
+      "servingSize": 5,
+      "count": 9882
+    },
+    {
+      "modelName": "PS06_FND",
+      "menu": "활력잡곡",
+      "servingSize": 1,
+      "count": 2
+    },
+    {
+      "modelName": "PS06_FND_DUEL",
+      "menu": "건강콩밥",
+      "servingSize": 1,
+      "count": 8
+    },
+    {
+      "modelName": "PS06_FND_DUEL",
+      "menu": "건강콩밥",
+      "servingSize": 2,
+      "count": 15
+    },
+    {
+      "modelName": "PS06_FND_DUEL",
+      "menu": "건강콩밥",
+      "servingSize": 5,
+      "count": 42
+    },
+    {
+      "modelName": "PS06_FND_DUEL",
+      "menu": "고사리나물스테이크솥밥",
+      "servingSize": 1,
+      "count": 1
+    },
+    {
+      "modelName": "PS06_FND_DUEL",
+      "menu": "고슬백미",
+      "servingSize": 1,
+      "count": 1846
+    },
+    {
+      "modelName": "PS06_FND_DUEL",
+      "menu": "고슬백미",
+      "servingSize": 2,
+      "count": 898
+    },
+    {
+      "modelName": "PS06_FND_DUEL",
+      "menu": "고슬백미",
+      "servingSize": 3,
+      "count": 870
+    },
+    {
+      "modelName": "PS06_FND_DUEL",
+      "menu": "고슬백미",
+      "servingSize": 4,
+      "count": 240
+    },
+    {
+      "modelName": "PS06_FND_DUEL",
+      "menu": "고슬백미",
+      "servingSize": 5,
+      "count": 57
+    },
+    {
+      "modelName": "PS06_FND_DUEL",
+      "menu": "곤약밥",
+      "servingSize": 5,
+      "count": 2
+    },
+    {
+      "modelName": "PS06_FND_DUEL",
+      "menu": "구운달걀",
+      "servingSize": 5,
+      "count": 1
+    },
+    {
+      "modelName": "PS06_FND_DUEL",
+      "menu": "귀리밥",
+      "servingSize": 1,
+      "count": 2
+    },
+    {
+      "modelName": "PS06_FND_DUEL",
+      "menu": "귀리밥",
+      "servingSize": 2,
+      "count": 5
+    },
+    {
+      "modelName": "PS06_FND_DUEL",
+      "menu": "귀리밥",
+      "servingSize": 5,
+      "count": 11
+    },
+    {
+      "modelName": "PS06_FND_DUEL",
+      "menu": "기장밥",
+      "servingSize": 2,
+      "count": 1
+    },
+    {
+      "modelName": "PS06_FND_DUEL",
+      "menu": "기장밥",
+      "servingSize": 5,
+      "count": 5
+    },
+    {
+      "modelName": "PS06_FND_DUEL",
+      "menu": "김밥용밥",
+      "servingSize": 1,
+      "count": 4
+    },
+    {
+      "modelName": "PS06_FND_DUEL",
+      "menu": "김밥용밥",
+      "servingSize": 2,
+      "count": 6
+    },
+    {
+      "modelName": "PS06_FND_DUEL",
+      "menu": "김밥용밥",
+      "servingSize": 3,
+      "count": 11
+    },
+    {
+      "modelName": "PS06_FND_DUEL",
+      "menu": "김밥용밥",
+      "servingSize": 4,
+      "count": 12
+    },
+    {
+      "modelName": "PS06_FND_DUEL",
+      "menu": "김밥용밥",
+      "servingSize": 5,
+      "count": 12
+    },
+    {
+      "modelName": "PS06_FND_DUEL",
+      "menu": "나물솥밥",
+      "servingSize": 1,
+      "count": 47
+    },
+    {
+      "modelName": "PS06_FND_DUEL",
+      "menu": "나물솥밥",
+      "servingSize": 2,
+      "count": 23
+    },
+    {
+      "modelName": "PS06_FND_DUEL",
+      "menu": "나물솥밥",
+      "servingSize": 3,
+      "count": 24
+    },
+    {
+      "modelName": "PS06_FND_DUEL",
+      "menu": "나물솥밥",
+      "servingSize": 4,
+      "count": 15
+    },
+    {
+      "modelName": "PS06_FND_DUEL",
+      "menu": "나물솥밥",
+      "servingSize": 5,
+      "count": 6
+    },
+    {
+      "modelName": "PS06_FND_DUEL",
+      "menu": "내솥불림",
+      "servingSize": 1,
+      "count": 514
+    },
+    {
+      "modelName": "PS06_FND_DUEL",
+      "menu": "내솥불림",
+      "servingSize": 2,
+      "count": 266
+    },
+    {
+      "modelName": "PS06_FND_DUEL",
+      "menu": "내솥불림",
+      "servingSize": 3,
+      "count": 143
+    },
+    {
+      "modelName": "PS06_FND_DUEL",
+      "menu": "내솥불림",
+      "servingSize": 4,
+      "count": 37
+    },
+    {
+      "modelName": "PS06_FND_DUEL",
+      "menu": "내솥불림",
+      "servingSize": 5,
+      "count": 246
+    },
+    {
+      "modelName": "PS06_FND_DUEL",
+      "menu": "냉동보관백미",
+      "servingSize": 1,
+      "count": 36
+    },
+    {
+      "modelName": "PS06_FND_DUEL",
+      "menu": "냉동보관백미",
+      "servingSize": 2,
+      "count": 34
+    },
+    {
+      "modelName": "PS06_FND_DUEL",
+      "menu": "냉동보관백미",
+      "servingSize": 3,
+      "count": 105
+    },
+    {
+      "modelName": "PS06_FND_DUEL",
+      "menu": "냉동보관백미",
+      "servingSize": 4,
+      "count": 44
+    },
+    {
+      "modelName": "PS06_FND_DUEL",
+      "menu": "냉동보관백미",
+      "servingSize": 5,
+      "count": 25
+    },
+    {
+      "modelName": "PS06_FND_DUEL",
+      "menu": "냉동보관잡곡",
+      "servingSize": 1,
+      "count": 334
+    },
+    {
+      "modelName": "PS06_FND_DUEL",
+      "menu": "냉동보관잡곡",
+      "servingSize": 2,
+      "count": 155
+    },
+    {
+      "modelName": "PS06_FND_DUEL",
+      "menu": "냉동보관잡곡",
+      "servingSize": 5,
+      "count": 382
+    },
+    {
+      "modelName": "PS06_FND_DUEL",
+      "menu": "렌틸콩밥",
+      "servingSize": 2,
+      "count": 3
+    },
+    {
+      "modelName": "PS06_FND_DUEL",
+      "menu": "렌틸콩밥",
+      "servingSize": 5,
+      "count": 13
+    },
+    {
+      "modelName": "PS06_FND_DUEL",
+      "menu": "만능찜",
+      "servingSize": 5,
+      "count": 17
+    },
+    {
+      "modelName": "PS06_FND_DUEL",
+      "menu": "모듬버섯솥밥",
+      "servingSize": 1,
+      "count": 2
+    },
+    {
+      "modelName": "PS06_FND_DUEL",
+      "menu": "묵은지전복솥밥",
+      "servingSize": 1,
+      "count": 3
+    },
+    {
+      "modelName": "PS06_FND_DUEL",
+      "menu": "백미쾌속",
+      "servingSize": 1,
+      "count": 689
+    },
+    {
+      "modelName": "PS06_FND_DUEL",
+      "menu": "백미쾌속",
+      "servingSize": 2,
+      "count": 651
+    },
+    {
+      "modelName": "PS06_FND_DUEL",
+      "menu": "백미쾌속",
+      "servingSize": 3,
+      "count": 1028
+    },
+    {
+      "modelName": "PS06_FND_DUEL",
+      "menu": "백미쾌속",
+      "servingSize": 4,
+      "count": 740
+    },
+    {
+      "modelName": "PS06_FND_DUEL",
+      "menu": "백미쾌속",
+      "servingSize": 5,
+      "count": 1039
+    },
+    {
+      "modelName": "PS06_FND_DUEL",
+      "menu": "병아리콩밥",
+      "servingSize": 2,
+      "count": 2
+    },
+    {
+      "modelName": "PS06_FND_DUEL",
+      "menu": "병아리콩밥",
+      "servingSize": 5,
+      "count": 2
+    },
+    {
+      "modelName": "PS06_FND_DUEL",
+      "menu": "보리잡곡밥",
+      "servingSize": 1,
+      "count": 5
+    },
+    {
+      "modelName": "PS06_FND_DUEL",
+      "menu": "보리잡곡밥",
+      "servingSize": 2,
+      "count": 6
+    },
+    {
+      "modelName": "PS06_FND_DUEL",
+      "menu": "보리잡곡밥",
+      "servingSize": 5,
+      "count": 39
+    },
+    {
+      "modelName": "PS06_FND_DUEL",
+      "menu": "삼광",
+      "servingSize": 1,
+      "count": 2
+    },
+    {
+      "modelName": "PS06_FND_DUEL",
+      "menu": "삼광쌀",
+      "servingSize": 1,
+      "count": 22
+    },
+    {
+      "modelName": "PS06_FND_DUEL",
+      "menu": "삼광쌀",
+      "servingSize": 2,
+      "count": 4
+    },
+    {
+      "modelName": "PS06_FND_DUEL",
+      "menu": "삼광쌀",
+      "servingSize": 3,
+      "count": 7
+    },
+    {
+      "modelName": "PS06_FND_DUEL",
+      "menu": "삼광쌀",
+      "servingSize": 4,
+      "count": 7
+    },
+    {
+      "modelName": "PS06_FND_DUEL",
+      "menu": "삼광쌀",
+      "servingSize": 5,
+      "count": 7
+    },
+    {
+      "modelName": "PS06_FND_DUEL",
+      "menu": "소고기콩나물솥밥",
+      "servingSize": 1,
+      "count": 11
+    },
+    {
+      "modelName": "PS06_FND_DUEL",
+      "menu": "소고기콩나물솥밥",
+      "servingSize": 2,
+      "count": 2
+    },
+    {
+      "modelName": "PS06_FND_DUEL",
+      "menu": "소고기콩나물솥밥",
+      "servingSize": 3,
+      "count": 2
+    },
+    {
+      "modelName": "PS06_FND_DUEL",
+      "menu": "소고기콩나물솥밥",
+      "servingSize": 5,
+      "count": 1
+    },
+    {
+      "modelName": "PS06_FND_DUEL",
+      "menu": "수비드",
+      "servingSize": 5,
+      "count": 5
+    },
+    {
+      "modelName": "PS06_FND_DUEL",
+      "menu": "슈퍼곡물밥",
+      "servingSize": 1,
+      "count": 7
+    },
+    {
+      "modelName": "PS06_FND_DUEL",
+      "menu": "슈퍼곡물밥",
+      "servingSize": 2,
+      "count": 19
+    },
+    {
+      "modelName": "PS06_FND_DUEL",
+      "menu": "슈퍼곡물밥",
+      "servingSize": 5,
+      "count": 12
+    },
+    {
+      "modelName": "PS06_FND_DUEL",
+      "menu": "신동진쌀",
+      "servingSize": 1,
+      "count": 3
+    },
+    {
+      "modelName": "PS06_FND_DUEL",
+      "menu": "신동진쌀",
+      "servingSize": 3,
+      "count": 1
+    },
+    {
+      "modelName": "PS06_FND_DUEL",
+      "menu": "신동진쌀",
+      "servingSize": 5,
+      "count": 1
+    },
+    {
+      "modelName": "PS06_FND_DUEL",
+      "menu": "알찬미",
+      "servingSize": 1,
+      "count": 2
+    },
+    {
+      "modelName": "PS06_FND_DUEL",
+      "menu": "알찬미",
+      "servingSize": 5,
+      "count": 5
+    },
+    {
+      "modelName": "PS06_FND_DUEL",
+      "menu": "영양솥밥",
+      "servingSize": 1,
+      "count": 2
+    },
+    {
+      "modelName": "PS06_FND_DUEL",
+      "menu": "영양솥밥",
+      "servingSize": 2,
+      "count": 1
+    },
+    {
+      "modelName": "PS06_FND_DUEL",
+      "menu": "영양솥밥",
+      "servingSize": 3,
+      "count": 4
+    },
+    {
+      "modelName": "PS06_FND_DUEL",
+      "menu": "영양솥밥",
+      "servingSize": 4,
+      "count": 1
+    },
+    {
+      "modelName": "PS06_FND_DUEL",
+      "menu": "영양솥밥",
+      "servingSize": 5,
+      "count": 2
+    },
+    {
+      "modelName": "PS06_FND_DUEL",
+      "menu": "오대쌀",
+      "servingSize": 1,
+      "count": 3
+    },
+    {
+      "modelName": "PS06_FND_DUEL",
+      "menu": "오대쌀",
+      "servingSize": 2,
+      "count": 1
+    },
+    {
+      "modelName": "PS06_FND_DUEL",
+      "menu": "오대쌀",
+      "servingSize": 3,
+      "count": 2
+    },
+    {
+      "modelName": "PS06_FND_DUEL",
+      "menu": "오대쌀",
+      "servingSize": 4,
+      "count": 2
+    },
+    {
+      "modelName": "PS06_FND_DUEL",
+      "menu": "오대쌀",
+      "servingSize": 5,
+      "count": 3
+    },
+    {
+      "modelName": "PS06_FND_DUEL",
+      "menu": "잡곡쾌속",
+      "servingSize": 1,
+      "count": 300
+    },
+    {
+      "modelName": "PS06_FND_DUEL",
+      "menu": "잡곡쾌속",
+      "servingSize": 2,
+      "count": 211
+    },
+    {
+      "modelName": "PS06_FND_DUEL",
+      "menu": "잡곡쾌속",
+      "servingSize": 5,
+      "count": 275
+    },
+    {
+      "modelName": "PS06_FND_DUEL",
+      "menu": "쭈꾸미취나물솥밥",
+      "servingSize": 2,
+      "count": 2
+    },
+    {
+      "modelName": "PS06_FND_DUEL",
+      "menu": "찰진백미",
+      "servingSize": 1,
+      "count": 10145
+    },
+    {
+      "modelName": "PS06_FND_DUEL",
+      "menu": "찰진백미",
+      "servingSize": 2,
+      "count": 4318
+    },
+    {
+      "modelName": "PS06_FND_DUEL",
+      "menu": "찰진백미",
+      "servingSize": 3,
+      "count": 4613
+    },
+    {
+      "modelName": "PS06_FND_DUEL",
+      "menu": "찰진백미",
+      "servingSize": 4,
+      "count": 1370
+    },
+    {
+      "modelName": "PS06_FND_DUEL",
+      "menu": "찰진백미",
+      "servingSize": 5,
+      "count": 958
+    },
+    {
+      "modelName": "PS06_FND_DUEL",
+      "menu": "친들",
+      "servingSize": 1,
+      "count": 2
+    },
+    {
+      "modelName": "PS06_FND_DUEL",
+      "menu": "카무트밥",
+      "servingSize": 1,
+      "count": 1
+    },
+    {
+      "modelName": "PS06_FND_DUEL",
+      "menu": "카무트밥",
+      "servingSize": 2,
+      "count": 1
+    },
+    {
+      "modelName": "PS06_FND_DUEL",
+      "menu": "쿠첸 슬림잡곡",
+      "servingSize": 1,
+      "count": 1
+    },
+    {
+      "modelName": "PS06_FND_DUEL",
+      "menu": "쿠첸 슬림잡곡",
+      "servingSize": 2,
+      "count": 1
+    },
+    {
+      "modelName": "PS06_FND_DUEL",
+      "menu": "쿠첸 슬림잡곡",
+      "servingSize": 5,
+      "count": 3
+    },
+    {
+      "modelName": "PS06_FND_DUEL",
+      "menu": "쿠첸 저당잡곡",
+      "servingSize": 1,
+      "count": 135
+    },
+    {
+      "modelName": "PS06_FND_DUEL",
+      "menu": "쿠첸 저당잡곡",
+      "servingSize": 2,
+      "count": 76
+    },
+    {
+      "modelName": "PS06_FND_DUEL",
+      "menu": "쿠첸 저당잡곡",
+      "servingSize": 5,
+      "count": 106
+    },
+    {
+      "modelName": "PS06_FND_DUEL",
+      "menu": "쿠첸 튼튼잡곡",
+      "servingSize": 5,
+      "count": 2
+    },
+    {
+      "modelName": "PS06_FND_DUEL",
+      "menu": "쿠첸 활력잡곡",
+      "servingSize": 1,
+      "count": 1
+    },
+    {
+      "modelName": "PS06_FND_DUEL",
+      "menu": "쿠첸 활력잡곡",
+      "servingSize": 2,
+      "count": 44
+    },
+    {
+      "modelName": "PS06_FND_DUEL",
+      "menu": "쿠첸 활력잡곡",
+      "servingSize": 5,
+      "count": 61
+    },
+    {
+      "modelName": "PS06_FND_DUEL",
+      "menu": "퀴노아밥",
+      "servingSize": 2,
+      "count": 1
+    },
+    {
+      "modelName": "PS06_FND_DUEL",
+      "menu": "현미100",
+      "servingSize": 1,
+      "count": 241
+    },
+    {
+      "modelName": "PS06_FND_DUEL",
+      "menu": "현미100",
+      "servingSize": 2,
+      "count": 86
+    },
+    {
+      "modelName": "PS06_FND_DUEL",
+      "menu": "현미100",
+      "servingSize": 5,
+      "count": 327
+    },
+    {
+      "modelName": "PS06_FND_DUEL",
+      "menu": "혼합잡곡",
+      "servingSize": 1,
+      "count": 1704
+    },
+    {
+      "modelName": "PS06_FND_DUEL",
+      "menu": "혼합잡곡",
+      "servingSize": 2,
+      "count": 2086
+    },
+    {
+      "modelName": "PS06_FND_DUEL",
+      "menu": "혼합잡곡",
+      "servingSize": 5,
+      "count": 3878
+    },
+    {
+      "modelName": "PS06_FND_DUEL",
+      "menu": "흑미밥",
+      "servingSize": 1,
+      "count": 2
+    },
+    {
+      "modelName": "PS06_FND_DUEL",
+      "menu": "흑미밥",
+      "servingSize": 2,
+      "count": 3
+    },
+    {
+      "modelName": "PS06_FND_DUEL",
+      "menu": "흑미밥",
+      "servingSize": 5,
+      "count": 7
+    },
+    {
+      "modelName": "PS06_FND_ST",
+      "menu": "가마솥밥",
+      "servingSize": 1,
+      "count": 25
+    },
+    {
+      "modelName": "PS06_FND_ST",
+      "menu": "가마솥밥",
+      "servingSize": 2,
+      "count": 31
+    },
+    {
+      "modelName": "PS06_FND_ST",
+      "menu": "가마솥밥",
+      "servingSize": 3,
+      "count": 31
+    },
+    {
+      "modelName": "PS06_FND_ST",
+      "menu": "가마솥밥",
+      "servingSize": 4,
+      "count": 10
+    },
+    {
+      "modelName": "PS06_FND_ST",
+      "menu": "가마솥밥",
+      "servingSize": 5,
+      "count": 11
+    },
+    {
+      "modelName": "PS06_FND_ST",
+      "menu": "갈비찜",
+      "servingSize": 5,
+      "count": 23
+    },
+    {
+      "modelName": "PS06_FND_ST",
+      "menu": "건강죽",
+      "servingSize": 5,
+      "count": 2
+    },
+    {
+      "modelName": "PS06_FND_ST",
+      "menu": "건강콩밥",
+      "servingSize": 1,
+      "count": 10
+    },
+    {
+      "modelName": "PS06_FND_ST",
+      "menu": "건강콩밥",
+      "servingSize": 2,
+      "count": 12
+    },
+    {
+      "modelName": "PS06_FND_ST",
+      "menu": "건강콩밥",
+      "servingSize": 5,
+      "count": 28
+    },
+    {
+      "modelName": "PS06_FND_ST",
+      "menu": "고슬백미",
+      "servingSize": 1,
+      "count": 2704
+    },
+    {
+      "modelName": "PS06_FND_ST",
+      "menu": "고슬백미",
+      "servingSize": 2,
+      "count": 2084
+    },
+    {
+      "modelName": "PS06_FND_ST",
+      "menu": "고슬백미",
+      "servingSize": 3,
+      "count": 1850
+    },
+    {
+      "modelName": "PS06_FND_ST",
+      "menu": "고슬백미",
+      "servingSize": 4,
+      "count": 1846
+    },
+    {
+      "modelName": "PS06_FND_ST",
+      "menu": "고슬백미",
+      "servingSize": 5,
+      "count": 521
+    },
+    {
+      "modelName": "PS06_FND_ST",
+      "menu": "곤약밥",
+      "servingSize": 2,
+      "count": 1
+    },
+    {
+      "modelName": "PS06_FND_ST",
+      "menu": "곤약밥",
+      "servingSize": 5,
+      "count": 2
+    },
+    {
+      "modelName": "PS06_FND_ST",
+      "menu": "골든퀸3호",
+      "servingSize": 1,
+      "count": 6
+    },
+    {
+      "modelName": "PS06_FND_ST",
+      "menu": "골든퀸3호",
+      "servingSize": 2,
+      "count": 13
+    },
+    {
+      "modelName": "PS06_FND_ST",
+      "menu": "골든퀸3호",
+      "servingSize": 3,
+      "count": 41
+    },
+    {
+      "modelName": "PS06_FND_ST",
+      "menu": "골든퀸3호",
+      "servingSize": 4,
+      "count": 5
+    },
+    {
+      "modelName": "PS06_FND_ST",
+      "menu": "골든퀸3호",
+      "servingSize": 5,
+      "count": 2
+    },
+    {
+      "modelName": "PS06_FND_ST",
+      "menu": "구운달걀",
+      "servingSize": 5,
+      "count": 1
+    },
+    {
+      "modelName": "PS06_FND_ST",
+      "menu": "귀리밥",
+      "servingSize": 1,
+      "count": 13
+    },
+    {
+      "modelName": "PS06_FND_ST",
+      "menu": "귀리밥",
+      "servingSize": 2,
+      "count": 11
+    },
+    {
+      "modelName": "PS06_FND_ST",
+      "menu": "귀리밥",
+      "servingSize": 5,
+      "count": 10
+    },
+    {
+      "modelName": "PS06_FND_ST",
+      "menu": "김밥용밥",
+      "servingSize": 1,
+      "count": 23
+    },
+    {
+      "modelName": "PS06_FND_ST",
+      "menu": "김밥용밥",
+      "servingSize": 2,
+      "count": 18
+    },
+    {
+      "modelName": "PS06_FND_ST",
+      "menu": "김밥용밥",
+      "servingSize": 3,
+      "count": 17
+    },
+    {
+      "modelName": "PS06_FND_ST",
+      "menu": "김밥용밥",
+      "servingSize": 4,
+      "count": 24
+    },
+    {
+      "modelName": "PS06_FND_ST",
+      "menu": "김밥용밥",
+      "servingSize": 5,
+      "count": 6
+    },
+    {
+      "modelName": "PS06_FND_ST",
+      "menu": "나물솥밥",
+      "servingSize": 1,
+      "count": 54
+    },
+    {
+      "modelName": "PS06_FND_ST",
+      "menu": "나물솥밥",
+      "servingSize": 2,
+      "count": 21
+    },
+    {
+      "modelName": "PS06_FND_ST",
+      "menu": "나물솥밥",
+      "servingSize": 3,
+      "count": 41
+    },
+    {
+      "modelName": "PS06_FND_ST",
+      "menu": "나물솥밥",
+      "servingSize": 4,
+      "count": 50
+    },
+    {
+      "modelName": "PS06_FND_ST",
+      "menu": "나물솥밥",
+      "servingSize": 5,
+      "count": 19
+    },
+    {
+      "modelName": "PS06_FND_ST",
+      "menu": "날씬잡곡",
+      "servingSize": 1,
+      "count": 1
+    },
+    {
+      "modelName": "PS06_FND_ST",
+      "menu": "날씬잡곡",
+      "servingSize": 2,
+      "count": 9
+    },
+    {
+      "modelName": "PS06_FND_ST",
+      "menu": "날씬잡곡",
+      "servingSize": 5,
+      "count": 10
+    },
+    {
+      "modelName": "PS06_FND_ST",
+      "menu": "냉동보관백미",
+      "servingSize": 1,
+      "count": 77
+    },
+    {
+      "modelName": "PS06_FND_ST",
+      "menu": "냉동보관백미",
+      "servingSize": 2,
+      "count": 156
+    },
+    {
+      "modelName": "PS06_FND_ST",
+      "menu": "냉동보관백미",
+      "servingSize": 3,
+      "count": 261
+    },
+    {
+      "modelName": "PS06_FND_ST",
+      "menu": "냉동보관백미",
+      "servingSize": 4,
+      "count": 78
+    },
+    {
+      "modelName": "PS06_FND_ST",
+      "menu": "냉동보관백미",
+      "servingSize": 5,
+      "count": 102
+    },
+    {
+      "modelName": "PS06_FND_ST",
+      "menu": "냉동보관잡곡",
+      "servingSize": 1,
+      "count": 76
+    },
+    {
+      "modelName": "PS06_FND_ST",
+      "menu": "냉동보관잡곡",
+      "servingSize": 2,
+      "count": 124
+    },
+    {
+      "modelName": "PS06_FND_ST",
+      "menu": "냉동보관잡곡",
+      "servingSize": 5,
+      "count": 494
+    },
+    {
+      "modelName": "PS06_FND_ST",
+      "menu": "만능찜",
+      "servingSize": 1,
+      "count": 1
+    },
+    {
+      "modelName": "PS06_FND_ST",
+      "menu": "만능찜",
+      "servingSize": 2,
+      "count": 1
+    },
+    {
+      "modelName": "PS06_FND_ST",
+      "menu": "만능찜",
+      "servingSize": 3,
+      "count": 1
+    },
+    {
+      "modelName": "PS06_FND_ST",
+      "menu": "만능찜",
+      "servingSize": 5,
+      "count": 53
+    },
+    {
+      "modelName": "PS06_FND_ST",
+      "menu": "모듬버섯솥밥",
+      "servingSize": 1,
+      "count": 1
+    },
+    {
+      "modelName": "PS06_FND_ST",
+      "menu": "백미쾌속",
+      "servingSize": 1,
+      "count": 2404
+    },
+    {
+      "modelName": "PS06_FND_ST",
+      "menu": "백미쾌속",
+      "servingSize": 2,
+      "count": 2605
+    },
+    {
+      "modelName": "PS06_FND_ST",
+      "menu": "백미쾌속",
+      "servingSize": 3,
+      "count": 2311
+    },
+    {
+      "modelName": "PS06_FND_ST",
+      "menu": "백미쾌속",
+      "servingSize": 4,
+      "count": 905
+    },
+    {
+      "modelName": "PS06_FND_ST",
+      "menu": "백미쾌속",
+      "servingSize": 5,
+      "count": 409
+    },
+    {
+      "modelName": "PS06_FND_ST",
+      "menu": "병아리콩밥",
+      "servingSize": 1,
+      "count": 3
+    },
+    {
+      "modelName": "PS06_FND_ST",
+      "menu": "병아리콩밥",
+      "servingSize": 2,
+      "count": 5
+    },
+    {
+      "modelName": "PS06_FND_ST",
+      "menu": "병아리콩밥",
+      "servingSize": 5,
+      "count": 4
+    },
+    {
+      "modelName": "PS06_FND_ST",
+      "menu": "보리잡곡밥",
+      "servingSize": 1,
+      "count": 1
+    },
+    {
+      "modelName": "PS06_FND_ST",
+      "menu": "보리잡곡밥",
+      "servingSize": 5,
+      "count": 3
+    },
+    {
+      "modelName": "PS06_FND_ST",
+      "menu": "삼계탕",
+      "servingSize": 5,
+      "count": 10
+    },
+    {
+      "modelName": "PS06_FND_ST",
+      "menu": "삼광",
+      "servingSize": 1,
+      "count": 10
+    },
+    {
+      "modelName": "PS06_FND_ST",
+      "menu": "삼광",
+      "servingSize": 2,
+      "count": 7
+    },
+    {
+      "modelName": "PS06_FND_ST",
+      "menu": "삼광",
+      "servingSize": 3,
+      "count": 4
+    },
+    {
+      "modelName": "PS06_FND_ST",
+      "menu": "삼광",
+      "servingSize": 4,
+      "count": 6
+    },
+    {
+      "modelName": "PS06_FND_ST",
+      "menu": "삼광",
+      "servingSize": 5,
+      "count": 9
+    },
+    {
+      "modelName": "PS06_FND_ST",
+      "menu": "소고기콩나물솥밥",
+      "servingSize": 1,
+      "count": 2
+    },
+    {
+      "modelName": "PS06_FND_ST",
+      "menu": "숭늉",
+      "servingSize": 1,
+      "count": 55
+    },
+    {
+      "modelName": "PS06_FND_ST",
+      "menu": "숭늉",
+      "servingSize": 2,
+      "count": 37
+    },
+    {
+      "modelName": "PS06_FND_ST",
+      "menu": "숭늉",
+      "servingSize": 3,
+      "count": 17
+    },
+    {
+      "modelName": "PS06_FND_ST",
+      "menu": "숭늉",
+      "servingSize": 4,
+      "count": 7
+    },
+    {
+      "modelName": "PS06_FND_ST",
+      "menu": "숭늉",
+      "servingSize": 5,
+      "count": 174
+    },
+    {
+      "modelName": "PS06_FND_ST",
+      "menu": "슈퍼곡물밥",
+      "servingSize": 1,
+      "count": 5
+    },
+    {
+      "modelName": "PS06_FND_ST",
+      "menu": "슈퍼곡물밥",
+      "servingSize": 2,
+      "count": 4
+    },
+    {
+      "modelName": "PS06_FND_ST",
+      "menu": "슈퍼곡물밥",
+      "servingSize": 5,
+      "count": 25
+    },
+    {
+      "modelName": "PS06_FND_ST",
+      "menu": "신동진",
+      "servingSize": 1,
+      "count": 5
+    },
+    {
+      "modelName": "PS06_FND_ST",
+      "menu": "신동진",
+      "servingSize": 2,
+      "count": 4
+    },
+    {
+      "modelName": "PS06_FND_ST",
+      "menu": "신동진",
+      "servingSize": 3,
+      "count": 10
+    },
+    {
+      "modelName": "PS06_FND_ST",
+      "menu": "신동진",
+      "servingSize": 4,
+      "count": 7
+    },
+    {
+      "modelName": "PS06_FND_ST",
+      "menu": "신동진",
+      "servingSize": 5,
+      "count": 4
+    },
+    {
+      "modelName": "PS06_FND_ST",
+      "menu": "알찬미",
+      "servingSize": 3,
+      "count": 1
+    },
+    {
+      "modelName": "PS06_FND_ST",
+      "menu": "알찬미",
+      "servingSize": 4,
+      "count": 5
+    },
+    {
+      "modelName": "PS06_FND_ST",
+      "menu": "알찬미",
+      "servingSize": 5,
+      "count": 1
+    },
+    {
+      "modelName": "PS06_FND_ST",
+      "menu": "영양솥밥",
+      "servingSize": 1,
+      "count": 95
+    },
+    {
+      "modelName": "PS06_FND_ST",
+      "menu": "영양솥밥",
+      "servingSize": 2,
+      "count": 158
+    },
+    {
+      "modelName": "PS06_FND_ST",
+      "menu": "영양솥밥",
+      "servingSize": 3,
+      "count": 193
+    },
+    {
+      "modelName": "PS06_FND_ST",
+      "menu": "영양솥밥",
+      "servingSize": 4,
+      "count": 62
+    },
+    {
+      "modelName": "PS06_FND_ST",
+      "menu": "영양솥밥",
+      "servingSize": 5,
+      "count": 81
+    },
+    {
+      "modelName": "PS06_FND_ST",
+      "menu": "오대미",
+      "servingSize": 1,
+      "count": 27
+    },
+    {
+      "modelName": "PS06_FND_ST",
+      "menu": "오대미",
+      "servingSize": 2,
+      "count": 29
+    },
+    {
+      "modelName": "PS06_FND_ST",
+      "menu": "오대미",
+      "servingSize": 3,
+      "count": 6
+    },
+    {
+      "modelName": "PS06_FND_ST",
+      "menu": "잡곡쾌속",
+      "servingSize": 1,
+      "count": 815
+    },
+    {
+      "modelName": "PS06_FND_ST",
+      "menu": "잡곡쾌속",
+      "servingSize": 2,
+      "count": 294
+    },
+    {
+      "modelName": "PS06_FND_ST",
+      "menu": "잡곡쾌속",
+      "servingSize": 5,
+      "count": 206
+    },
+    {
+      "modelName": "PS06_FND_ST",
+      "menu": "저당잡곡",
+      "servingSize": 1,
+      "count": 14
+    },
+    {
+      "modelName": "PS06_FND_ST",
+      "menu": "저당잡곡",
+      "servingSize": 2,
+      "count": 21
+    },
+    {
+      "modelName": "PS06_FND_ST",
+      "menu": "저당잡곡",
+      "servingSize": 5,
+      "count": 63
+    },
+    {
+      "modelName": "PS06_FND_ST",
+      "menu": "전복솥밥",
+      "servingSize": 1,
+      "count": 3
+    },
+    {
+      "modelName": "PS06_FND_ST",
+      "menu": "진상",
+      "servingSize": 2,
+      "count": 1
+    },
+    {
+      "modelName": "PS06_FND_ST",
+      "menu": "진상",
+      "servingSize": 3,
+      "count": 15
+    },
+    {
+      "modelName": "PS06_FND_ST",
+      "menu": "진상",
+      "servingSize": 4,
+      "count": 6
+    },
+    {
+      "modelName": "PS06_FND_ST",
+      "menu": "찰진백미",
+      "servingSize": 1,
+      "count": 14236
+    },
+    {
+      "modelName": "PS06_FND_ST",
+      "menu": "찰진백미",
+      "servingSize": 2,
+      "count": 9680
+    },
+    {
+      "modelName": "PS06_FND_ST",
+      "menu": "찰진백미",
+      "servingSize": 3,
+      "count": 13896
+    },
+    {
+      "modelName": "PS06_FND_ST",
+      "menu": "찰진백미",
+      "servingSize": 4,
+      "count": 3526
+    },
+    {
+      "modelName": "PS06_FND_ST",
+      "menu": "찰진백미",
+      "servingSize": 5,
+      "count": 3140
+    },
+    {
+      "modelName": "PS06_FND_ST",
+      "menu": "친들",
+      "servingSize": 1,
+      "count": 3
+    },
+    {
+      "modelName": "PS06_FND_ST",
+      "menu": "튼튼잡곡",
+      "servingSize": 1,
+      "count": 2
+    },
+    {
+      "modelName": "PS06_FND_ST",
+      "menu": "튼튼잡곡",
+      "servingSize": 2,
+      "count": 2
+    },
+    {
+      "modelName": "PS06_FND_ST",
+      "menu": "튼튼잡곡",
+      "servingSize": 5,
+      "count": 2
+    },
+    {
+      "modelName": "PS06_FND_ST",
+      "menu": "해들",
+      "servingSize": 1,
+      "count": 24
+    },
+    {
+      "modelName": "PS06_FND_ST",
+      "menu": "해들",
+      "servingSize": 2,
+      "count": 22
+    },
+    {
+      "modelName": "PS06_FND_ST",
+      "menu": "해들",
+      "servingSize": 3,
+      "count": 16
+    },
+    {
+      "modelName": "PS06_FND_ST",
+      "menu": "해들",
+      "servingSize": 4,
+      "count": 6
+    },
+    {
+      "modelName": "PS06_FND_ST",
+      "menu": "현미100",
+      "servingSize": 1,
+      "count": 596
+    },
+    {
+      "modelName": "PS06_FND_ST",
+      "menu": "현미100",
+      "servingSize": 2,
+      "count": 263
+    },
+    {
+      "modelName": "PS06_FND_ST",
+      "menu": "현미100",
+      "servingSize": 3,
+      "count": 1
+    },
+    {
+      "modelName": "PS06_FND_ST",
+      "menu": "현미100",
+      "servingSize": 5,
+      "count": 696
+    },
+    {
+      "modelName": "PS06_FND_ST",
+      "menu": "혼합잡곡",
+      "servingSize": 1,
+      "count": 4028
+    },
+    {
+      "modelName": "PS06_FND_ST",
+      "menu": "혼합잡곡",
+      "servingSize": 2,
+      "count": 4563
+    },
+    {
+      "modelName": "PS06_FND_ST",
+      "menu": "혼합잡곡",
+      "servingSize": 5,
+      "count": 7390
+    },
+    {
+      "modelName": "PS06_FND_ST",
+      "menu": "활력잡곡",
+      "servingSize": 1,
+      "count": 1
+    },
+    {
+      "modelName": "PS06_FND_ST",
+      "menu": "활력잡곡",
+      "servingSize": 2,
+      "count": 1
+    },
+    {
+      "modelName": "PS06_FND_ST",
+      "menu": "활력잡곡",
+      "servingSize": 5,
+      "count": 5
+    },
+    {
+      "modelName": "PS06_FND_ST",
+      "menu": "흰죽",
+      "servingSize": 5,
+      "count": 1
+    },
+    {
+      "modelName": "PS06_LCD",
+      "menu": "가마솥밥",
+      "servingSize": 1,
+      "count": 7476
+    },
+    {
+      "modelName": "PS06_LCD",
+      "menu": "가마솥밥",
+      "servingSize": 2,
+      "count": 7001
+    },
+    {
+      "modelName": "PS06_LCD",
+      "menu": "가마솥밥",
+      "servingSize": 3,
+      "count": 5831
+    },
+    {
+      "modelName": "PS06_LCD",
+      "menu": "가마솥밥",
+      "servingSize": 4,
+      "count": 1300
+    },
+    {
+      "modelName": "PS06_LCD",
+      "menu": "가마솥밥",
+      "servingSize": 5,
+      "count": 230
+    },
+    {
+      "modelName": "PS06_LCD",
+      "menu": "갈비찜",
+      "servingSize": 5,
+      "count": 65
+    },
+    {
+      "modelName": "PS06_LCD",
+      "menu": "건강죽",
+      "servingSize": 5,
+      "count": 188
+    },
+    {
+      "modelName": "PS06_LCD",
+      "menu": "건강콩밥",
+      "servingSize": 1,
+      "count": 1057
+    },
+    {
+      "modelName": "PS06_LCD",
+      "menu": "건강콩밥",
+      "servingSize": 2,
+      "count": 1370
+    },
+    {
+      "modelName": "PS06_LCD",
+      "menu": "건강콩밥",
+      "servingSize": 5,
+      "count": 1976
+    },
+    {
+      "modelName": "PS06_LCD",
+      "menu": "고사리나물스테이크솥밥",
+      "servingSize": 3,
+      "count": 3
+    },
+    {
+      "modelName": "PS06_LCD",
+      "menu": "고사리나물스테이크솥밥",
+      "servingSize": 4,
+      "count": 1
+    },
+    {
+      "modelName": "PS06_LCD",
+      "menu": "곤약밥",
+      "servingSize": 1,
+      "count": 25
+    },
+    {
+      "modelName": "PS06_LCD",
+      "menu": "곤약밥",
+      "servingSize": 2,
+      "count": 62
+    },
+    {
+      "modelName": "PS06_LCD",
+      "menu": "곤약밥",
+      "servingSize": 5,
+      "count": 96
+    },
+    {
+      "modelName": "PS06_LCD",
+      "menu": "골든퀸3호",
+      "servingSize": 1,
+      "count": 116
+    },
+    {
+      "modelName": "PS06_LCD",
+      "menu": "골든퀸3호",
+      "servingSize": 2,
+      "count": 90
+    },
+    {
+      "modelName": "PS06_LCD",
+      "menu": "골든퀸3호",
+      "servingSize": 3,
+      "count": 44
+    },
+    {
+      "modelName": "PS06_LCD",
+      "menu": "골든퀸3호",
+      "servingSize": 4,
+      "count": 13
+    },
+    {
+      "modelName": "PS06_LCD",
+      "menu": "골든퀸3호",
+      "servingSize": 5,
+      "count": 2
+    },
+    {
+      "modelName": "PS06_LCD",
+      "menu": "구운달걀",
+      "servingSize": 5,
+      "count": 38
+    },
+    {
+      "modelName": "PS06_LCD",
+      "menu": "귀리밥",
+      "servingSize": 1,
+      "count": 51
+    },
+    {
+      "modelName": "PS06_LCD",
+      "menu": "귀리밥",
+      "servingSize": 2,
+      "count": 87
+    },
+    {
+      "modelName": "PS06_LCD",
+      "menu": "귀리밥",
+      "servingSize": 5,
+      "count": 130
+    },
+    {
+      "modelName": "PS06_LCD",
+      "menu": "김밥용밥",
+      "servingSize": 1,
+      "count": 1298
+    },
+    {
+      "modelName": "PS06_LCD",
+      "menu": "김밥용밥",
+      "servingSize": 2,
+      "count": 675
+    },
+    {
+      "modelName": "PS06_LCD",
+      "menu": "김밥용밥",
+      "servingSize": 3,
+      "count": 778
+    },
+    {
+      "modelName": "PS06_LCD",
+      "menu": "김밥용밥",
+      "servingSize": 4,
+      "count": 1181
+    },
+    {
+      "modelName": "PS06_LCD",
+      "menu": "김밥용밥",
+      "servingSize": 5,
+      "count": 374
+    },
+    {
+      "modelName": "PS06_LCD",
+      "menu": "나물솥밥",
+      "servingSize": 1,
+      "count": 190
+    },
+    {
+      "modelName": "PS06_LCD",
+      "menu": "나물솥밥",
+      "servingSize": 2,
+      "count": 120
+    },
+    {
+      "modelName": "PS06_LCD",
+      "menu": "나물솥밥",
+      "servingSize": 3,
+      "count": 156
+    },
+    {
+      "modelName": "PS06_LCD",
+      "menu": "나물솥밥",
+      "servingSize": 4,
+      "count": 225
+    },
+    {
+      "modelName": "PS06_LCD",
+      "menu": "나물솥밥",
+      "servingSize": 5,
+      "count": 86
+    },
+    {
+      "modelName": "PS06_LCD",
+      "menu": "날씬잡곡",
+      "servingSize": 1,
+      "count": 62
+    },
+    {
+      "modelName": "PS06_LCD",
+      "menu": "날씬잡곡",
+      "servingSize": 2,
+      "count": 52
+    },
+    {
+      "modelName": "PS06_LCD",
+      "menu": "날씬잡곡",
+      "servingSize": 5,
+      "count": 40
+    },
+    {
+      "modelName": "PS06_LCD",
+      "menu": "냉동보관백미",
+      "servingSize": 1,
+      "count": 1131
+    },
+    {
+      "modelName": "PS06_LCD",
+      "menu": "냉동보관백미",
+      "servingSize": 2,
+      "count": 1862
+    },
+    {
+      "modelName": "PS06_LCD",
+      "menu": "냉동보관백미",
+      "servingSize": 3,
+      "count": 2203
+    },
+    {
+      "modelName": "PS06_LCD",
+      "menu": "냉동보관백미",
+      "servingSize": 4,
+      "count": 795
+    },
+    {
+      "modelName": "PS06_LCD",
+      "menu": "냉동보관백미",
+      "servingSize": 5,
+      "count": 155
+    },
+    {
+      "modelName": "PS06_LCD",
+      "menu": "냉동보관잡곡",
+      "servingSize": 1,
+      "count": 402
+    },
+    {
+      "modelName": "PS06_LCD",
+      "menu": "냉동보관잡곡",
+      "servingSize": 2,
+      "count": 500
+    },
+    {
+      "modelName": "PS06_LCD",
+      "menu": "냉동보관잡곡",
+      "servingSize": 5,
+      "count": 1472
+    },
+    {
+      "modelName": "PS06_LCD",
+      "menu": "렌틸콩밥",
+      "servingSize": 1,
+      "count": 3
+    },
+    {
+      "modelName": "PS06_LCD",
+      "menu": "렌틸콩밥",
+      "servingSize": 2,
+      "count": 19
+    },
+    {
+      "modelName": "PS06_LCD",
+      "menu": "렌틸콩밥",
+      "servingSize": 5,
+      "count": 15
+    },
+    {
+      "modelName": "PS06_LCD",
+      "menu": "만능찜",
+      "servingSize": 1,
+      "count": 6
+    },
+    {
+      "modelName": "PS06_LCD",
+      "menu": "만능찜",
+      "servingSize": 2,
+      "count": 1
+    },
+    {
+      "modelName": "PS06_LCD",
+      "menu": "만능찜",
+      "servingSize": 3,
+      "count": 2
+    },
+    {
+      "modelName": "PS06_LCD",
+      "menu": "만능찜",
+      "servingSize": 5,
+      "count": 264
+    },
+    {
+      "modelName": "PS06_LCD",
+      "menu": "모듬버섯솥밥",
+      "servingSize": 1,
+      "count": 11
+    },
+    {
+      "modelName": "PS06_LCD",
+      "menu": "모듬버섯솥밥",
+      "servingSize": 2,
+      "count": 8
+    },
+    {
+      "modelName": "PS06_LCD",
+      "menu": "모듬버섯솥밥",
+      "servingSize": 3,
+      "count": 15
+    },
+    {
+      "modelName": "PS06_LCD",
+      "menu": "모듬버섯솥밥",
+      "servingSize": 4,
+      "count": 25
+    },
+    {
+      "modelName": "PS06_LCD",
+      "menu": "모듬버섯솥밥",
+      "servingSize": 5,
+      "count": 5
+    },
+    {
+      "modelName": "PS06_LCD",
+      "menu": "묵은지전복솥밥",
+      "servingSize": 1,
+      "count": 1
+    },
+    {
+      "modelName": "PS06_LCD",
+      "menu": "백미고슬밥",
+      "servingSize": 1,
+      "count": 19181
+    },
+    {
+      "modelName": "PS06_LCD",
+      "menu": "백미고슬밥",
+      "servingSize": 2,
+      "count": 11122
+    },
+    {
+      "modelName": "PS06_LCD",
+      "menu": "백미고슬밥",
+      "servingSize": 3,
+      "count": 10240
+    },
+    {
+      "modelName": "PS06_LCD",
+      "menu": "백미고슬밥",
+      "servingSize": 4,
+      "count": 11675
+    },
+    {
+      "modelName": "PS06_LCD",
+      "menu": "백미고슬밥",
+      "servingSize": 5,
+      "count": 3335
+    },
+    {
+      "modelName": "PS06_LCD",
+      "menu": "백미찰진밥",
+      "servingSize": 1,
+      "count": 125812
+    },
+    {
+      "modelName": "PS06_LCD",
+      "menu": "백미찰진밥",
+      "servingSize": 2,
+      "count": 65823
+    },
+    {
+      "modelName": "PS06_LCD",
+      "menu": "백미찰진밥",
+      "servingSize": 3,
+      "count": 76618
+    },
+    {
+      "modelName": "PS06_LCD",
+      "menu": "백미찰진밥",
+      "servingSize": 4,
+      "count": 17712
+    },
+    {
+      "modelName": "PS06_LCD",
+      "menu": "백미찰진밥",
+      "servingSize": 5,
+      "count": 16447
+    },
+    {
+      "modelName": "PS06_LCD",
+      "menu": "백미쾌속",
+      "servingSize": 1,
+      "count": 20973
+    },
+    {
+      "modelName": "PS06_LCD",
+      "menu": "백미쾌속",
+      "servingSize": 2,
+      "count": 14057
+    },
+    {
+      "modelName": "PS06_LCD",
+      "menu": "백미쾌속",
+      "servingSize": 3,
+      "count": 15453
+    },
+    {
+      "modelName": "PS06_LCD",
+      "menu": "백미쾌속",
+      "servingSize": 4,
+      "count": 4219
+    },
+    {
+      "modelName": "PS06_LCD",
+      "menu": "백미쾌속",
+      "servingSize": 5,
+      "count": 898
+    },
+    {
+      "modelName": "PS06_LCD",
+      "menu": "병아리콩밥",
+      "servingSize": 1,
+      "count": 5
+    },
+    {
+      "modelName": "PS06_LCD",
+      "menu": "병아리콩밥",
+      "servingSize": 2,
+      "count": 15
+    },
+    {
+      "modelName": "PS06_LCD",
+      "menu": "병아리콩밥",
+      "servingSize": 5,
+      "count": 38
+    },
+    {
+      "modelName": "PS06_LCD",
+      "menu": "보리잡곡밥",
+      "servingSize": 1,
+      "count": 987
+    },
+    {
+      "modelName": "PS06_LCD",
+      "menu": "보리잡곡밥",
+      "servingSize": 2,
+      "count": 1168
+    },
+    {
+      "modelName": "PS06_LCD",
+      "menu": "보리잡곡밥",
+      "servingSize": 5,
+      "count": 1395
+    },
+    {
+      "modelName": "PS06_LCD",
+      "menu": "삶은 달걀",
+      "servingSize": 5,
+      "count": 4
+    },
+    {
+      "modelName": "PS06_LCD",
+      "menu": "삼계탕",
+      "servingSize": 5,
+      "count": 67
+    },
+    {
+      "modelName": "PS06_LCD",
+      "menu": "삼광",
+      "servingSize": 1,
+      "count": 17
+    },
+    {
+      "modelName": "PS06_LCD",
+      "menu": "삼광",
+      "servingSize": 2,
+      "count": 10
+    },
+    {
+      "modelName": "PS06_LCD",
+      "menu": "삼광",
+      "servingSize": 3,
+      "count": 11
+    },
+    {
+      "modelName": "PS06_LCD",
+      "menu": "삼광",
+      "servingSize": 4,
+      "count": 5
+    },
+    {
+      "modelName": "PS06_LCD",
+      "menu": "삼광",
+      "servingSize": 5,
+      "count": 10
+    },
+    {
+      "modelName": "PS06_LCD",
+      "menu": "새청무",
+      "servingSize": 1,
+      "count": 8
+    },
+    {
+      "modelName": "PS06_LCD",
+      "menu": "새청무",
+      "servingSize": 2,
+      "count": 2
+    },
+    {
+      "modelName": "PS06_LCD",
+      "menu": "새청무",
+      "servingSize": 3,
+      "count": 5
+    },
+    {
+      "modelName": "PS06_LCD",
+      "menu": "새청무",
+      "servingSize": 4,
+      "count": 8
+    },
+    {
+      "modelName": "PS06_LCD",
+      "menu": "샐러드잡곡",
+      "servingSize": 5,
+      "count": 3
+    },
+    {
+      "modelName": "PS06_LCD",
+      "menu": "샐러드잡곡 귀리",
+      "servingSize": 5,
+      "count": 1
+    },
+    {
+      "modelName": "PS06_LCD",
+      "menu": "샐러드잡곡 병아리콩",
+      "servingSize": 5,
+      "count": 21
+    },
+    {
+      "modelName": "PS06_LCD",
+      "menu": "샐러드잡곡 보리",
+      "servingSize": 5,
+      "count": 3
+    },
+    {
+      "modelName": "PS06_LCD",
+      "menu": "샐러드잡곡 카무트",
+      "servingSize": 5,
+      "count": 5
+    },
+    {
+      "modelName": "PS06_LCD",
+      "menu": "샐러드잡곡 현미",
+      "servingSize": 5,
+      "count": 5
+    },
+    {
+      "modelName": "PS06_LCD",
+      "menu": "소고기모듬버섯솥밥",
+      "servingSize": 1,
+      "count": 2
+    },
+    {
+      "modelName": "PS06_LCD",
+      "menu": "소고기모듬버섯솥밥",
+      "servingSize": 2,
+      "count": 5
+    },
+    {
+      "modelName": "PS06_LCD",
+      "menu": "소고기모듬버섯솥밥",
+      "servingSize": 4,
+      "count": 1
+    },
+    {
+      "modelName": "PS06_LCD",
+      "menu": "소고기콩나물솥밥",
+      "servingSize": 1,
+      "count": 28
+    },
+    {
+      "modelName": "PS06_LCD",
+      "menu": "소고기콩나물솥밥",
+      "servingSize": 2,
+      "count": 30
+    },
+    {
+      "modelName": "PS06_LCD",
+      "menu": "소고기콩나물솥밥",
+      "servingSize": 3,
+      "count": 30
+    },
+    {
+      "modelName": "PS06_LCD",
+      "menu": "소고기콩나물솥밥",
+      "servingSize": 4,
+      "count": 45
+    },
+    {
+      "modelName": "PS06_LCD",
+      "menu": "소고기콩나물솥밥",
+      "servingSize": 5,
+      "count": 25
+    },
+    {
+      "modelName": "PS06_LCD",
+      "menu": "수비드",
+      "servingSize": 5,
+      "count": 20
+    },
+    {
+      "modelName": "PS06_LCD",
+      "menu": "숭늉",
+      "servingSize": 1,
+      "count": 121
+    },
+    {
+      "modelName": "PS06_LCD",
+      "menu": "숭늉",
+      "servingSize": 2,
+      "count": 96
+    },
+    {
+      "modelName": "PS06_LCD",
+      "menu": "숭늉",
+      "servingSize": 3,
+      "count": 123
+    },
+    {
+      "modelName": "PS06_LCD",
+      "menu": "숭늉",
+      "servingSize": 4,
+      "count": 69
+    },
+    {
+      "modelName": "PS06_LCD",
+      "menu": "숭늉",
+      "servingSize": 5,
+      "count": 62
+    },
+    {
+      "modelName": "PS06_LCD",
+      "menu": "슈퍼곡물밥",
+      "servingSize": 1,
+      "count": 421
+    },
+    {
+      "modelName": "PS06_LCD",
+      "menu": "슈퍼곡물밥",
+      "servingSize": 2,
+      "count": 570
+    },
+    {
+      "modelName": "PS06_LCD",
+      "menu": "슈퍼곡물밥",
+      "servingSize": 5,
+      "count": 867
+    },
+    {
+      "modelName": "PS06_LCD",
+      "menu": "스테이크솥밥",
+      "servingSize": 1,
+      "count": 8
+    },
+    {
+      "modelName": "PS06_LCD",
+      "menu": "스테이크솥밥",
+      "servingSize": 2,
+      "count": 5
+    },
+    {
+      "modelName": "PS06_LCD",
+      "menu": "스테이크솥밥",
+      "servingSize": 3,
+      "count": 5
+    },
+    {
+      "modelName": "PS06_LCD",
+      "menu": "슬림잡곡",
+      "servingSize": 1,
+      "count": 2
+    },
+    {
+      "modelName": "PS06_LCD",
+      "menu": "슬림잡곡",
+      "servingSize": 2,
+      "count": 3
+    },
+    {
+      "modelName": "PS06_LCD",
+      "menu": "슬림잡곡",
+      "servingSize": 5,
+      "count": 1
+    },
+    {
+      "modelName": "PS06_LCD",
+      "menu": "신동진",
+      "servingSize": 1,
+      "count": 21
+    },
+    {
+      "modelName": "PS06_LCD",
+      "menu": "신동진",
+      "servingSize": 2,
+      "count": 10
+    },
+    {
+      "modelName": "PS06_LCD",
+      "menu": "신동진",
+      "servingSize": 3,
+      "count": 13
+    },
+    {
+      "modelName": "PS06_LCD",
+      "menu": "신동진",
+      "servingSize": 4,
+      "count": 39
+    },
+    {
+      "modelName": "PS06_LCD",
+      "menu": "신동진",
+      "servingSize": 5,
+      "count": 10
+    },
+    {
+      "modelName": "PS06_LCD",
+      "menu": "알찬미",
+      "servingSize": 1,
+      "count": 56
+    },
+    {
+      "modelName": "PS06_LCD",
+      "menu": "알찬미",
+      "servingSize": 2,
+      "count": 49
+    },
+    {
+      "modelName": "PS06_LCD",
+      "menu": "알찬미",
+      "servingSize": 3,
+      "count": 36
+    },
+    {
+      "modelName": "PS06_LCD",
+      "menu": "알찬미",
+      "servingSize": 4,
+      "count": 5
+    },
+    {
+      "modelName": "PS06_LCD",
+      "menu": "영양솥밥",
+      "servingSize": 1,
+      "count": 215
+    },
+    {
+      "modelName": "PS06_LCD",
+      "menu": "영양솥밥",
+      "servingSize": 2,
+      "count": 278
+    },
+    {
+      "modelName": "PS06_LCD",
+      "menu": "영양솥밥",
+      "servingSize": 3,
+      "count": 307
+    },
+    {
+      "modelName": "PS06_LCD",
+      "menu": "영양솥밥",
+      "servingSize": 4,
+      "count": 84
+    },
+    {
+      "modelName": "PS06_LCD",
+      "menu": "영양솥밥",
+      "servingSize": 5,
+      "count": 8
+    },
+    {
+      "modelName": "PS06_LCD",
+      "menu": "영호진미",
+      "servingSize": 3,
+      "count": 1
+    },
+    {
+      "modelName": "PS06_LCD",
+      "menu": "영호진미",
+      "servingSize": 4,
+      "count": 1
+    },
+    {
+      "modelName": "PS06_LCD",
+      "menu": "오대미",
+      "servingSize": 1,
+      "count": 46
+    },
+    {
+      "modelName": "PS06_LCD",
+      "menu": "오대미",
+      "servingSize": 2,
+      "count": 38
+    },
+    {
+      "modelName": "PS06_LCD",
+      "menu": "오대미",
+      "servingSize": 3,
+      "count": 35
+    },
+    {
+      "modelName": "PS06_LCD",
+      "menu": "오대미",
+      "servingSize": 4,
+      "count": 17
+    },
+    {
+      "modelName": "PS06_LCD",
+      "menu": "오대미",
+      "servingSize": 5,
+      "count": 1
+    },
+    {
+      "modelName": "PS06_LCD",
+      "menu": "운광",
+      "servingSize": 1,
+      "count": 40
+    },
+    {
+      "modelName": "PS06_LCD",
+      "menu": "운광",
+      "servingSize": 2,
+      "count": 3
+    },
+    {
+      "modelName": "PS06_LCD",
+      "menu": "일품벼",
+      "servingSize": 1,
+      "count": 6
+    },
+    {
+      "modelName": "PS06_LCD",
+      "menu": "일품벼",
+      "servingSize": 4,
+      "count": 2
+    },
+    {
+      "modelName": "PS06_LCD",
+      "menu": "일품벼",
+      "servingSize": 5,
+      "count": 2
+    },
+    {
+      "modelName": "PS06_LCD",
+      "menu": "잡곡쾌속",
+      "servingSize": 1,
+      "count": 4868
+    },
+    {
+      "modelName": "PS06_LCD",
+      "menu": "잡곡쾌속",
+      "servingSize": 2,
+      "count": 1837
+    },
+    {
+      "modelName": "PS06_LCD",
+      "menu": "잡곡쾌속",
+      "servingSize": 5,
+      "count": 2503
+    },
+    {
+      "modelName": "PS06_LCD",
+      "menu": "저당잡곡",
+      "servingSize": 1,
+      "count": 3
+    },
+    {
+      "modelName": "PS06_LCD",
+      "menu": "저당잡곡",
+      "servingSize": 2,
+      "count": 9
+    },
+    {
+      "modelName": "PS06_LCD",
+      "menu": "저당잡곡",
+      "servingSize": 5,
+      "count": 47
+    },
+    {
+      "modelName": "PS06_LCD",
+      "menu": "전복솥밥",
+      "servingSize": 1,
+      "count": 11
+    },
+    {
+      "modelName": "PS06_LCD",
+      "menu": "전복솥밥",
+      "servingSize": 2,
+      "count": 11
+    },
+    {
+      "modelName": "PS06_LCD",
+      "menu": "전복솥밥",
+      "servingSize": 3,
+      "count": 11
+    },
+    {
+      "modelName": "PS06_LCD",
+      "menu": "전복솥밥",
+      "servingSize": 4,
+      "count": 1
+    },
+    {
+      "modelName": "PS06_LCD",
+      "menu": "전복솥밥",
+      "servingSize": 5,
+      "count": 2
+    },
+    {
+      "modelName": "PS06_LCD",
+      "menu": "전복죽",
+      "servingSize": 5,
+      "count": 2
+    },
+    {
+      "modelName": "PS06_LCD",
+      "menu": "지혜잡곡",
+      "servingSize": 1,
+      "count": 3
+    },
+    {
+      "modelName": "PS06_LCD",
+      "menu": "지혜잡곡",
+      "servingSize": 5,
+      "count": 1
+    },
+    {
+      "modelName": "PS06_LCD",
+      "menu": "진상",
+      "servingSize": 1,
+      "count": 9
+    },
+    {
+      "modelName": "PS06_LCD",
+      "menu": "진상",
+      "servingSize": 2,
+      "count": 4
+    },
+    {
+      "modelName": "PS06_LCD",
+      "menu": "진상",
+      "servingSize": 3,
+      "count": 2
+    },
+    {
+      "modelName": "PS06_LCD",
+      "menu": "진상",
+      "servingSize": 4,
+      "count": 2
+    },
+    {
+      "modelName": "PS06_LCD",
+      "menu": "쭈꾸미취나물솥밥",
+      "servingSize": 5,
+      "count": 1
+    },
+    {
+      "modelName": "PS06_LCD",
+      "menu": "찐 고구마",
+      "servingSize": 5,
+      "count": 2
+    },
+    {
+      "modelName": "PS06_LCD",
+      "menu": "참드림",
+      "servingSize": 1,
+      "count": 1
+    },
+    {
+      "modelName": "PS06_LCD",
+      "menu": "카무트밥",
+      "servingSize": 1,
+      "count": 4
+    },
+    {
+      "modelName": "PS06_LCD",
+      "menu": "카무트밥",
+      "servingSize": 2,
+      "count": 7
+    },
+    {
+      "modelName": "PS06_LCD",
+      "menu": "카무트밥",
+      "servingSize": 5,
+      "count": 41
+    },
+    {
+      "modelName": "PS06_LCD",
+      "menu": "튼튼잡곡",
+      "servingSize": 1,
+      "count": 3
+    },
+    {
+      "modelName": "PS06_LCD",
+      "menu": "튼튼잡곡",
+      "servingSize": 5,
+      "count": 5
+    },
+    {
+      "modelName": "PS06_LCD",
+      "menu": "해들",
+      "servingSize": 1,
+      "count": 10
+    },
+    {
+      "modelName": "PS06_LCD",
+      "menu": "현미100",
+      "servingSize": 1,
+      "count": 4436
+    },
+    {
+      "modelName": "PS06_LCD",
+      "menu": "현미100",
+      "servingSize": 2,
+      "count": 1945
+    },
+    {
+      "modelName": "PS06_LCD",
+      "menu": "현미100",
+      "servingSize": 5,
+      "count": 4201
+    },
+    {
+      "modelName": "PS06_LCD",
+      "menu": "혼합잡곡밥",
+      "servingSize": 1,
+      "count": 27020
+    },
+    {
+      "modelName": "PS06_LCD",
+      "menu": "혼합잡곡밥",
+      "servingSize": 2,
+      "count": 28934
+    },
+    {
+      "modelName": "PS06_LCD",
+      "menu": "혼합잡곡밥",
+      "servingSize": 5,
+      "count": 43651
+    },
+    {
+      "modelName": "PS06_LCD",
+      "menu": "활력잡곡",
+      "servingSize": 1,
+      "count": 41
+    },
+    {
+      "modelName": "PS06_LCD",
+      "menu": "활력잡곡",
+      "servingSize": 2,
+      "count": 64
+    },
+    {
+      "modelName": "PS06_LCD",
+      "menu": "활력잡곡",
+      "servingSize": 5,
+      "count": 123
+    },
+    {
+      "modelName": "PS06_LCD",
+      "menu": "흰죽",
+      "servingSize": 5,
+      "count": 5
+    }
+  ],
+  "warmTimes": [
+    {
+      "modelName": "PR03_FND",
+      "t2": 37144,
+      "t12": 25719,
+      "t24": 21016,
+      "t36": 44811
+    },
+    {
+      "modelName": "PS06_LCD",
+      "t2": 205517,
+      "t12": 136607,
+      "t24": 137923,
+      "t36": 300663
+    },
+    {
+      "modelName": "PR03_LCD_BEST",
+      "t2": 41774,
+      "t12": 27885,
+      "t24": 24698,
+      "t36": 37823
+    },
+    {
+      "modelName": "PS06_FND",
+      "t2": 40277,
+      "t12": 25650,
+      "t24": 28361,
+      "t36": 54509
+    },
+    {
+      "modelName": "PS06_FND_ST",
+      "t2": 20791,
+      "t12": 12786,
+      "t24": 12366,
+      "t36": 22139
+    },
+    {
+      "modelName": "PR03_FND_ST",
+      "t2": 40734,
+      "t12": 24928,
+      "t24": 19268,
+      "t36": 29287
+    },
+    {
+      "modelName": "PR03_LCD",
+      "t2": 124,
+      "t12": 243,
+      "t24": 233,
+      "t36": 449
+    },
+    {
+      "modelName": "PS06_FND_DUEL",
+      "t2": 12949,
+      "t12": 8673,
+      "t24": 9436,
+      "t36": 16152
+    }
+  ]
+}

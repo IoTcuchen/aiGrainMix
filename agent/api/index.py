@@ -8,7 +8,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from dotenv import load_dotenv
 load_dotenv(dotenv_path=".env")
 
-from api.routes import chat, survey, cooking
+from api.routes import chat, survey, cooking, manager_chat
 
 app = FastAPI(docs_url="/api/docs", openapi_url="/api/openapi.json")
 
@@ -24,6 +24,7 @@ app.add_middleware(
 app.include_router(chat.router, prefix="/api/chat", tags=["Chat"])
 app.include_router(survey.router, prefix="/api/survey", tags=["Survey"])
 app.include_router(cooking.router, prefix="/api/cooking", tags=["Cooking"])
+app.include_router(manager_chat.router, prefix="/api/manager_chat", tags=["Manager Chat"])
 
 # 로컬 실행용
 if __name__ == "__main__":

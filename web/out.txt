@@ -1,0 +1,124 @@
+=== SC_COOKER_LOG INDEXES ===
+[]
+
+=== EXPLAIN recipe ===
+{
+  "id": 1,
+  "select_type": "SIMPLE",
+  "table": "scl",
+  "partitions": null,
+  "type": "ALL",
+  "possible_keys": null,
+  "key": null,
+  "key_len": null,
+  "ref": null,
+  "rows": 1552905,
+  "filtered": 11.108888626098633,
+  "Extra": "Using where; Using temporary; Using filesort"
+}
+{
+  "id": 1,
+  "select_type": "SIMPLE",
+  "table": "sr",
+  "partitions": null,
+  "type": "eq_ref",
+  "possible_keys": "PRIMARY",
+  "key": "PRIMARY",
+  "key_len": "41",
+  "ref": "cuchenon.scl.RECIPE_KEY",
+  "rows": 1,
+  "filtered": 100,
+  "Extra": null
+}
+
+=== EXPLAIN hourly ===
+{
+  "id": 1,
+  "select_type": "SIMPLE",
+  "table": "SC_COOKER_LOG",
+  "partitions": null,
+  "type": "ALL",
+  "possible_keys": null,
+  "key": null,
+  "key_len": null,
+  "ref": null,
+  "rows": 1552905,
+  "filtered": 11.108888626098633,
+  "Extra": "Using where; Using temporary; Using filesort"
+}
+
+=== EXPLAIN warm ===
+{
+  "id": 1,
+  "select_type": "SIMPLE",
+  "table": "SC_DEVICE_WARM_LOG",
+  "partitions": null,
+  "type": "ALL",
+  "possible_keys": null,
+  "key": null,
+  "key_len": null,
+  "ref": null,
+  "rows": 1109087,
+  "filtered": 11.108888626098633,
+  "Extra": "Using where"
+}
+
+=== EXPLAIN smart_model ===
+{
+  "id": 1,
+  "select_type": "SIMPLE",
+  "table": "C",
+  "partitions": null,
+  "type": "ALL",
+  "possible_keys": null,
+  "key": null,
+  "key_len": null,
+  "ref": null,
+  "rows": 1552905,
+  "filtered": 11.108888626098633,
+  "Extra": "Using where; Using temporary"
+}
+{
+  "id": 1,
+  "select_type": "SIMPLE",
+  "table": "M",
+  "partitions": null,
+  "type": "eq_ref",
+  "possible_keys": "PRIMARY",
+  "key": "PRIMARY",
+  "key_len": "41",
+  "ref": "cuchenon.C.MODEL_KEY",
+  "rows": 1,
+  "filtered": 100,
+  "Extra": null
+}
+
+=== EXPLAIN retention ===
+{
+  "id": 1,
+  "select_type": "SIMPLE",
+  "table": "C",
+  "partitions": null,
+  "type": "ALL",
+  "possible_keys": null,
+  "key": null,
+  "key_len": null,
+  "ref": null,
+  "rows": 1552905,
+  "filtered": 1.1108888387680054,
+  "Extra": "Using where; Using temporary; Using filesort"
+}
+{
+  "id": 1,
+  "select_type": "SIMPLE",
+  "table": "D",
+  "partitions": null,
+  "type": "eq_ref",
+  "possible_keys": "DEVICE_KEY_2,DEVICE_KEY",
+  "key": "DEVICE_KEY_2",
+  "key_len": "41",
+  "ref": "cuchenon.C.DEVICE_KEY",
+  "rows": 1,
+  "filtered": 100,
+  "Extra": null
+}

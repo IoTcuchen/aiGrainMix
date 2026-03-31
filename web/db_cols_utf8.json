@@ -1,0 +1,1122 @@
+[
+  {
+    "TABLE_NAME": "SC_MODEL",
+    "COLUMN_NAME": "MODEL_KEY",
+    "DATA_TYPE": "varchar"
+  },
+  {
+    "TABLE_NAME": "SC_MODEL",
+    "COLUMN_NAME": "MASTER_KEY",
+    "DATA_TYPE": "varchar"
+  },
+  {
+    "TABLE_NAME": "SC_MODEL",
+    "COLUMN_NAME": "PROFILE_KEY",
+    "DATA_TYPE": "varchar"
+  },
+  {
+    "TABLE_NAME": "SC_MODEL",
+    "COLUMN_NAME": "MODEL_TYPE",
+    "DATA_TYPE": "varchar"
+  },
+  {
+    "TABLE_NAME": "SC_MODEL",
+    "COLUMN_NAME": "MODEL_NM",
+    "DATA_TYPE": "varchar"
+  },
+  {
+    "TABLE_NAME": "SC_MODEL",
+    "COLUMN_NAME": "MODEL_ALIAS",
+    "DATA_TYPE": "varchar"
+  },
+  {
+    "TABLE_NAME": "SC_MODEL",
+    "COLUMN_NAME": "MODEL_SEQ",
+    "DATA_TYPE": "int"
+  },
+  {
+    "TABLE_NAME": "SC_MODEL",
+    "COLUMN_NAME": "PROTOCOL_CD",
+    "DATA_TYPE": "varchar"
+  },
+  {
+    "TABLE_NAME": "SC_MODEL",
+    "COLUMN_NAME": "SERVER_HOST",
+    "DATA_TYPE": "varchar"
+  },
+  {
+    "TABLE_NAME": "SC_MODEL",
+    "COLUMN_NAME": "SERVER_PORT",
+    "DATA_TYPE": "int"
+  },
+  {
+    "TABLE_NAME": "SC_MODEL",
+    "COLUMN_NAME": "TH_POWER_CONS",
+    "DATA_TYPE": "double"
+  },
+  {
+    "TABLE_NAME": "SC_MODEL",
+    "COLUMN_NAME": "SH_POWER_CONS",
+    "DATA_TYPE": "double"
+  },
+  {
+    "TABLE_NAME": "SC_MODEL",
+    "COLUMN_NAME": "IH_POWER_CONS",
+    "DATA_TYPE": "double"
+  },
+  {
+    "TABLE_NAME": "SC_MODEL",
+    "COLUMN_NAME": "FILE_KEY",
+    "DATA_TYPE": "varchar"
+  },
+  {
+    "TABLE_NAME": "SC_MODEL",
+    "COLUMN_NAME": "RECIPE_REG_FILE_KEY",
+    "DATA_TYPE": "varchar"
+  },
+  {
+    "TABLE_NAME": "SC_MODEL",
+    "COLUMN_NAME": "EXT_ID",
+    "DATA_TYPE": "varchar"
+  },
+  {
+    "TABLE_NAME": "SC_MODEL",
+    "COLUMN_NAME": "VERIFY_YN",
+    "DATA_TYPE": "char"
+  },
+  {
+    "TABLE_NAME": "SC_MODEL",
+    "COLUMN_NAME": "MAIN_YN",
+    "DATA_TYPE": "char"
+  },
+  {
+    "TABLE_NAME": "SC_MODEL",
+    "COLUMN_NAME": "DEL_YN",
+    "DATA_TYPE": "char"
+  },
+  {
+    "TABLE_NAME": "SC_MODEL",
+    "COLUMN_NAME": "REG_USER",
+    "DATA_TYPE": "varchar"
+  },
+  {
+    "TABLE_NAME": "SC_MODEL",
+    "COLUMN_NAME": "UPD_USER",
+    "DATA_TYPE": "varchar"
+  },
+  {
+    "TABLE_NAME": "SC_MODEL",
+    "COLUMN_NAME": "REG_DT",
+    "DATA_TYPE": "datetime"
+  },
+  {
+    "TABLE_NAME": "SC_MODEL",
+    "COLUMN_NAME": "UPD_DT",
+    "DATA_TYPE": "datetime"
+  },
+  {
+    "TABLE_NAME": "SC_COOKER_LOG",
+    "COLUMN_NAME": "DEVICE_KEY",
+    "DATA_TYPE": "varchar"
+  },
+  {
+    "TABLE_NAME": "SC_COOKER_LOG",
+    "COLUMN_NAME": "MODEL_KEY",
+    "DATA_TYPE": "varchar"
+  },
+  {
+    "TABLE_NAME": "SC_COOKER_LOG",
+    "COLUMN_NAME": "RECIPE_NO",
+    "DATA_TYPE": "int"
+  },
+  {
+    "TABLE_NAME": "SC_COOKER_LOG",
+    "COLUMN_NAME": "RECIPE_KEY",
+    "DATA_TYPE": "varchar"
+  },
+  {
+    "TABLE_NAME": "SC_COOKER_LOG",
+    "COLUMN_NAME": "SERVING_SECOND",
+    "DATA_TYPE": "int"
+  },
+  {
+    "TABLE_NAME": "SC_COOKER_LOG",
+    "COLUMN_NAME": "SERVING_CNT",
+    "DATA_TYPE": "int"
+  },
+  {
+    "TABLE_NAME": "SC_COOKER_LOG",
+    "COLUMN_NAME": "SERVING_BS",
+    "DATA_TYPE": "int"
+  },
+  {
+    "TABLE_NAME": "SC_COOKER_LOG",
+    "COLUMN_NAME": "SERVING_TS",
+    "DATA_TYPE": "int"
+  },
+  {
+    "TABLE_NAME": "SC_COOKER_LOG",
+    "COLUMN_NAME": "POWER_IH_SECOND",
+    "DATA_TYPE": "int"
+  },
+  {
+    "TABLE_NAME": "SC_COOKER_LOG",
+    "COLUMN_NAME": "POWER_TH_SECOND",
+    "DATA_TYPE": "int"
+  },
+  {
+    "TABLE_NAME": "SC_COOKER_LOG",
+    "COLUMN_NAME": "POWER_SH_SECOND",
+    "DATA_TYPE": "int"
+  },
+  {
+    "TABLE_NAME": "SC_COOKER_LOG",
+    "COLUMN_NAME": "SOAK_LEVEL",
+    "DATA_TYPE": "int"
+  },
+  {
+    "TABLE_NAME": "SC_COOKER_LOG",
+    "COLUMN_NAME": "STEAM_LEVEL",
+    "DATA_TYPE": "int"
+  },
+  {
+    "TABLE_NAME": "SC_COOKER_LOG",
+    "COLUMN_NAME": "COOK_CNT",
+    "DATA_TYPE": "int"
+  },
+  {
+    "TABLE_NAME": "SC_COOKER_LOG",
+    "COLUMN_NAME": "CLEAN_CNT",
+    "DATA_TYPE": "int"
+  },
+  {
+    "TABLE_NAME": "SC_COOKER_LOG",
+    "COLUMN_NAME": "APP_CTRL_YN",
+    "DATA_TYPE": "char"
+  },
+  {
+    "TABLE_NAME": "SC_COOKER_LOG",
+    "COLUMN_NAME": "REG_DT",
+    "DATA_TYPE": "datetime"
+  },
+  {
+    "TABLE_NAME": "SC_DEVICE_STATUS",
+    "COLUMN_NAME": "CK_KEY",
+    "DATA_TYPE": "varchar"
+  },
+  {
+    "TABLE_NAME": "SC_DEVICE_STATUS",
+    "COLUMN_NAME": "DEVICE_KEY",
+    "DATA_TYPE": "varchar"
+  },
+  {
+    "TABLE_NAME": "SC_DEVICE_STATUS",
+    "COLUMN_NAME": "SVC_KEY",
+    "DATA_TYPE": "varchar"
+  },
+  {
+    "TABLE_NAME": "SC_DEVICE_STATUS",
+    "COLUMN_NAME": "MODEL_KEY",
+    "DATA_TYPE": "varchar"
+  },
+  {
+    "TABLE_NAME": "SC_DEVICE_STATUS",
+    "COLUMN_NAME": "MODEL_TYPE",
+    "DATA_TYPE": "varchar"
+  },
+  {
+    "TABLE_NAME": "SC_DEVICE_STATUS",
+    "COLUMN_NAME": "CONN_YN",
+    "DATA_TYPE": "char"
+  },
+  {
+    "TABLE_NAME": "SC_DEVICE_STATUS",
+    "COLUMN_NAME": "STATUS",
+    "DATA_TYPE": "varchar"
+  },
+  {
+    "TABLE_NAME": "SC_DEVICE_STATUS",
+    "COLUMN_NAME": "START_DT",
+    "DATA_TYPE": "datetime"
+  },
+  {
+    "TABLE_NAME": "SC_DEVICE_STATUS",
+    "COLUMN_NAME": "END_DT",
+    "DATA_TYPE": "datetime"
+  },
+  {
+    "TABLE_NAME": "SC_DEVICE_STATUS",
+    "COLUMN_NAME": "LAST_RECIPE_KEY",
+    "DATA_TYPE": "varchar"
+  },
+  {
+    "TABLE_NAME": "SC_DEVICE_STATUS",
+    "COLUMN_NAME": "LAST_APP_CTRL_YN",
+    "DATA_TYPE": "char"
+  },
+  {
+    "TABLE_NAME": "SC_DEVICE_STATUS",
+    "COLUMN_NAME": "LAST_SERVING_CNT",
+    "DATA_TYPE": "int"
+  },
+  {
+    "TABLE_NAME": "SC_DEVICE_STATUS",
+    "COLUMN_NAME": "LAST_SOAK",
+    "DATA_TYPE": "smallint"
+  },
+  {
+    "TABLE_NAME": "SC_DEVICE_STATUS",
+    "COLUMN_NAME": "LAST_STEAM",
+    "DATA_TYPE": "smallint"
+  },
+  {
+    "TABLE_NAME": "SC_DEVICE_STATUS",
+    "COLUMN_NAME": "LAST_COOK_DT",
+    "DATA_TYPE": "datetime"
+  },
+  {
+    "TABLE_NAME": "SC_DEVICE_STATUS",
+    "COLUMN_NAME": "LAST_STEP",
+    "DATA_TYPE": "int"
+  },
+  {
+    "TABLE_NAME": "SC_DEVICE_STATUS",
+    "COLUMN_NAME": "LAST_WARM_DT",
+    "DATA_TYPE": "timestamp"
+  },
+  {
+    "TABLE_NAME": "SC_DEVICE_STATUS",
+    "COLUMN_NAME": "TIME",
+    "DATA_TYPE": "int"
+  },
+  {
+    "TABLE_NAME": "SC_DEVICE_STATUS",
+    "COLUMN_NAME": "TIME_2",
+    "DATA_TYPE": "int"
+  },
+  {
+    "TABLE_NAME": "SC_DEVICE_STATUS",
+    "COLUMN_NAME": "TIME_3",
+    "DATA_TYPE": "int"
+  },
+  {
+    "TABLE_NAME": "SC_DEVICE_STATUS",
+    "COLUMN_NAME": "TIME_4",
+    "DATA_TYPE": "int"
+  },
+  {
+    "TABLE_NAME": "SC_DEVICE_STATUS",
+    "COLUMN_NAME": "TIME_5",
+    "DATA_TYPE": "int"
+  },
+  {
+    "TABLE_NAME": "SC_DEVICE_STATUS",
+    "COLUMN_NAME": "LEVEL_1",
+    "DATA_TYPE": "int"
+  },
+  {
+    "TABLE_NAME": "SC_DEVICE_STATUS",
+    "COLUMN_NAME": "END_DT_1",
+    "DATA_TYPE": "datetime"
+  },
+  {
+    "TABLE_NAME": "SC_DEVICE_STATUS",
+    "COLUMN_NAME": "LEVEL_2",
+    "DATA_TYPE": "int"
+  },
+  {
+    "TABLE_NAME": "SC_DEVICE_STATUS",
+    "COLUMN_NAME": "END_DT_2",
+    "DATA_TYPE": "datetime"
+  },
+  {
+    "TABLE_NAME": "SC_DEVICE_STATUS",
+    "COLUMN_NAME": "LEVEL_3",
+    "DATA_TYPE": "int"
+  },
+  {
+    "TABLE_NAME": "SC_DEVICE_STATUS",
+    "COLUMN_NAME": "END_DT_3",
+    "DATA_TYPE": "datetime"
+  },
+  {
+    "TABLE_NAME": "SC_DEVICE_STATUS",
+    "COLUMN_NAME": "LEVEL_4",
+    "DATA_TYPE": "int"
+  },
+  {
+    "TABLE_NAME": "SC_DEVICE_STATUS",
+    "COLUMN_NAME": "END_DT_4",
+    "DATA_TYPE": "datetime"
+  },
+  {
+    "TABLE_NAME": "SC_DEVICE_STATUS",
+    "COLUMN_NAME": "CHILD_LOCK_YN",
+    "DATA_TYPE": "char"
+  },
+  {
+    "TABLE_NAME": "SC_DEVICE_STATUS",
+    "COLUMN_NAME": "COOK_CNT",
+    "DATA_TYPE": "int"
+  },
+  {
+    "TABLE_NAME": "SC_DEVICE_STATUS",
+    "COLUMN_NAME": "PACKING_CNT",
+    "DATA_TYPE": "int"
+  },
+  {
+    "TABLE_NAME": "SC_DEVICE_STATUS",
+    "COLUMN_NAME": "CLEAN_CNT",
+    "DATA_TYPE": "int"
+  },
+  {
+    "TABLE_NAME": "SC_DEVICE_STATUS",
+    "COLUMN_NAME": "POSSIBLE_CMD",
+    "DATA_TYPE": "int"
+  },
+  {
+    "TABLE_NAME": "SC_DEVICE_STATUS",
+    "COLUMN_NAME": "SET_LANG",
+    "DATA_TYPE": "int"
+  },
+  {
+    "TABLE_NAME": "SC_DEVICE_STATUS",
+    "COLUMN_NAME": "SET_VOLUME",
+    "DATA_TYPE": "int"
+  },
+  {
+    "TABLE_NAME": "SC_DEVICE_STATUS",
+    "COLUMN_NAME": "SET_WARM",
+    "DATA_TYPE": "int"
+  },
+  {
+    "TABLE_NAME": "SC_DEVICE_STATUS",
+    "COLUMN_NAME": "SET_HEAT",
+    "DATA_TYPE": "int"
+  },
+  {
+    "TABLE_NAME": "SC_DEVICE_STATUS",
+    "COLUMN_NAME": "SET_PAUSE",
+    "DATA_TYPE": "int"
+  },
+  {
+    "TABLE_NAME": "SC_DEVICE_STATUS",
+    "COLUMN_NAME": "SET_SCREEN_BH_MODE",
+    "DATA_TYPE": "int"
+  },
+  {
+    "TABLE_NAME": "SC_DEVICE_STATUS",
+    "COLUMN_NAME": "SET_SCREEN_BH",
+    "DATA_TYPE": "int"
+  },
+  {
+    "TABLE_NAME": "SC_DEVICE_STATUS",
+    "COLUMN_NAME": "SET_AUTO_CLEAN",
+    "DATA_TYPE": "int"
+  },
+  {
+    "TABLE_NAME": "SC_DEVICE_STATUS",
+    "COLUMN_NAME": "SET_PACKING",
+    "DATA_TYPE": "int"
+  },
+  {
+    "TABLE_NAME": "SC_DEVICE_STATUS",
+    "COLUMN_NAME": "SET_AUTO_STOP",
+    "DATA_TYPE": "int"
+  },
+  {
+    "TABLE_NAME": "SC_DEVICE_STATUS",
+    "COLUMN_NAME": "SET_LIMIT_FIRE",
+    "DATA_TYPE": "int"
+  },
+  {
+    "TABLE_NAME": "SC_DEVICE_STATUS",
+    "COLUMN_NAME": "SET_DEFAULT_STOVE",
+    "DATA_TYPE": "int"
+  },
+  {
+    "TABLE_NAME": "SC_DEVICE_STATUS",
+    "COLUMN_NAME": "SET_DUAL_MODE",
+    "DATA_TYPE": "int"
+  },
+  {
+    "TABLE_NAME": "SC_DEVICE_STATUS",
+    "COLUMN_NAME": "SET_COIL",
+    "DATA_TYPE": "int"
+  },
+  {
+    "TABLE_NAME": "SC_DEVICE_STATUS",
+    "COLUMN_NAME": "SENSOR_BS_ST",
+    "DATA_TYPE": "int"
+  },
+  {
+    "TABLE_NAME": "SC_DEVICE_STATUS",
+    "COLUMN_NAME": "SENSOR_TS_ST",
+    "DATA_TYPE": "int"
+  },
+  {
+    "TABLE_NAME": "SC_DEVICE_STATUS",
+    "COLUMN_NAME": "SENSOR_ES_ST",
+    "DATA_TYPE": "int"
+  },
+  {
+    "TABLE_NAME": "SC_DEVICE_STATUS",
+    "COLUMN_NAME": "SENSOR_POT_ST",
+    "DATA_TYPE": "int"
+  },
+  {
+    "TABLE_NAME": "SC_DEVICE_STATUS",
+    "COLUMN_NAME": "SENSOR_POT_EFF",
+    "DATA_TYPE": "int"
+  },
+  {
+    "TABLE_NAME": "SC_DEVICE_STATUS",
+    "COLUMN_NAME": "SENSOR_TEMP_ST",
+    "DATA_TYPE": "int"
+  },
+  {
+    "TABLE_NAME": "SC_DEVICE_STATUS",
+    "COLUMN_NAME": "SENSOR_HEAD_OPEN_YN",
+    "DATA_TYPE": "char"
+  },
+  {
+    "TABLE_NAME": "SC_DEVICE_STATUS",
+    "COLUMN_NAME": "ERROR_NO",
+    "DATA_TYPE": "int"
+  },
+  {
+    "TABLE_NAME": "SC_DEVICE_STATUS",
+    "COLUMN_NAME": "ERROR_NO_2",
+    "DATA_TYPE": "int"
+  },
+  {
+    "TABLE_NAME": "SC_DEVICE_STATUS",
+    "COLUMN_NAME": "MD_FW_KEY",
+    "DATA_TYPE": "varchar"
+  },
+  {
+    "TABLE_NAME": "SC_DEVICE_STATUS",
+    "COLUMN_NAME": "MD_FW_VER",
+    "DATA_TYPE": "varchar"
+  },
+  {
+    "TABLE_NAME": "SC_DEVICE_STATUS",
+    "COLUMN_NAME": "MD_FW_START_DT",
+    "DATA_TYPE": "datetime"
+  },
+  {
+    "TABLE_NAME": "SC_DEVICE_STATUS",
+    "COLUMN_NAME": "MD_FW_OTA_YN",
+    "DATA_TYPE": "char"
+  },
+  {
+    "TABLE_NAME": "SC_DEVICE_STATUS",
+    "COLUMN_NAME": "WF_FW_KEY",
+    "DATA_TYPE": "varchar"
+  },
+  {
+    "TABLE_NAME": "SC_DEVICE_STATUS",
+    "COLUMN_NAME": "WF_FW_VER",
+    "DATA_TYPE": "varchar"
+  },
+  {
+    "TABLE_NAME": "SC_DEVICE_STATUS",
+    "COLUMN_NAME": "WF_FW_START_DT",
+    "DATA_TYPE": "datetime"
+  },
+  {
+    "TABLE_NAME": "SC_DEVICE_STATUS",
+    "COLUMN_NAME": "WF_FW_OTA_YN",
+    "DATA_TYPE": "char"
+  },
+  {
+    "TABLE_NAME": "SC_DEVICE_STATUS",
+    "COLUMN_NAME": "REG_USER",
+    "DATA_TYPE": "varchar"
+  },
+  {
+    "TABLE_NAME": "SC_DEVICE_STATUS",
+    "COLUMN_NAME": "UPD_USER",
+    "DATA_TYPE": "varchar"
+  },
+  {
+    "TABLE_NAME": "SC_DEVICE_STATUS",
+    "COLUMN_NAME": "REG_DT",
+    "DATA_TYPE": "datetime"
+  },
+  {
+    "TABLE_NAME": "SC_DEVICE_STATUS",
+    "COLUMN_NAME": "UPD_DT",
+    "DATA_TYPE": "datetime"
+  },
+  {
+    "TABLE_NAME": "SC_DEVICE_STATUS",
+    "COLUMN_NAME": "SET_BOIL_MODE",
+    "DATA_TYPE": "int"
+  },
+  {
+    "TABLE_NAME": "SC_DEVICE_STATUS",
+    "COLUMN_NAME": "SET_BOIL_YN",
+    "DATA_TYPE": "int"
+  },
+  {
+    "TABLE_NAME": "SC_COOKER_LOG",
+    "COLUMN_NAME": "DEVICE_KEY",
+    "DATA_TYPE": "varchar"
+  },
+  {
+    "TABLE_NAME": "SC_COOKER_LOG",
+    "COLUMN_NAME": "MODEL_KEY",
+    "DATA_TYPE": "varchar"
+  },
+  {
+    "TABLE_NAME": "SC_COOKER_LOG",
+    "COLUMN_NAME": "RECIPE_NO",
+    "DATA_TYPE": "int"
+  },
+  {
+    "TABLE_NAME": "SC_COOKER_LOG",
+    "COLUMN_NAME": "RECIPE_KEY",
+    "DATA_TYPE": "varchar"
+  },
+  {
+    "TABLE_NAME": "SC_COOKER_LOG",
+    "COLUMN_NAME": "SERVING_SECOND",
+    "DATA_TYPE": "int"
+  },
+  {
+    "TABLE_NAME": "SC_COOKER_LOG",
+    "COLUMN_NAME": "SERVING_CNT",
+    "DATA_TYPE": "int"
+  },
+  {
+    "TABLE_NAME": "SC_COOKER_LOG",
+    "COLUMN_NAME": "SERVING_BS",
+    "DATA_TYPE": "int"
+  },
+  {
+    "TABLE_NAME": "SC_COOKER_LOG",
+    "COLUMN_NAME": "SERVING_TS",
+    "DATA_TYPE": "int"
+  },
+  {
+    "TABLE_NAME": "SC_COOKER_LOG",
+    "COLUMN_NAME": "POWER_IH_SECOND",
+    "DATA_TYPE": "int"
+  },
+  {
+    "TABLE_NAME": "SC_COOKER_LOG",
+    "COLUMN_NAME": "POWER_TH_SECOND",
+    "DATA_TYPE": "int"
+  },
+  {
+    "TABLE_NAME": "SC_COOKER_LOG",
+    "COLUMN_NAME": "POWER_SH_SECOND",
+    "DATA_TYPE": "int"
+  },
+  {
+    "TABLE_NAME": "SC_COOKER_LOG",
+    "COLUMN_NAME": "SOAK_LEVEL",
+    "DATA_TYPE": "int"
+  },
+  {
+    "TABLE_NAME": "SC_COOKER_LOG",
+    "COLUMN_NAME": "STEAM_LEVEL",
+    "DATA_TYPE": "int"
+  },
+  {
+    "TABLE_NAME": "SC_COOKER_LOG",
+    "COLUMN_NAME": "COOK_CNT",
+    "DATA_TYPE": "int"
+  },
+  {
+    "TABLE_NAME": "SC_COOKER_LOG",
+    "COLUMN_NAME": "CLEAN_CNT",
+    "DATA_TYPE": "int"
+  },
+  {
+    "TABLE_NAME": "SC_COOKER_LOG",
+    "COLUMN_NAME": "APP_CTRL_YN",
+    "DATA_TYPE": "char"
+  },
+  {
+    "TABLE_NAME": "SC_COOKER_LOG",
+    "COLUMN_NAME": "REG_DT",
+    "DATA_TYPE": "datetime"
+  },
+  {
+    "TABLE_NAME": "SC_DEVICE_STATUS",
+    "COLUMN_NAME": "CK_KEY",
+    "DATA_TYPE": "varchar"
+  },
+  {
+    "TABLE_NAME": "SC_DEVICE_STATUS",
+    "COLUMN_NAME": "DEVICE_KEY",
+    "DATA_TYPE": "varchar"
+  },
+  {
+    "TABLE_NAME": "SC_DEVICE_STATUS",
+    "COLUMN_NAME": "SVC_KEY",
+    "DATA_TYPE": "varchar"
+  },
+  {
+    "TABLE_NAME": "SC_DEVICE_STATUS",
+    "COLUMN_NAME": "MODEL_KEY",
+    "DATA_TYPE": "varchar"
+  },
+  {
+    "TABLE_NAME": "SC_DEVICE_STATUS",
+    "COLUMN_NAME": "MODEL_TYPE",
+    "DATA_TYPE": "varchar"
+  },
+  {
+    "TABLE_NAME": "SC_DEVICE_STATUS",
+    "COLUMN_NAME": "CONN_YN",
+    "DATA_TYPE": "char"
+  },
+  {
+    "TABLE_NAME": "SC_DEVICE_STATUS",
+    "COLUMN_NAME": "STATUS",
+    "DATA_TYPE": "varchar"
+  },
+  {
+    "TABLE_NAME": "SC_DEVICE_STATUS",
+    "COLUMN_NAME": "START_DT",
+    "DATA_TYPE": "datetime"
+  },
+  {
+    "TABLE_NAME": "SC_DEVICE_STATUS",
+    "COLUMN_NAME": "END_DT",
+    "DATA_TYPE": "datetime"
+  },
+  {
+    "TABLE_NAME": "SC_DEVICE_STATUS",
+    "COLUMN_NAME": "LAST_RECIPE_KEY",
+    "DATA_TYPE": "varchar"
+  },
+  {
+    "TABLE_NAME": "SC_DEVICE_STATUS",
+    "COLUMN_NAME": "LAST_APP_CTRL_YN",
+    "DATA_TYPE": "char"
+  },
+  {
+    "TABLE_NAME": "SC_DEVICE_STATUS",
+    "COLUMN_NAME": "LAST_SERVING_CNT",
+    "DATA_TYPE": "int"
+  },
+  {
+    "TABLE_NAME": "SC_DEVICE_STATUS",
+    "COLUMN_NAME": "LAST_SOAK",
+    "DATA_TYPE": "smallint"
+  },
+  {
+    "TABLE_NAME": "SC_DEVICE_STATUS",
+    "COLUMN_NAME": "LAST_STEAM",
+    "DATA_TYPE": "smallint"
+  },
+  {
+    "TABLE_NAME": "SC_DEVICE_STATUS",
+    "COLUMN_NAME": "LAST_COOK_DT",
+    "DATA_TYPE": "datetime"
+  },
+  {
+    "TABLE_NAME": "SC_DEVICE_STATUS",
+    "COLUMN_NAME": "LAST_STEP",
+    "DATA_TYPE": "int"
+  },
+  {
+    "TABLE_NAME": "SC_DEVICE_STATUS",
+    "COLUMN_NAME": "LAST_WARM_DT",
+    "DATA_TYPE": "datetime"
+  },
+  {
+    "TABLE_NAME": "SC_DEVICE_STATUS",
+    "COLUMN_NAME": "TIME",
+    "DATA_TYPE": "int"
+  },
+  {
+    "TABLE_NAME": "SC_DEVICE_STATUS",
+    "COLUMN_NAME": "TIME_2",
+    "DATA_TYPE": "int"
+  },
+  {
+    "TABLE_NAME": "SC_DEVICE_STATUS",
+    "COLUMN_NAME": "TIME_3",
+    "DATA_TYPE": "int"
+  },
+  {
+    "TABLE_NAME": "SC_DEVICE_STATUS",
+    "COLUMN_NAME": "TIME_4",
+    "DATA_TYPE": "int"
+  },
+  {
+    "TABLE_NAME": "SC_DEVICE_STATUS",
+    "COLUMN_NAME": "TIME_5",
+    "DATA_TYPE": "int"
+  },
+  {
+    "TABLE_NAME": "SC_DEVICE_STATUS",
+    "COLUMN_NAME": "LEVEL_1",
+    "DATA_TYPE": "int"
+  },
+  {
+    "TABLE_NAME": "SC_DEVICE_STATUS",
+    "COLUMN_NAME": "END_DT_1",
+    "DATA_TYPE": "datetime"
+  },
+  {
+    "TABLE_NAME": "SC_DEVICE_STATUS",
+    "COLUMN_NAME": "LEVEL_2",
+    "DATA_TYPE": "int"
+  },
+  {
+    "TABLE_NAME": "SC_DEVICE_STATUS",
+    "COLUMN_NAME": "END_DT_2",
+    "DATA_TYPE": "datetime"
+  },
+  {
+    "TABLE_NAME": "SC_DEVICE_STATUS",
+    "COLUMN_NAME": "LEVEL_3",
+    "DATA_TYPE": "int"
+  },
+  {
+    "TABLE_NAME": "SC_DEVICE_STATUS",
+    "COLUMN_NAME": "END_DT_3",
+    "DATA_TYPE": "datetime"
+  },
+  {
+    "TABLE_NAME": "SC_DEVICE_STATUS",
+    "COLUMN_NAME": "LEVEL_4",
+    "DATA_TYPE": "int"
+  },
+  {
+    "TABLE_NAME": "SC_DEVICE_STATUS",
+    "COLUMN_NAME": "END_DT_4",
+    "DATA_TYPE": "datetime"
+  },
+  {
+    "TABLE_NAME": "SC_DEVICE_STATUS",
+    "COLUMN_NAME": "CHILD_LOCK_YN",
+    "DATA_TYPE": "char"
+  },
+  {
+    "TABLE_NAME": "SC_DEVICE_STATUS",
+    "COLUMN_NAME": "COOK_CNT",
+    "DATA_TYPE": "int"
+  },
+  {
+    "TABLE_NAME": "SC_DEVICE_STATUS",
+    "COLUMN_NAME": "PACKING_CNT",
+    "DATA_TYPE": "int"
+  },
+  {
+    "TABLE_NAME": "SC_DEVICE_STATUS",
+    "COLUMN_NAME": "CLEAN_CNT",
+    "DATA_TYPE": "int"
+  },
+  {
+    "TABLE_NAME": "SC_DEVICE_STATUS",
+    "COLUMN_NAME": "POSSIBLE_CMD",
+    "DATA_TYPE": "int"
+  },
+  {
+    "TABLE_NAME": "SC_DEVICE_STATUS",
+    "COLUMN_NAME": "SET_LANG",
+    "DATA_TYPE": "int"
+  },
+  {
+    "TABLE_NAME": "SC_DEVICE_STATUS",
+    "COLUMN_NAME": "SET_VOLUME",
+    "DATA_TYPE": "int"
+  },
+  {
+    "TABLE_NAME": "SC_DEVICE_STATUS",
+    "COLUMN_NAME": "SET_WARM",
+    "DATA_TYPE": "int"
+  },
+  {
+    "TABLE_NAME": "SC_DEVICE_STATUS",
+    "COLUMN_NAME": "SET_HEAT",
+    "DATA_TYPE": "int"
+  },
+  {
+    "TABLE_NAME": "SC_DEVICE_STATUS",
+    "COLUMN_NAME": "SET_PAUSE",
+    "DATA_TYPE": "int"
+  },
+  {
+    "TABLE_NAME": "SC_DEVICE_STATUS",
+    "COLUMN_NAME": "SET_SCREEN_BH_MODE",
+    "DATA_TYPE": "int"
+  },
+  {
+    "TABLE_NAME": "SC_DEVICE_STATUS",
+    "COLUMN_NAME": "SET_SCREEN_BH",
+    "DATA_TYPE": "int"
+  },
+  {
+    "TABLE_NAME": "SC_DEVICE_STATUS",
+    "COLUMN_NAME": "SET_AUTO_CLEAN",
+    "DATA_TYPE": "int"
+  },
+  {
+    "TABLE_NAME": "SC_DEVICE_STATUS",
+    "COLUMN_NAME": "SET_PACKING",
+    "DATA_TYPE": "int"
+  },
+  {
+    "TABLE_NAME": "SC_DEVICE_STATUS",
+    "COLUMN_NAME": "SET_AUTO_STOP",
+    "DATA_TYPE": "int"
+  },
+  {
+    "TABLE_NAME": "SC_DEVICE_STATUS",
+    "COLUMN_NAME": "SET_LIMIT_FIRE",
+    "DATA_TYPE": "int"
+  },
+  {
+    "TABLE_NAME": "SC_DEVICE_STATUS",
+    "COLUMN_NAME": "SET_DEFAULT_STOVE",
+    "DATA_TYPE": "int"
+  },
+  {
+    "TABLE_NAME": "SC_DEVICE_STATUS",
+    "COLUMN_NAME": "SET_DUAL_MODE",
+    "DATA_TYPE": "int"
+  },
+  {
+    "TABLE_NAME": "SC_DEVICE_STATUS",
+    "COLUMN_NAME": "SET_COIL",
+    "DATA_TYPE": "int"
+  },
+  {
+    "TABLE_NAME": "SC_DEVICE_STATUS",
+    "COLUMN_NAME": "SENSOR_BS_ST",
+    "DATA_TYPE": "int"
+  },
+  {
+    "TABLE_NAME": "SC_DEVICE_STATUS",
+    "COLUMN_NAME": "SENSOR_TS_ST",
+    "DATA_TYPE": "int"
+  },
+  {
+    "TABLE_NAME": "SC_DEVICE_STATUS",
+    "COLUMN_NAME": "SENSOR_ES_ST",
+    "DATA_TYPE": "int"
+  },
+  {
+    "TABLE_NAME": "SC_DEVICE_STATUS",
+    "COLUMN_NAME": "SENSOR_POT_ST",
+    "DATA_TYPE": "int"
+  },
+  {
+    "TABLE_NAME": "SC_DEVICE_STATUS",
+    "COLUMN_NAME": "SENSOR_POT_EFF",
+    "DATA_TYPE": "int"
+  },
+  {
+    "TABLE_NAME": "SC_DEVICE_STATUS",
+    "COLUMN_NAME": "SENSOR_TEMP_ST",
+    "DATA_TYPE": "int"
+  },
+  {
+    "TABLE_NAME": "SC_DEVICE_STATUS",
+    "COLUMN_NAME": "SENSOR_HEAD_OPEN_YN",
+    "DATA_TYPE": "char"
+  },
+  {
+    "TABLE_NAME": "SC_DEVICE_STATUS",
+    "COLUMN_NAME": "ERROR_NO",
+    "DATA_TYPE": "int"
+  },
+  {
+    "TABLE_NAME": "SC_DEVICE_STATUS",
+    "COLUMN_NAME": "ERROR_NO_2",
+    "DATA_TYPE": "int"
+  },
+  {
+    "TABLE_NAME": "SC_DEVICE_STATUS",
+    "COLUMN_NAME": "MD_FW_KEY",
+    "DATA_TYPE": "varchar"
+  },
+  {
+    "TABLE_NAME": "SC_DEVICE_STATUS",
+    "COLUMN_NAME": "MD_FW_VER",
+    "DATA_TYPE": "varchar"
+  },
+  {
+    "TABLE_NAME": "SC_DEVICE_STATUS",
+    "COLUMN_NAME": "MD_FW_START_DT",
+    "DATA_TYPE": "datetime"
+  },
+  {
+    "TABLE_NAME": "SC_DEVICE_STATUS",
+    "COLUMN_NAME": "MD_FW_OTA_YN",
+    "DATA_TYPE": "char"
+  },
+  {
+    "TABLE_NAME": "SC_DEVICE_STATUS",
+    "COLUMN_NAME": "WF_FW_KEY",
+    "DATA_TYPE": "varchar"
+  },
+  {
+    "TABLE_NAME": "SC_DEVICE_STATUS",
+    "COLUMN_NAME": "WF_FW_VER",
+    "DATA_TYPE": "varchar"
+  },
+  {
+    "TABLE_NAME": "SC_DEVICE_STATUS",
+    "COLUMN_NAME": "WF_FW_START_DT",
+    "DATA_TYPE": "datetime"
+  },
+  {
+    "TABLE_NAME": "SC_DEVICE_STATUS",
+    "COLUMN_NAME": "WF_FW_OTA_YN",
+    "DATA_TYPE": "char"
+  },
+  {
+    "TABLE_NAME": "SC_DEVICE_STATUS",
+    "COLUMN_NAME": "REG_USER",
+    "DATA_TYPE": "varchar"
+  },
+  {
+    "TABLE_NAME": "SC_DEVICE_STATUS",
+    "COLUMN_NAME": "UPD_USER",
+    "DATA_TYPE": "varchar"
+  },
+  {
+    "TABLE_NAME": "SC_DEVICE_STATUS",
+    "COLUMN_NAME": "REG_DT",
+    "DATA_TYPE": "datetime"
+  },
+  {
+    "TABLE_NAME": "SC_DEVICE_STATUS",
+    "COLUMN_NAME": "UPD_DT",
+    "DATA_TYPE": "datetime"
+  },
+  {
+    "TABLE_NAME": "SC_DEVICE_STATUS",
+    "COLUMN_NAME": "SET_BOIL_MODE",
+    "DATA_TYPE": "int"
+  },
+  {
+    "TABLE_NAME": "SC_DEVICE_STATUS",
+    "COLUMN_NAME": "SET_BOIL_YN",
+    "DATA_TYPE": "int"
+  },
+  {
+    "TABLE_NAME": "SC_MODEL",
+    "COLUMN_NAME": "MODEL_KEY",
+    "DATA_TYPE": "varchar"
+  },
+  {
+    "TABLE_NAME": "SC_MODEL",
+    "COLUMN_NAME": "MASTER_KEY",
+    "DATA_TYPE": "varchar"
+  },
+  {
+    "TABLE_NAME": "SC_MODEL",
+    "COLUMN_NAME": "PROFILE_KEY",
+    "DATA_TYPE": "varchar"
+  },
+  {
+    "TABLE_NAME": "SC_MODEL",
+    "COLUMN_NAME": "MODEL_TYPE",
+    "DATA_TYPE": "varchar"
+  },
+  {
+    "TABLE_NAME": "SC_MODEL",
+    "COLUMN_NAME": "MODEL_NM",
+    "DATA_TYPE": "varchar"
+  },
+  {
+    "TABLE_NAME": "SC_MODEL",
+    "COLUMN_NAME": "MODEL_ALIAS",
+    "DATA_TYPE": "varchar"
+  },
+  {
+    "TABLE_NAME": "SC_MODEL",
+    "COLUMN_NAME": "MODEL_SEQ",
+    "DATA_TYPE": "int"
+  },
+  {
+    "TABLE_NAME": "SC_MODEL",
+    "COLUMN_NAME": "PROTOCOL_CD",
+    "DATA_TYPE": "varchar"
+  },
+  {
+    "TABLE_NAME": "SC_MODEL",
+    "COLUMN_NAME": "SERVER_HOST",
+    "DATA_TYPE": "varchar"
+  },
+  {
+    "TABLE_NAME": "SC_MODEL",
+    "COLUMN_NAME": "SERVER_PORT",
+    "DATA_TYPE": "int"
+  },
+  {
+    "TABLE_NAME": "SC_MODEL",
+    "COLUMN_NAME": "TH_POWER_CONS",
+    "DATA_TYPE": "double"
+  },
+  {
+    "TABLE_NAME": "SC_MODEL",
+    "COLUMN_NAME": "SH_POWER_CONS",
+    "DATA_TYPE": "double"
+  },
+  {
+    "TABLE_NAME": "SC_MODEL",
+    "COLUMN_NAME": "IH_POWER_CONS",
+    "DATA_TYPE": "double"
+  },
+  {
+    "TABLE_NAME": "SC_MODEL",
+    "COLUMN_NAME": "FILE_KEY",
+    "DATA_TYPE": "varchar"
+  },
+  {
+    "TABLE_NAME": "SC_MODEL",
+    "COLUMN_NAME": "RECIPE_REG_FILE_KEY",
+    "DATA_TYPE": "varchar"
+  },
+  {
+    "TABLE_NAME": "SC_MODEL",
+    "COLUMN_NAME": "EXT_ID",
+    "DATA_TYPE": "varchar"
+  },
+  {
+    "TABLE_NAME": "SC_MODEL",
+    "COLUMN_NAME": "VERIFY_YN",
+    "DATA_TYPE": "char"
+  },
+  {
+    "TABLE_NAME": "SC_MODEL",
+    "COLUMN_NAME": "MAIN_YN",
+    "DATA_TYPE": "char"
+  },
+  {
+    "TABLE_NAME": "SC_MODEL",
+    "COLUMN_NAME": "DEL_YN",
+    "DATA_TYPE": "char"
+  },
+  {
+    "TABLE_NAME": "SC_MODEL",
+    "COLUMN_NAME": "REG_USER",
+    "DATA_TYPE": "varchar"
+  },
+  {
+    "TABLE_NAME": "SC_MODEL",
+    "COLUMN_NAME": "UPD_USER",
+    "DATA_TYPE": "varchar"
+  },
+  {
+    "TABLE_NAME": "SC_MODEL",
+    "COLUMN_NAME": "REG_DT",
+    "DATA_TYPE": "datetime"
+  },
+  {
+    "TABLE_NAME": "SC_MODEL",
+    "COLUMN_NAME": "UPD_DT",
+    "DATA_TYPE": "datetime"
+  }
+]
