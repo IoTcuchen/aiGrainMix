@@ -106,7 +106,7 @@ export default function SmartControlDashboard() {
                         <Smartphone className="text-orange-600" /> 스마트 제어 분석
                     </h2>
                     <p className="text-gray-500 dark:text-gray-400 mt-1">
-                        어플리케이션을 통한 원격 제어 비중과 예약 취사 등 스마트 기능의 활용도를 분석합니다.
+                        어플리케이션을 통한 원격 제어의 활용도를 분석합니다.
                     </p>
                 </div>
 

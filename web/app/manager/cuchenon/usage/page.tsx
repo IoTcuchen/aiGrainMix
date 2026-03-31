@@ -103,7 +103,7 @@ export default function UsageDashboard() {
                         <TrendingUp className="text-orange-600" /> 사용 패턴 통계
                     </h2>
                     <p className="text-gray-500 dark:text-gray-400 mt-1">
-                        사용자들의 선호 메뉴, 취사 시간대 및 인분 수 조절 패턴을 실측 데이터 기반으로 분석합니다.
+                        사용자들의 선호 메뉴, 취사 시간대 및 인분 수 조절 패턴 등 실측 데이터를 기반으로 분석합니다.
                     </p>
                 </div>
 
