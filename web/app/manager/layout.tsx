@@ -2,7 +2,7 @@
 import React from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { LayoutDashboard, Users, Activity, Settings, Coffee, PieChart, Smartphone, TrendingUp, FileText, Cpu } from 'lucide-react';
+import { LayoutDashboard, Activity, Coffee, Smartphone, TrendingUp, Cpu, History } from 'lucide-react';
 
 export default function ManagerLayout({
     children,
@@ -16,9 +16,8 @@ export default function ManagerLayout({
         { href: '/manager/cuchenon/models', icon: <Cpu size={20} />, label: '기본 모델 현황' },
         { href: '/manager/cuchenon/usage', icon: <TrendingUp size={20} />, label: '사용 패턴 통계' },
         { href: '/manager/cuchenon/smart', icon: <Smartphone size={20} />, label: '스마트 제어 분석' },
+        { href: '/manager/cuchenon/history', icon: <History size={20} />, label: '조회 이력' },
         { href: '/manager/cuchenon/journey', icon: <Activity size={20} />, label: '동작 Flow' },
-        // { href: '/manager/cuchenon/report', icon: <FileText size={20} />, label: 'AI 분석 리포트' },
-        // { href: '/manager/cuchenon/insights', icon: <TrendingUp size={20} />, label: '고급 고객 인사이트' },
     ];
 
     return (

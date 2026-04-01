@@ -28,6 +28,7 @@ function ChatContent() {
   const modelKey = typeof window !== 'undefined' ? localStorage.getItem('modelKey') : null;
   const deviceKey = typeof window !== 'undefined' ? localStorage.getItem('deviceKey') : null;
 
+
   const [userName, setUserName] = useState<string | null>(null);
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [appState, setAppState] = useState<AppState>(INITIAL_APP_STATE);

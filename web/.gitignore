@@ -61,3 +61,8 @@ coverage/
 *.sln
 *.sw?
 .vercel
+
+# SQLite cache DB (서버에서 자동 생성 — push 금지)
+*.db
+*.db-shm
+*.db-wal

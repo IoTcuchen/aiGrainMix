@@ -10,9 +10,11 @@
   },
   "dependencies": {
     "@huggingface/inference": "^4.13.12",
+    "@types/better-sqlite3": "^7.6.13",
     "@vercel/kv": "^2.0.0",
     "ai": "^3.2.37",
     "autoprefixer": "^10.4.22",
+    "better-sqlite3": "^12.8.0",
     "firebase": "^12.5.0",
     "firebase-admin": "^13.6.0",
     "lucide-react": "^0.577.0",

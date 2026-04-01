@@ -1,12 +1,11 @@
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-    async rewrites() {
+  // ── 네이티브 모듈(better-sqlite3)을 webpack 번들링에서 제외 ──
+  serverExternalPackages: ['better-sqlite3'],
+
+  async rewrites() {
     return [
-      {
-        source: '/api/:path*',
-        destination: 'http://127.0.0.1:8000/api/:path*',
-      },
       {
         source: '/cuchen-proxy/:path*',
         destination: 'http://127.0.0.1:8080/cuchenon/:path*',

@@ -76,10 +76,14 @@ export default function ModelsDashboard() {
 
     const handleSearch = () => {
         if (startDate && endDate) {
+            const diffDays = (new Date(endDate).getTime() - new Date(startDate).getTime()) / (1000 * 60 * 60 * 24);
+            if (diffDays > 184) {
+                alert('최대 조회 기간은 6개월입니다.\nDB 고부하를 방지하기 위해 최대 6개월까지 설정 가능합니다.');
+                return;
+            }
             localStorage.setItem('dashStart', startDate);
             localStorage.setItem('dashEnd', endDate);
             fetchMetrics(startDate, endDate);
-            // Broadcast to other tabs if needed
             window.dispatchEvent(new CustomEvent('dashboard-search'));
         }
     };

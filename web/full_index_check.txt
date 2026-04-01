@@ -1,0 +1,53 @@
+
+=== SC_COOKER_LOG ===
+  [idx_reg_dt] col=REG_DT seq=1 card=1555713
+
+=== SC_DEVICE_STATUS ===
+  [PRIMARY] col=CK_KEY seq=1 card=8840
+  [DEVICE_KEY_2] col=DEVICE_KEY seq=1 card=8857
+  [DEVICE_KEY] col=DEVICE_KEY seq=1 card=8857
+  [DEVICE_KEY] col=SVC_KEY seq=2 card=8857
+  [MODEL_TYPE] col=MODEL_KEY seq=1 card=10
+  [idx_status_reg_dt] col=REG_DT seq=1 card=8861
+
+=== SC_DEVICE_WARM_LOG ===
+  [PRIMARY] col=DWL_KEY seq=1 card=1103342
+  [idx_warm_reg_dt] col=REG_DT seq=1 card=1110040
+
+=== SC_DEVICE_RESV_TIME ===
+  [PRIMARY] col=SDRT_KEY seq=1 card=56421
+  [PRIMARY] col=DEVICE_KEY seq=2 card=55115
+  [PRIMARY] col=SVC_KEY seq=3 card=56421
+  [PRIMARY] col=MODEL_KEY seq=4 card=55872
+  [DEVICE_KEY] col=DEVICE_KEY seq=1 card=1848
+  [DEVICE_KEY] col=SVC_KEY seq=2 card=2310
+  [MODEL_KEY] col=MODEL_KEY seq=1 card=10
+  [idx_resv_reg_dt] col=REG_DT seq=1 card=23198
+
+=== SC_DEVICE_COOK_LOG ===
+  [PRIMARY] col=DCL_KEY seq=1 card=925134
+  [idx_cook_log_day] col=DAY seq=1 card=1275
+
+=== SC_MODEL ===
+  [PRIMARY] col=MODEL_KEY seq=1 card=13
+
+=== SC_RECIPE ===
+  [PRIMARY] col=RECIPE_KEY seq=1 card=4068
+  [RECIPE_NO] col=RECIPE_NO seq=1 card=601
+  [SC_RECIPE_ibfk_1_idx] col=MODEL_KEY seq=1 card=22
+  [SC_RECIPE_ibfk_2_idx] col=MODEL_CATEGORY_KEY seq=1 card=112
+
+=== SC_MEM ===
+  [PRIMARY] col=MEM_KEY seq=1 card=13257
+  [sc_mem_fk_1] col=SVC_MEM_KEY seq=1 card=13308
+  [sc_mem_ix_reg_dt] col=REG_DT seq=1 card=13308
+
+=== ROW COUNTS ===
+  SC_COOKER_LOG: 1555716
+  SC_DEVICE_STATUS: 11219
+  SC_DEVICE_WARM_LOG: 1563984
+  SC_DEVICE_RESV_TIME: 60661
+  SC_DEVICE_COOK_LOG: 1200601
+  SC_MODEL: 13
+  SC_RECIPE: 4599
+  SC_MEM: 19039

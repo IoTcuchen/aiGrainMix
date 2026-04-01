@@ -91,6 +91,11 @@ export default function ManagerDashboard() {
 
     const handleSearch = () => {
         if (startDate && endDate) {
+            const diffDays = (new Date(endDate).getTime() - new Date(startDate).getTime()) / (1000 * 60 * 60 * 24);
+            if (diffDays > 184) {
+                alert('최대 조회 기간은 6개월입니다.\nDB 고부하를 방지하기 위해 최대 6개월까지 설정 가능합니다.');
+                return;
+            }
             localStorage.setItem('dashStart', startDate);
             localStorage.setItem('dashEnd', endDate);
             fetchMetrics(startDate, endDate);
@@ -200,20 +205,19 @@ export default function ManagerDashboard() {
                     {/* 데이터 볼륨 KPI */}
                     <div className="grid grid-cols-2 lg:grid-cols-5 gap-6 mt-6">
                         {metrics.dataVolumes?.map((item: any, idx: number) => (
-                            <div key={idx} className="bg-white dark:bg-[#1F2937] p-5 rounded-2xl border border-gray-100 dark:border-gray-700 shadow-sm relative">
-                                <div className="absolute -right-4 -top-4 w-24 h-24 bg-gradient-to-br from-orange-100 to-orange-50 dark:from-gray-700 dark:to-gray-800 rounded-full opacity-50 group-hover:scale-110 transition-transform"></div>
-                                <div className="flex items-center gap-3 relative z-10 w-full pr-4">
-                                    <div className="w-10 h-10 min-w-[40px] bg-orange-50 dark:bg-gray-700 rounded-xl flex items-center justify-center text-[#FF6B00]">
-                                        {item.icon === 'Users' ? <Users size={20} /> : item.icon === 'Smartphone' ? <Smartphone size={20} /> : <Database size={20} />}
-                                    </div>
-                                    <div className="flex items-center">
-                                        <h3 className="text-gray-500 dark:text-gray-400 font-medium whitespace-nowrap">{item.name}</h3>
+                            <div key={idx} className="bg-white dark:bg-[#1F2937] p-5 rounded-2xl border border-gray-100 dark:border-gray-700 shadow-sm flex flex-col justify-between">
+                                <div className="flex justify-between items-start mb-4">
+                                    <div className="flex items-center gap-2">
+                                        <p className="text-sm font-medium text-gray-500 dark:text-gray-400">{item.name}</p>
                                         {item.tooltip && <InfoTooltip text={item.tooltip} />}
                                     </div>
+                                    <div className="p-2 bg-orange-50 dark:bg-orange-900/20 rounded-xl text-[#FF6B00]">
+                                        {item.icon === 'Users' ? <Users size={18} /> : item.icon === 'Smartphone' ? <Smartphone size={18} /> : <Database size={18} />}
+                                    </div>
                                 </div>
-                                <div className="mt-4 relative z-10 flex items-end gap-2">
-                                    <span className="text-3xl font-bold">{item.count?.toLocaleString()}</span>
-                                    <span className="text-sm text-gray-400 mb-1">{item.name.includes('가입자') ? '명' : item.name.includes('기기') ? '대' : '건'}</span>
+                                <div className="flex items-end gap-1">
+                                    <span className="text-2xl font-bold text-gray-900 dark:text-white">{item.count?.toLocaleString()}</span>
+                                    <span className="text-sm text-gray-400 mb-0.5">{item.name.includes('가입자') ? '명' : item.name.includes('기기') ? '대' : '건'}</span>
                                 </div>
                             </div>
                         ))}

@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import { getMgrPool } from '@/lib/api/db';
+import { upsertCache } from '@/lib/db/cache';
 
 export const dynamic = 'force-dynamic';
 
@@ -626,6 +627,10 @@ export async function GET(request: Request) {
         }
 
         setCached(tabCacheKey, data);
+
+        // ── SQLite 영구 캐시 저장 (비동기 시도, 실패해도 응답에 영향 없음) ──
+        try { upsertCache(startStr, endStr, tab, data); } catch (e) { console.warn('SQLite cache write failed:', e); }
+
         return NextResponse.json(data);
 
     } catch (error) {
