@@ -65,7 +65,11 @@ export async function GET(request: Request) {
     // 5분 메모리 캐시 히트 (정확히 같은 날짜) → 즉시 반환
     const tabCacheKey = `${base}_${tab}`;
     const tabCached = getCached(tabCacheKey);
-    if (tabCached) return NextResponse.json(tabCached);
+    if (tabCached) {
+        // [수정] 메모리 캐시 히트 시에도 SQLite에 누락되어 있을 수 있으므로(삭제 등) 저장 시도
+        try { upsertCache(startStr, endStr, tab, tabCached); } catch (e) { }
+        return NextResponse.json(tabCached);
+    }
 
     // ─── 싱글톤 풀 (생성/종료 없음) ───
     const pool = getMgrPool();
