@@ -1,8 +1,9 @@
-
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  // ── 네이티브 모듈(better-sqlite3)을 webpack 번들링에서 제외 ──
-  serverExternalPackages: ['better-sqlite3'],
+  // ── 네이티브 모듈(better-sqlite3)을 webpack 번들링에서 제외 (Next.js 14) ──
+  experimental: {
+    serverComponentsExternalPackages: ['better-sqlite3'],
+  },
 
   async rewrites() {
     return [
