@@ -95,7 +95,7 @@ export default function HistoryDetailPage({ params }: { params: { id: string } }
             {/* Content */}
             <div className="p-6 md:p-10 max-w-7xl mx-auto pb-16">
                 {!cache[activeTab] ? (
-                    <div className="text-center py-20 text-gray-400">이 탭 데이터는 아직 조회된 적 없습니다.</div>
+                    <div className="text-center py-20 text-gray-400">이 탭 데이터는 아직 조회된 적 없습니다. <br /> 데이터를 조회하시려면 관리자 페이지에서 "{periodText}" 기간에 대한 조회를 진행해주세요. </div>
                 ) : (
                     <>
                         {/* ────────── OVERVIEW ────────── */}
@@ -340,7 +340,27 @@ export default function HistoryDetailPage({ params }: { params: { id: string } }
                                     </div>
                                     <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
                                         <div className="flex justify-between items-center mb-6"><div className="flex items-center gap-2"><h3 className="text-lg font-bold text-gray-900 flex items-center gap-2"><BarChart2 className="text-[#3B82F6]" size={18} />기기 모델별 스마트 제어 비율 (Top 10)</h3><InfoTooltip text="어느 기기 모델이 IoT 기능을 가장 활발하게 사용하는지 탑 10을 선정합니다." /></div><span className="text-xs text-gray-500 bg-gray-100 px-2 py-1 rounded-md">{periodText}</span></div>
-                                        <div className="h-[300px]"><ResponsiveContainer width="100%" height="100%"><BarChart data={modelAppRatio} margin={{ top: 5, right: 0, bottom: 5, left: -10 }}><CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#E5E7EB" /><XAxis dataKey="name" axisLine={false} tickLine={false} tick={{ fill: '#6B7280', fontSize: 11 }} dy={10} /><YAxis axisLine={false} tickLine={false} tick={{ fill: '#6B7280', fontSize: 11 }} dx={-10} /><Tooltip cursor={{ fill: 'rgba(59,130,246,0.05)' }} contentStyle={{ borderRadius: '12px', border: 'none' }} /><Legend wrapperStyle={{ paddingTop: '10px' }} /><Bar name="앱 제어 취사량" dataKey="app" stackId="a" fill="#3B82F6" barSize={24} /><Bar name="수동 취사량" dataKey="manual" stackId="a" fill="#FCA5A5" radius={[4, 4, 0, 0]} /></BarChart></ResponsiveContainer></div>
+                                        <div className="h-[300px]"><ResponsiveContainer width="100%" height="100%"><BarChart data={modelAppRatio} margin={{ top: 5, right: 0, bottom: 5, left: -10 }}><CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#E5E7EB" /><XAxis dataKey="name" axisLine={false} tickLine={false} tick={{ fill: '#6B7280', fontSize: 11 }} dy={10} /><YAxis axisLine={false} tickLine={false} tick={{ fill: '#6B7280', fontSize: 11 }} dx={-10} /><Tooltip cursor={{ fill: 'rgba(59,130,246,0.05)' }} contentStyle={{ borderRadius: '12px', border: 'none' }}
+                                            content={({ active, payload }: any) => {
+                                                if (active && payload && payload.length) {
+                                                    const app = payload[0].value;
+                                                    const manual = payload[1].value;
+                                                    const total = app + manual;
+                                                    const pct = total > 0 ? ((app / total) * 100).toFixed(1) : 0;
+                                                    return (
+                                                        <div className="bg-white p-3 rounded-xl shadow-xl border border-gray-100 font-['Pretendard']">
+                                                            <p className="text-[12px] font-bold text-gray-900 mb-2">{payload[0].payload.name}</p>
+                                                            <div className="space-y-1">
+                                                                <div className="flex justify-between items-center gap-4 text-[11px]"><span className="text-blue-600 font-bold">앱 제어</span><span className="font-mono">{app.toLocaleString()} 건</span></div>
+                                                                <div className="flex justify-between items-center gap-4 text-[11px]"><span className="text-red-400 font-bold">수동 취사</span><span className="font-mono">{manual.toLocaleString()} 건</span></div>
+                                                                <div className="border-t border-gray-50 pt-1 mt-1 flex justify-between items-center gap-4 text-[11px] font-black"><span className="text-gray-900">앱 비중</span><span className="text-[#FF6B00]">{pct}%</span></div>
+                                                            </div>
+                                                        </div>
+                                                    );
+                                                }
+                                                return null;
+                                            }} />
+                                            <Legend wrapperStyle={{ paddingTop: '10px' }} /><Bar name="앱 제어 취사량" dataKey="app" stackId="a" fill="#3B82F6" barSize={24} /><Bar name="수동 취사량" dataKey="manual" stackId="a" fill="#FCA5A5" radius={[4, 4, 0, 0]} /></BarChart></ResponsiveContainer></div>
                                     </div>
                                 </div>
                             );

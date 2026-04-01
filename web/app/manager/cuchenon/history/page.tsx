@@ -8,7 +8,18 @@ interface CacheEntry {
     start_date: string;
     end_date: string;
     fetched_at: string;
+    has_overview: number;
+    has_models: number;
+    has_usage: number;
+    has_smart: number;
 }
+
+const TAB_BADGES = [
+    { key: 'has_overview', label: '요약', color: 'bg-orange-100 text-orange-700' },
+    { key: 'has_models', label: '모델', color: 'bg-blue-100 text-blue-700' },
+    { key: 'has_usage', label: '사용패턴', color: 'bg-purple-100 text-purple-700' },
+    { key: 'has_smart', label: '스마트', color: 'bg-emerald-100 text-emerald-700' },
+] as const;
 
 export default function QueryHistoryPage() {
     const [list, setList] = useState<CacheEntry[]>([]);
@@ -66,7 +77,7 @@ export default function QueryHistoryPage() {
                         <History className="text-orange-600" /> 조회 이력
                     </h2>
                     <p className="text-gray-500 dark:text-gray-400 mt-1">
-                        과거 조회된 데이터를 서버 캐시에서 즉시 불러옵니다. RDS를 다시 조회하지 않습니다.
+                        과거 조회된 데이터를 즉시 불러옵니다. 다시 조회하지 않습니다.
                     </p>
                 </div>
                 <div className="flex items-center gap-3">
@@ -96,7 +107,7 @@ export default function QueryHistoryPage() {
                 <div className="bg-white dark:bg-[#1F2937] rounded-2xl shadow-sm border border-gray-100 dark:border-gray-800 overflow-hidden">
                     {/* Table Header */}
                     <div className="grid grid-cols-[1fr_auto_auto_auto] gap-4 px-6 py-3 bg-gray-50 dark:bg-gray-800/50 border-b border-gray-100 dark:border-gray-700 text-xs font-semibold text-gray-500 uppercase tracking-wider">
-                        <span>조회 기간</span>
+                        <span>조회 기간 / 저장된 탭</span>
                         <span className="text-right">기간 일수</span>
                         <span className="text-right">저장 일시</span>
                         <span className="text-right">관리</span>
@@ -112,7 +123,7 @@ export default function QueryHistoryPage() {
                                     onClick={() => handleOpen(item.id)}
                                     className="grid grid-cols-[1fr_auto_auto_auto] gap-4 px-6 py-4 items-center hover:bg-orange-50/40 dark:hover:bg-orange-900/10 cursor-pointer transition-colors group"
                                 >
-                                    {/* 조회 기간 */}
+                                    {/* 조회 기간 + 탭 뱃지 */}
                                     <div className="flex items-center gap-3">
                                         <div className="w-9 h-9 rounded-xl bg-orange-50 dark:bg-orange-900/20 flex items-center justify-center flex-shrink-0">
                                             <CalendarRange size={16} className="text-orange-600" />
@@ -121,6 +132,15 @@ export default function QueryHistoryPage() {
                                             <p className="font-semibold text-gray-900 dark:text-white group-hover:text-orange-600 transition-colors">
                                                 {item.start_date} ~ {item.end_date}
                                             </p>
+                                            <div className="flex flex-wrap gap-1 mt-1">
+                                                {TAB_BADGES.map(b => (
+                                                    item[b.key] ? (
+                                                        <span key={b.key} className={`text-[10px] font-bold px-1.5 py-0.5 rounded-full ${b.color}`}>{b.label}</span>
+                                                    ) : (
+                                                        <span key={b.key} className="text-[10px] font-bold px-1.5 py-0.5 rounded-full bg-gray-100 text-gray-300">{b.label}</span>
+                                                    )
+                                                ))}
+                                            </div>
                                         </div>
                                         <ExternalLink size={14} className="text-gray-300 group-hover:text-orange-500 transition-colors ml-1" />
                                     </div>
@@ -161,7 +181,7 @@ export default function QueryHistoryPage() {
             )}
 
             <div className="text-xs text-gray-400 text-center">
-                * 조회 이력은 서버(EC2)의 SQLite DB에 저장되며, 모든 관리자가 공유합니다.
+                * 조회 이력은 서버 DB에 저장되며, 모든 관리자가 공유합니다.
             </div>
         </div>
     );

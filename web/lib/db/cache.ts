@@ -48,7 +48,12 @@ export interface CacheRow {
 export function getCacheList(): Pick<CacheRow, 'id' | 'start_date' | 'end_date' | 'fetched_at'>[] {
     const db = getDb();
     return db.prepare(`
-        SELECT id, start_date, end_date, fetched_at
+        SELECT
+            id, start_date, end_date, fetched_at,
+            (overview_json IS NOT NULL) AS has_overview,
+            (models_json   IS NOT NULL) AS has_models,
+            (usage_json    IS NOT NULL) AS has_usage,
+            (smart_json    IS NOT NULL) AS has_smart
         FROM mgr_query_cache
         ORDER BY fetched_at DESC
     `).all() as any;

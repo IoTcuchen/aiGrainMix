@@ -32,15 +32,13 @@ export default function SmartControlDashboard() {
     const fetchMetrics = async (start: string, end: string) => {
         setLoading(true);
         try {
-            const [smartRes, usageRes] = await Promise.all([
-                fetch(`/api/manager/metrics?tab=smart&startDate=${start}&endDate=${end}`).then(r => r.json()),
-                fetch(`/api/manager/metrics?tab=usage&startDate=${start}&endDate=${end}`).then(r => r.json())
-            ]);
+            const res = await fetch(`/api/manager/metrics?tab=smart&startDate=${start}&endDate=${end}`);
+            const data = await res.json();
 
-            if (!smartRes.error && !usageRes.error) {
+            if (!data.error) {
                 setMetrics({
-                    ...smartRes,
-                    hourlyTrend: usageRes.hourlyTrend || []
+                    ...data,
+                    hourlyTrend: data.hourlyTrend || []
                 });
             }
         } catch (e) {
@@ -231,7 +229,27 @@ export default function SmartControlDashboard() {
                                         <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#E5E7EB" />
                                         <XAxis dataKey="name" axisLine={false} tickLine={false} tick={{ fill: '#6B7280', fontSize: 11 }} dy={10} />
                                         <YAxis axisLine={false} tickLine={false} tick={{ fill: '#6B7280', fontSize: 11 }} dx={-10} />
-                                        <Tooltip cursor={{ fill: 'rgba(59, 130, 246, 0.05)' }} contentStyle={{ borderRadius: '12px', border: 'none', boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)' }} />
+                                        <Tooltip cursor={{ fill: 'rgba(59, 130, 246, 0.05)' }}
+                                            content={({ active, payload }: any) => {
+                                                if (active && payload && payload.length) {
+                                                    const app = payload[0].value;
+                                                    const manual = payload[1].value;
+                                                    const total = app + manual;
+                                                    const pct = total > 0 ? ((app / total) * 100).toFixed(1) : 0;
+                                                    return (
+                                                        <div className="bg-white dark:bg-[#1F2937] p-3 rounded-xl shadow-xl border border-gray-100 dark:border-gray-700 font-['Pretendard']">
+                                                            <p className="text-[12px] font-bold text-gray-900 dark:text-white mb-2">{payload[0].payload.name}</p>
+                                                            <div className="space-y-1">
+                                                                <div className="flex justify-between items-center gap-4 text-[11px]"><span className="text-blue-600 font-bold">앱 제어</span><span className="font-mono text-gray-700 dark:text-gray-300">{app.toLocaleString()} 건</span></div>
+                                                                <div className="flex justify-between items-center gap-4 text-[11px]"><span className="text-red-400 font-bold">수동 취사</span><span className="font-mono text-gray-700 dark:text-gray-300">{manual.toLocaleString()} 건</span></div>
+                                                                <div className="border-t border-gray-50 dark:border-gray-800 pt-1 mt-1 flex justify-between items-center gap-4 text-[11px] font-black"><span className="text-gray-900 dark:text-white">앱 비중</span><span className="text-[#FF6B00]">{pct}%</span></div>
+                                                            </div>
+                                                        </div>
+                                                    );
+                                                }
+                                                return null;
+                                            }}
+                                        />
                                         <Legend wrapperStyle={{ paddingTop: '10px' }} />
                                         <Bar name="앱 제어 취사량" dataKey="app" stackId="a" fill="#3B82F6" barSize={24} />
                                         <Bar name="수동 취사량" dataKey="manual" stackId="a" fill="#FCA5A5" radius={[4, 4, 0, 0]} />

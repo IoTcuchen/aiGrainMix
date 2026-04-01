@@ -62,7 +62,7 @@ export async function GET(request: Request) {
 
     const base = `${startStr}_${endStr}`;
 
-    // 탭 전체가 캐시 히트 → 즉시 반환
+    // 5분 메모리 캐시 히트 (정확히 같은 날짜) → 즉시 반환
     const tabCacheKey = `${base}_${tab}`;
     const tabCached = getCached(tabCacheKey);
     if (tabCached) return NextResponse.json(tabCached);
@@ -123,6 +123,24 @@ export async function GET(request: Request) {
                  JOIN SC_MODEL M ON C.MODEL_KEY = M.MODEL_KEY
                  WHERE C.REG_DT >= ? AND C.REG_DT <= ?
                  GROUP BY ${col} ORDER BY totalCooks DESC LIMIT ${limit}`,
+                [startDateTime, endDateTime]
+            );
+            setCached(key, rows);
+            return rows;
+        }
+
+        /** 시간대별 앱/수동 현황 (usage / smart 공통) */
+        async function getHourlyTrend() {
+            const key = `${base}_hourly`;
+            const hit = getCached(key);
+            if (hit) return hit;
+            const [rows] = await pool.execute(
+                `SELECT HOUR(REG_DT) as hour,
+                        COUNT(CASE WHEN APP_CTRL_YN = 'Y' THEN 1 END) as appCount,
+                        COUNT(CASE WHEN APP_CTRL_YN = 'N' THEN 1 END) as manualCount
+                 FROM SC_COOKER_LOG
+                 WHERE REG_DT >= ? AND REG_DT <= ?
+                 GROUP BY hour ORDER BY hour ASC`,
                 [startDateTime, endDateTime]
             );
             setCached(key, rows);
@@ -341,7 +359,7 @@ export async function GET(request: Request) {
         else if (tab === 'usage') {
             const [
                 [recipeRows],
-                [hourlyRows],
+                hourlyRows,
                 [warmRows],
                 [dayOfWeekRows],
                 [soakSteamRows],
@@ -357,15 +375,7 @@ export async function GET(request: Request) {
                      GROUP BY sr.RECIPE_NM ORDER BY count DESC LIMIT 10`,
                     [startDateTime, endDateTime]
                 ),
-                pool.execute(
-                    `SELECT HOUR(REG_DT) as hour,
-                            COUNT(CASE WHEN APP_CTRL_YN = 'Y' THEN 1 END) as appCount,
-                            COUNT(CASE WHEN APP_CTRL_YN = 'N' THEN 1 END) as manualCount
-                     FROM SC_COOKER_LOG
-                     WHERE REG_DT >= ? AND REG_DT <= ?
-                     GROUP BY hour ORDER BY hour ASC`,
-                    [startDateTime, endDateTime]
-                ),
+                getHourlyTrend(),
                 pool.execute(
                     `SELECT
                         COUNT(CASE WHEN WARM_TIME = 0            THEN 1 END) as t0,
@@ -482,10 +492,11 @@ export async function GET(request: Request) {
         //  TAB: smart  (공유 캐시 헬퍼 최대 활용)
         // ════════════════════════════════════════
         else if (tab === 'smart') {
-            const [appCtrlRows, resvRows, modelAppRows] = await Promise.all([
+            const [appCtrlRows, resvRows, modelAppRows, hourlyRows] = await Promise.all([
                 getAppCtrlRatio(),
                 getResvTimeTrend(),
-                getModelAppRatio(false, 10)
+                getModelAppRatio(false, 10),
+                getHourlyTrend()
             ]);
 
             const yCount = (appCtrlRows as any[])[0]?.Y_CNT || 0;
@@ -499,9 +510,22 @@ export async function GET(request: Request) {
                 if (!isNaN(hh) && hh >= 0 && hh < 24) resvTimeTrend[hh].count = Number(row.count) || 0;
             });
 
+            const hourlyTrend = Array.from({ length: 24 }).map((_, i) => ({
+                hour: `${i}시`, count: 0, appCount: 0, manualCount: 0
+            }));
+            (hourlyRows as any[]).forEach(row => {
+                const h = Number(row.hour);
+                if (h >= 0 && h < 24) {
+                    hourlyTrend[h].appCount = Number(row.appCount) || 0;
+                    hourlyTrend[h].manualCount = Number(row.manualCount) || 0;
+                    hourlyTrend[h].count = hourlyTrend[h].appCount + hourlyTrend[h].manualCount;
+                }
+            });
+
             data = {
                 appCtrlRatio: { app: yCount, manual: nCount, total: yCount + nCount },
                 resvTimeTrend,
+                hourlyTrend,
                 modelAppRatio: (modelAppRows as any[]).map(row => ({
                     name: row.modelName || '기타',
                     total: Number(row.totalCooks),
