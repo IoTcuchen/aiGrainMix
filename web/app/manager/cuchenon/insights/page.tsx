@@ -47,15 +47,21 @@ export default function InsightsDashboard() {
         setMounted(true);
         let s = localStorage.getItem('dashStart');
         let e = localStorage.getItem('dashEnd');
-        if (!s || !e) {
-            const today = new Date();
+
+        const today = new Date();
+        const todayStr = new Date(today.getTime() - (today.getTimezoneOffset() * 60000)).toISOString().split('T')[0];
+
+        if (!s) {
             const startObj = new Date(today);
-            startObj.setDate(today.getDate() - 90);
+            startObj.setDate(today.getDate() - 90); // Insights defaults to 90 days
             s = new Date(startObj.getTime() - (startObj.getTimezoneOffset() * 60000)).toISOString().split('T')[0];
-            e = new Date(today.getTime() - (today.getTimezoneOffset() * 60000)).toISOString().split('T')[0];
             localStorage.setItem('dashStart', s);
+        }
+        if (!e) {
+            e = todayStr;
             localStorage.setItem('dashEnd', e);
         }
+
         setStartDate(s);
         setEndDate(e);
         fetchMetrics(s, e);
