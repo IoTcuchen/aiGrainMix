@@ -17,6 +17,34 @@ const InfoTooltip = ({ text }: { text: string }) => (
     </div>
 );
 
+/** 레시피 이름 정규화 (백미찰진밥 -> 찰진백미 등) */
+function normalizeRecipeName(name: string | null): string {
+    if (!name) return '기타';
+    const n = name.trim();
+    if (n.includes('백미찰진밥') || n.includes('찰진백미')) return '찰진백미';
+    if (n.includes('백미고슬밥') || n.includes('고슬백미')) return '고슬백미';
+    if (n.includes('혼합잡곡밥') || n.includes('혼합잡곡')) return '혼합잡곡';
+    if (n.includes('백미쾌속')) return '백미쾌속';
+    if (n.includes('가마솥밥')) return '가마솥밥';
+    if (n.includes('현미100')) return '현미100';
+    if (n.includes('잡곡쾌속')) return '잡곡쾌속';
+    return n;
+}
+
+/** 레시피 명칭 통합 및 카운트 합산 (클라이언트용) */
+function consolidateRecipes(rows: any[], limit = 15) {
+    if (!rows) return [];
+    const map = new Map<string, number>();
+    rows.forEach(r => {
+        const name = normalizeRecipeName(r.name);
+        map.set(name, (map.get(name) || 0) + (Number(r.count) || 0));
+    });
+    return Array.from(map.entries())
+        .map(([name, count]) => ({ name, count }))
+        .sort((a, b) => b.count - a.count)
+        .slice(0, limit);
+}
+
 export default function UsageDashboard() {
     const [mounted, setMounted] = useState(false);
     const [loading, setLoading] = useState(true);
@@ -151,21 +179,26 @@ export default function UsageDashboard() {
                                         <BarChart3 className="text-[#FF6B00]" size={18} />
                                         인기 취사 메뉴 랭킹
                                     </h3>
-                                    <InfoTooltip text="조회 기간 동안 사용자들이 가장 많이 선택한 취사 메뉴 TOP 10입니다." />
+                                    <InfoTooltip text="조회 기간 동안 사용자들이 가장 많이 선택한 취사 메뉴 TOP 15입니다." />
                                 </div>
                                 <span className="text-xs font-medium text-gray-500 bg-gray-100 dark:bg-gray-800 px-2 py-1 rounded-md">{periodText}</span>
                             </div>
-                            <div className="h-[300px] w-full">
+                            <div className="h-[450px] w-full">
                                 <ResponsiveContainer width="100%" height="100%">
-                                    <BarChart data={topRecipes} layout="vertical" margin={{ top: 5, right: 20, bottom: 5, left: 30 }}>
-                                        <CartesianGrid strokeDasharray="3 3" horizontal={false} stroke="#E5E7EB" />
-                                        <XAxis type="number" axisLine={false} tickLine={false} hide />
-                                        <YAxis dataKey="name" type="category" axisLine={false} tickLine={false} tick={{ fill: '#374151', fontSize: 13, fontWeight: 500 }} dx={-10} />
-                                        <Tooltip cursor={{ fill: 'rgba(255, 107, 0, 0.05)' }} contentStyle={{ borderRadius: '12px', border: 'none', boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)' }} formatter={(value: any) => [value.toLocaleString() + ' 회', '취사 수']} />
-                                        <Bar dataKey="count" fill="#FF6B00" radius={[0, 6, 6, 0]} barSize={24}>
-                                            {topRecipes?.map((entry: any, index: number) => <Cell key={`cell-${index}`} fill={index === 0 ? '#FF6B00' : '#FCA5A5'} />)}
-                                        </Bar>
-                                    </BarChart>
+                                    {(() => {
+                                        const consolidated = consolidateRecipes(topRecipes);
+                                        return (
+                                            <BarChart data={consolidated} layout="vertical" margin={{ top: 5, right: 20, bottom: 5, left: 30 }}>
+                                                <CartesianGrid strokeDasharray="3 3" horizontal={false} stroke="#E5E7EB" />
+                                                <XAxis type="number" axisLine={false} tickLine={false} hide />
+                                                <YAxis dataKey="name" type="category" axisLine={false} tickLine={false} tick={{ fill: '#374151', fontSize: 13, fontWeight: 500 }} dx={-10} />
+                                                <Tooltip cursor={{ fill: 'rgba(255, 107, 0, 0.05)' }} contentStyle={{ borderRadius: '12px', border: 'none', boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)' }} formatter={(value: any) => [value.toLocaleString() + ' 회', '취사 수']} />
+                                                <Bar dataKey="count" fill="#FF6B00" radius={[0, 6, 6, 0]} barSize={24}>
+                                                    {consolidated.map((entry: any, index: number) => <Cell key={`cell-${index}`} fill={index === 0 ? '#FF6B00' : '#FCA5A5'} />)}
+                                                </Bar>
+                                            </BarChart>
+                                        );
+                                    })()}
                                 </ResponsiveContainer>
                             </div>
                         </div>
@@ -373,10 +406,11 @@ export default function UsageDashboard() {
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {soakSteamDetails && Array.from(new Set(soakSteamDetails.map((s: any) => s.menu))).slice(0, 8).map((menuName: any, idx: number) => {
+                                    {soakSteamDetails && Array.from(new Set(soakSteamDetails.map((s: any) => normalizeRecipeName(s.menu)))).slice(0, 15).map((menuName: any, idx: number) => {
                                         const getVal = (type: 'soak' | 'steam', level: number) => {
-                                            const match = soakSteamDetails.find((s: any) => s.menu === menuName && Number(s[type]) === level);
-                                            return match ? Number(match.count) : 0;
+                                            return soakSteamDetails
+                                                .filter((s: any) => normalizeRecipeName(s.menu) === menuName && Number(s[type]) === level)
+                                                .reduce((sum: number, s: any) => sum + (Number(s.count) || 0), 0);
                                         };
                                         return (
                                             <tr key={menuName} className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors">

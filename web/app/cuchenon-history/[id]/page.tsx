@@ -15,6 +15,34 @@ const InfoTooltip = ({ text }: { text: string }) => (
     </div>
 );
 
+/** 레시피 이름 정규화 (백미찰진밥 -> 찰진백미 등) */
+function normalizeRecipeName(name: string | null): string {
+    if (!name) return '기타';
+    const n = name.trim();
+    if (n.includes('백미찰진밥') || n.includes('찰진백미')) return '찰진백미';
+    if (n.includes('백미고슬밥') || n.includes('고슬백미')) return '고슬백미';
+    if (n.includes('혼합잡곡밥') || n.includes('혼합잡곡')) return '혼합잡곡';
+    if (n.includes('백미쾌속')) return '백미쾌속';
+    if (n.includes('가마솥밥')) return '가마솥밥';
+    if (n.includes('현미100')) return '현미100';
+    if (n.includes('잡곡쾌속')) return '잡곡쾌속';
+    return n;
+}
+
+/** 레시피 명칭 통합 및 카운트 합산 (클라이언트용) */
+function consolidateRecipes(rows: any[], limit = 15) {
+    if (!rows) return [];
+    const map = new Map<string, number>();
+    rows.forEach(r => {
+        const name = normalizeRecipeName(r.name);
+        map.set(name, (map.get(name) || 0) + (Number(r.count) || 0));
+    });
+    return Array.from(map.entries())
+        .map(([name, count]) => ({ name, count }))
+        .sort((a, b) => b.count - a.count)
+        .slice(0, limit);
+}
+
 function StatCard({ title, value, label, icon: Icon, trend, tooltip }: any) {
     return (
         <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 flex flex-col justify-between">
@@ -251,9 +279,14 @@ export default function HistoryDetailPage({ params }: { params: { id: string } }
                                         {[3, 6, 10].map(cap => {
                                             const gd = (servings || []).filter((s: any) => { const n = s.modelName.toUpperCase(); if (cap === 3) return n.includes('03') || n.includes('3인'); if (cap === 6) return n.includes('06') || n.includes('6인') || n.includes('ID6'); return n.includes('10') || n.includes('10인'); });
                                             if (!gd.length) return null;
-                                            const menus = Array.from(new Set(gd.map((s: any) => s.menu)));
-                                            const rows = menus.map(menu => { const md = gd.filter((s: any) => s.menu === menu); const counts = Array.from({ length: cap }).map((_, i) => md.filter((s: any) => Number(s.servingSize) === i).reduce((a: number, c: any) => a + Number(c.count), 0)); return { menu, counts, total: counts.reduce((a, c) => a + c, 0) }; }).sort((a, b) => b.total - a.total).slice(0, 10);
-                                            return (<div key={cap} className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 overflow-x-auto"><div className="flex items-center justify-between mb-4"><div className="flex items-center gap-1"><h3 className="font-bold flex items-center gap-2 text-gray-900"><Database className="text-[#FF6B00]" size={18} />{cap}인용 제품군 통합 메뉴별/인분별 심층 분석</h3><InfoTooltip text={`${cap}인용 모든 제품들의 지표를 합산하여 메뉴별 선호 인분수를 분석합니다.`} /></div><span className="text-xs font-bold text-[#FF6B00] bg-orange-50 px-2 py-1 rounded-lg">{cap}인용 합산</span></div><div className="overflow-hidden border border-gray-200 rounded-xl"><table className="w-full text-sm text-left text-gray-500"><thead className="text-xs text-gray-700 uppercase bg-gray-50 sticky top-0 z-20"><tr><th className="px-6 py-3 font-semibold sticky left-0 bg-gray-50 border-r min-w-[200px]">메뉴명 (통합)</th>{Array.from({ length: cap }).map((_, i) => <th key={i} className="px-4 py-3 text-center min-w-[70px]">{i + 1}인분</th>)}<th className="px-4 py-3 text-center min-w-[100px] bg-gray-100">합계</th></tr></thead><tbody>{rows.map((r: any) => (<tr key={r.menu} className="bg-white border-b hover:bg-orange-50 transition-colors"><td className="px-6 py-3 font-bold text-gray-900 sticky left-0 bg-white border-r shadow-[2px_0_5px_-2px_rgba(0,0,0,0.1)]">{r.menu}</td>{r.counts.map((c: number, i: number) => <td key={i} className="px-4 py-3 text-center font-medium">{c > 0 ? c.toLocaleString() : '-'}</td>)}<td className="px-4 py-3 text-center font-bold text-gray-900 bg-gray-50">{r.total.toLocaleString()}</td></tr>))}</tbody></table></div></div>);
+                                            // [수정] 메뉴 명칭 정규화 및 통합
+                                            const menus = Array.from(new Set(gd.map((s: any) => normalizeRecipeName(s.menu))));
+                                            const rows = menus.map(menu => {
+                                                const md = gd.filter((s: any) => normalizeRecipeName(s.menu) === menu);
+                                                const counts = Array.from({ length: cap }).map((_, i) => md.filter((s: any) => Number(s.servingSize) === i).reduce((a: number, c: any) => a + Number(c.count), 0));
+                                                return { menu, counts, total: counts.reduce((a, c) => a + c, 0) };
+                                            }).sort((a, b) => b.total - a.total).slice(0, 15);
+                                            return (<div key={cap} className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 overflow-x-auto"><div className="flex items-center justify-between mb-4"><div className="flex items-center gap-1"><h3 className="font-bold flex items-center gap-2 text-gray-900"><Database className="text-[#3B82F6]" size={18} />{cap}인용 제품군 통합 메뉴별/인분별 심층 분석</h3><InfoTooltip text={`${cap}인용 모든 제품들의 지표를 합산하여 메뉴별 선호 인분수를 분석합니다.`} /></div><span className="text-xs font-bold text-[#FF6B00] bg-orange-50 px-2 py-1 rounded-lg">{cap}인용 합산</span></div><div className="overflow-hidden border border-gray-200 rounded-xl"><table className="w-full text-sm text-left text-gray-500"><thead className="text-xs text-gray-700 uppercase bg-gray-50 sticky top-0 z-20"><tr><th className="px-6 py-3 font-semibold sticky left-0 bg-gray-50 border-r min-w-[200px]">메뉴명 (통합)</th>{Array.from({ length: cap }).map((_, i) => <th key={i} className="px-4 py-3 text-center min-w-[70px]">{i + 1}인분</th>)}<th className="px-4 py-3 text-center min-w-[100px] bg-gray-100">합계</th></tr></thead><tbody>{rows.map((r: any) => (<tr key={r.menu} className="bg-white border-b hover:bg-orange-50 transition-colors"><td className="px-6 py-3 font-bold text-gray-900 sticky left-0 bg-white border-r shadow-[2px_0_5px_-2px_rgba(0,0,0,0.1)]">{r.menu}</td>{r.counts.map((c: number, i: number) => <td key={i} className="px-4 py-3 text-center font-medium">{c > 0 ? c.toLocaleString() : '-'}</td>)}<td className="px-4 py-3 text-center font-bold text-gray-900 bg-gray-50">{r.total.toLocaleString()}</td></tr>))}</tbody></table></div></div>);
                                         })}
                                     </div>
                                 </div>
@@ -267,8 +300,14 @@ export default function HistoryDetailPage({ params }: { params: { id: string } }
                                 <div className="space-y-8 animate-in fade-in duration-300">
                                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                                         <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
-                                            <div className="flex items-center justify-between mb-6"><div className="flex items-center gap-2"><h3 className="text-lg font-bold text-gray-900 flex items-center gap-2"><BarChart3 className="text-[#FF6B00]" size={18} />인기 취사 메뉴 랭킹</h3><InfoTooltip text="조회 기간 동안 사용자들이 가장 많이 선택한 취사 메뉴 TOP 10입니다." /></div><span className="text-xs text-gray-500 bg-gray-100 px-2 py-1 rounded-md">{periodText}</span></div>
-                                            <div className="h-[300px]"><ResponsiveContainer width="100%" height="100%"><BarChart data={topRecipes} layout="vertical" margin={{ top: 5, right: 20, bottom: 5, left: 30 }}><CartesianGrid strokeDasharray="3 3" horizontal={false} stroke="#E5E7EB" /><XAxis type="number" axisLine={false} tickLine={false} hide /><YAxis dataKey="name" type="category" axisLine={false} tickLine={false} tick={{ fill: '#374151', fontSize: 13, fontWeight: 500 }} dx={-10} /><Tooltip cursor={{ fill: 'rgba(255,107,0,0.05)' }} contentStyle={{ borderRadius: '12px', border: 'none' }} formatter={(v: any) => [v.toLocaleString() + ' 회', '취사 수']} /><Bar dataKey="count" fill={ORANGE} radius={[0, 6, 6, 0]} barSize={24}>{topRecipes?.map((_: any, i: number) => <Cell key={i} fill={i === 0 ? ORANGE : '#FCA5A5'} />)}</Bar></BarChart></ResponsiveContainer></div>
+                                            <div className="flex items-center justify-between mb-6"><div className="flex items-center gap-2"><h3 className="text-lg font-bold text-gray-900 flex items-center gap-2"><BarChart3 className="text-[#FF6B00]" size={18} />인기 취사 메뉴 랭킹</h3><InfoTooltip text="조회 기간 동안 사용자들이 가장 많이 선택한 취사 메뉴 TOP 15입니다." /></div><span className="text-xs text-gray-500 bg-gray-100 px-2 py-1 rounded-md">{periodText}</span></div>
+                                            {/* [수정] 레시피 명칭 통합 적용 */}
+                                            {(() => {
+                                                const consolidated = consolidateRecipes(topRecipes);
+                                                return (
+                                                    <div className="h-[450px]"><ResponsiveContainer width="100%" height="100%"><BarChart data={consolidated} layout="vertical" margin={{ top: 5, right: 20, bottom: 5, left: 30 }}><CartesianGrid strokeDasharray="3 3" horizontal={false} stroke="#E5E7EB" /><XAxis type="number" axisLine={false} tickLine={false} hide /><YAxis dataKey="name" type="category" axisLine={false} tickLine={false} tick={{ fill: '#374151', fontSize: 13, fontWeight: 500 }} dx={-10} /><Tooltip cursor={{ fill: 'rgba(255,107,0,0.05)' }} contentStyle={{ borderRadius: '12px', border: 'none' }} formatter={(v: any) => [v.toLocaleString() + ' 회', '취사 수']} /><Bar dataKey="count" fill={ORANGE} radius={[0, 6, 6, 0]} barSize={24}>{consolidated.map((_: any, i: number) => <Cell key={i} fill={i === 0 ? ORANGE : '#FCA5A5'} />)}</Bar></BarChart></ResponsiveContainer></div>
+                                                );
+                                            })()}
                                         </div>
                                         <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 flex flex-col">
                                             <div className="flex items-center justify-between mb-2"><h3 className="text-lg font-bold text-gray-900 flex items-center gap-2"><Calendar className="text-[#8B5CF6]" size={18} />요일별 누적 취사량</h3><InfoTooltip text="요일별 전체 취사 횟수를 집계하여 어느 요일의 사용 빈도가 높은지 분석합니다." /><span className="text-xs text-gray-500 bg-gray-100 px-2 py-1 rounded-md">{periodText}</span></div>

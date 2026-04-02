@@ -30,10 +30,28 @@ function setCached(key: string, data: any) {
 // ─────────────────────────────────────────────
 function normalizeRecipeName(name: string | null): string {
     if (!name) return '기타';
-    if (name === '백미찰진밥') return '찰진백미';
-    if (name === '백미고슬밥') return '고슬백미';
-    if (name === '혼합잡곡밥') return '혼합잡곡';
-    return name;
+    const n = name.trim();
+    if (n.includes('백미찰진밥') || n.includes('찰진백미')) return '찰진백미';
+    if (n.includes('백미고슬밥') || n.includes('고슬백미')) return '고슬백미';
+    if (n.includes('혼합잡곡밥') || n.includes('혼합잡곡')) return '혼합잡곡';
+    if (n.includes('백미쾌속')) return '백미쾌속';
+    if (n.includes('가마솥밥')) return '가마솥밥';
+    if (n.includes('현미100')) return '현미100';
+    if (n.includes('잡곡쾌속')) return '잡곡쾌속';
+    return n;
+}
+
+/** [추가] 레시피 명칭 통합 및 카운트 합산 헬퍼 */
+function consolidateRecipes(rows: any[], limit = 15) {
+    const map = new Map<string, number>();
+    rows.forEach(r => {
+        const name = normalizeRecipeName(r.name);
+        map.set(name, (map.get(name) || 0) + (Number(r.count) || 0));
+    });
+    return Array.from(map.entries())
+        .map(([name, count]) => ({ name, count }))
+        .sort((a, b) => b.count - a.count)
+        .slice(0, limit);
 }
 
 export async function GET(request: Request) {
@@ -376,7 +394,7 @@ export async function GET(request: Request) {
                      FROM SC_COOKER_LOG scl
                      INNER JOIN SC_RECIPE sr ON scl.RECIPE_KEY = sr.RECIPE_KEY
                      WHERE scl.REG_DT >= ? AND scl.REG_DT <= ?
-                     GROUP BY sr.RECIPE_NM ORDER BY count DESC LIMIT 10`,
+                     GROUP BY sr.RECIPE_NM ORDER BY count DESC LIMIT 100`,
                     [startDateTime, endDateTime]
                 ),
                 getHourlyTrend(),
@@ -479,11 +497,37 @@ export async function GET(request: Request) {
             });
 
             data = {
-                topRecipes: (recipeRows as any[]).map(r => ({ ...r, name: normalizeRecipeName(r.name) })),
+                topRecipes: consolidateRecipes(recipeRows as any[]),
                 hourlyTrend,
                 warmTimeStatus: warmTimeData,
                 dayOfWeekTrend,
-                soakSteamDetails: (soakSteamRows as any[]).map(r => ({ ...r, menu: normalizeRecipeName(r.menu) })),
+                soakSteamDetails: (() => {
+                    const ssMap = new Map<string, any>();
+                    const countsByMenu = new Map<string, number>();
+                    (soakSteamRows as any[]).forEach(r => {
+                        const name = normalizeRecipeName(r.menu);
+                        // Skip if both levels are zero or outside standard 1-3 range
+                        if (![1, 2, 3].includes(Number(r.soak)) && ![1, 2, 3].includes(Number(r.steam))) return;
+                        const key = `${name}_${r.soak}_${r.steam}`;
+                        if (ssMap.has(key)) {
+                            ssMap.get(key).count += Number(r.count);
+                        } else {
+                            ssMap.set(key, { ...r, menu: name, count: Number(r.count) });
+                        }
+                        countsByMenu.set(name, (countsByMenu.get(name) || 0) + Number(r.count));
+                    });
+                    const sortedMenus = Array.from(countsByMenu.entries())
+                        .sort((a, b) => b[1] - a[1])
+                        .map(e => e[0]);
+                    const res: any[] = [];
+                    sortedMenus.forEach(m => {
+                        Array.from(ssMap.values())
+                            .filter(v => v.menu === m)
+                            .sort((a, b) => a.soak - b.soak || a.steam - b.steam)
+                            .forEach(v => res.push(v));
+                    });
+                    return res;
+                })(),
                 servingSizeTrend: (servingRows as any[]).map(r => ({
                     name: `${Number(r.servingSize) + 1}인분`, count: Number(r.count)
                 })),

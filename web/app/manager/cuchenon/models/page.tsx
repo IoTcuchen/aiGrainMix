@@ -19,6 +19,20 @@ const InfoTooltip = ({ text }: { text: string }) => (
     </div>
 );
 
+/** 레시피 이름 정규화 (백미찰진밥 -> 찰진백미 등) */
+function normalizeRecipeName(name: string | null): string {
+    if (!name) return '기타';
+    const n = name.trim();
+    if (n.includes('백미찰진밥') || n.includes('찰진백미')) return '찰진백미';
+    if (n.includes('백미고슬밥') || n.includes('고슬백미')) return '고슬백미';
+    if (n.includes('혼합잡곡밥') || n.includes('혼합잡곡')) return '혼합잡곡';
+    if (n.includes('백미쾌속')) return '백미쾌속';
+    if (n.includes('가마솥밥')) return '가마솥밥';
+    if (n.includes('현미100')) return '현미100';
+    if (n.includes('잡곡쾌속')) return '잡곡쾌속';
+    return n;
+}
+
 export default function ModelsDashboard() {
     const [mounted, setMounted] = useState(false);
     const [loading, setLoading] = useState(true);
@@ -346,17 +360,17 @@ export default function ModelsDashboard() {
 
                             if (groupData.length === 0) return null;
 
-                            // 2. Aggregate by menu across all models in the group
-                            const menuList = Array.from(new Set(groupData.map((s: any) => s.menu)));
-                            const aggregatedResults = menuList.map(menu => {
-                                const menuData = groupData.filter((s: any) => s.menu === menu);
+                            // 2. Aggregate by menu across all models in the group (정규화 적용)
+                            const menuList = Array.from(new Set(groupData.map((s: any) => normalizeRecipeName(s.menu))));
+                            const aggregatedResults = menuList.map(menuName => {
+                                const menuData = groupData.filter((s: any) => normalizeRecipeName(s.menu) === menuName);
                                 const counts = Array.from({ length: capacity }).map((_, i) => {
                                     return menuData.filter((s: any) => Number(s.servingSize) === i)
                                         .reduce((acc: number, curr: any) => acc + Number(curr.count), 0);
                                 });
                                 const total = counts.reduce((acc, c) => acc + c, 0);
-                                return { menu, counts, total };
-                            }).sort((a, b) => b.total - a.total).slice(0, 10); // Sort by popularity, show top 10
+                                return { menu: menuName, counts, total };
+                            }).sort((a, b) => b.total - a.total).slice(0, 15); // Sort by popularity, show top 15
 
                             return (
                                 <div key={capacity} className="bg-white dark:bg-[#1F2937] p-6 rounded-2xl shadow-[0_2px_10px_-3px_rgba(6,81,237,0.1)] border border-gray-100 dark:border-gray-800 overflow-x-auto">
