@@ -52,13 +52,17 @@ export default function UsageDashboard() {
     const [endDate, setEndDate] = useState('');
     const [metrics, setMetrics] = useState<any>({
         topRecipes: [],
+        topRecipesWeekly: [],
+        functionRanking: [],
         hourlyTrend: [],
         warmTimeStatus: [],
         dayOfWeekTrend: [],
         soakSteamDetails: [],
         servingSizeTrend: [],
         customTasteTrend: [],
-        resvTimeTrend: []
+        resvTimeTrend: [],
+        dayOfWeekDetails: {},
+        topAppRecipes: []
     });
 
     const fetchMetrics = (start: string, end: string) => {
@@ -125,7 +129,11 @@ export default function UsageDashboard() {
 
     if (!mounted) return null;
 
-    const { topRecipes, hourlyTrend, warmTimeStatus, dayOfWeekTrend, soakSteamDetails, servingSizeTrend, customTasteTrend, resvTimeTrend } = metrics;
+    const {
+        topRecipes, hourlyTrend, warmTimeStatus, dayOfWeekTrend,
+        soakSteamDetails, servingSizeTrend, customTasteTrend, resvTimeTrend,
+        dayOfWeekDetails, topAppRecipes
+    } = metrics;
     const calculateDays = (start: string, end: string) => {
         if (!start || !end) return 0;
         const diffTime = Math.abs(new Date(end).getTime() - new Date(start).getTime());
@@ -177,15 +185,109 @@ export default function UsageDashboard() {
                 </div>
             ) : (
                 <>
+                    {/* 상단 요약 표 2종 */}
+                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                        {/* 주간 평균 취사 빈도 TOP 5 */}
+                        <div className="bg-white dark:bg-gray-800 rounded-2xl p-6 border border-gray-100 dark:border-gray-700 shadow-sm">
+                            <div className="mb-4 flex items-center gap-2">
+                                <h3 className="font-bold flex items-center gap-2 text-gray-900 dark:text-white">
+                                    <Zap className="text-orange-500" size={18} />
+                                    주 사용 메뉴 TOP 5 (주간 평균 빈도)
+                                </h3>
+                                <InfoTooltip text="설정된 기간 동안의 총 취사 횟수를 주 단위로 환산한 평균 빈도입니다.\n(총 횟수 / 기간일수 * 7일)" />
+                            </div>
+                            <div className="overflow-hidden border border-gray-100 dark:border-gray-700 rounded-xl">
+                                <table className="w-full text-sm text-left">
+                                    <thead className="text-xs text-gray-500 uppercase bg-gray-50 dark:bg-gray-900/50">
+                                        <tr>
+                                            <th className="px-4 py-3 font-semibold text-gray-900 dark:text-white">순위</th>
+                                            <th className="px-4 py-3 font-semibold text-gray-900 dark:text-white">메뉴명</th>
+                                            <th className="px-4 py-3 text-right font-semibold text-orange-600">주평균 빈도</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody className="divide-y divide-gray-100 dark:divide-gray-800">
+                                        {(metrics.topRecipesWeekly || []).map((r: any, idx: number) => (
+                                            <tr key={idx} className="hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors">
+                                                <td className="px-4 py-3 font-bold text-gray-400">{idx + 1}</td>
+                                                <td className="px-4 py-3 font-bold text-gray-900 dark:text-white">{r.name}</td>
+                                                <td className="px-4 py-3 text-right font-mono font-bold text-orange-600 bg-orange-50/30 dark:bg-orange-900/10">
+                                                    {r.avgWeekly} 회/주
+                                                </td>
+                                            </tr>
+                                        ))}
+                                        {(!metrics.topRecipesWeekly || metrics.topRecipesWeekly.length === 0) && (
+                                            <tr><td colSpan={3} className="px-4 py-8 text-center text-gray-400">데이터가 없습니다.</td></tr>
+                                        )}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        {/* 주요 메뉴 외 기능 랭킹 */}
+                        <div className="bg-white dark:bg-gray-800 rounded-2xl p-6 border border-gray-100 dark:border-gray-700 shadow-sm">
+                            <div className="mb-4 flex items-center gap-2">
+                                <h3 className="font-bold flex items-center gap-2 text-gray-900 dark:text-white">
+                                    <Zap className="text-purple-500" size={18} />
+                                    메뉴 외 주요 기능 사용 랭킹
+                                </h3>
+                                <InfoTooltip text="보온, 예약, 내솥불림, 자동세척 등 일반 취사 메뉴 외 기능들의 사용 빈도 랭킹입니다." />
+                            </div>
+                            <div className="overflow-hidden border border-gray-100 dark:border-gray-700 rounded-xl">
+                                <table className="w-full text-sm text-left">
+                                    <thead className="text-xs text-gray-500 uppercase bg-gray-50 dark:bg-gray-900/50">
+                                        <tr>
+                                            <th className="px-4 py-3 font-semibold text-gray-900 dark:text-white">순위</th>
+                                            <th className="px-4 py-3 font-semibold text-gray-900 dark:text-white">기능명</th>
+                                            <th className="px-4 py-3 text-right font-semibold text-purple-600">사용 횟수</th>
+                                            <th className="px-4 py-3 text-right font-semibold text-orange-500">어플 제어</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody className="divide-y divide-gray-100 dark:divide-gray-800">
+                                        {(metrics.functionRanking || []).map((f: any, idx: number) => {
+                                            const hasAppInfo = f.name === '보온' || f.name === '내솥불림';
+                                            const appPercentage = hasAppInfo && f.count > 0 ? ((f.appCount / f.count) * 100).toFixed(1) : null;
+
+                                            return (
+                                                <tr key={idx} className="hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors text-[13px]">
+                                                    <td className="px-4 py-3 font-bold text-gray-400">{idx + 1}</td>
+                                                    <td className="px-4 py-3 font-bold text-gray-900 dark:text-white">{f.name}</td>
+                                                    <td className="px-4 py-3 text-right font-mono font-bold text-purple-600">
+                                                        {(f.count || 0).toLocaleString()} 건
+                                                    </td>
+                                                    <td className="px-4 py-3 text-right font-mono font-bold">
+                                                        {appPercentage ? (
+                                                            <span className="text-orange-500 bg-orange-50 dark:bg-orange-900/20 px-2 py-0.5 rounded">
+                                                                {appPercentage}%
+                                                            </span>
+                                                        ) : (
+                                                            <span className="text-gray-300">-</span>
+                                                        )}
+                                                    </td>
+                                                </tr>
+                                            );
+                                        })}
+                                        {(!metrics.functionRanking || metrics.functionRanking.length === 0) && (
+                                            <tr><td colSpan={4} className="px-4 py-8 text-center text-gray-400">데이터가 없습니다.</td></tr>
+                                        )}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* 요일별 취사 행동 분석 */}
+                    <DayOfWeekBehaviorDetails data={dayOfWeekDetails} />
+
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 overflow-visible">
+                        {/* 1. 인기 취사 메뉴 랭킹 (전체) */}
                         <div className="bg-white dark:bg-[#1F2937] p-6 rounded-2xl shadow-[0_2px_10px_-3px_rgba(6,81,237,0.1)] border border-gray-100 dark:border-gray-800 overflow-visible">
                             <div className="flex items-center justify-between mb-6">
                                 <div className="flex items-center gap-2">
                                     <h3 className="text-lg font-bold text-gray-900 dark:text-white flex items-center gap-2">
                                         <BarChart3 className="text-[#FF6B00]" size={18} />
-                                        인기 취사 메뉴 랭킹
+                                        인기 취사 메뉴 랭킹 (전체)
                                     </h3>
-                                    <InfoTooltip text="조회 기간 동안 사용자들이 가장 많이 선택한 취사 메뉴 TOP 15입니다." />
+                                    <InfoTooltip text="조회 기간 동안 사용자들이 가장 많이 선택한 모든 취사 메뉴 TOP 15입니다." />
                                 </div>
                                 <span className="text-xs font-medium text-gray-500 bg-gray-100 dark:bg-gray-800 px-2 py-1 rounded-md">{periodText}</span>
                             </div>
@@ -193,12 +295,20 @@ export default function UsageDashboard() {
                                 <ResponsiveContainer width="100%" height="100%">
                                     {(() => {
                                         const consolidated = consolidateRecipes(topRecipes);
+                                        const total = (topRecipes || []).reduce((sum: number, r: any) => sum + (Number(r.count) || 0), 0);
                                         return (
                                             <BarChart data={consolidated} layout="vertical" margin={{ top: 5, right: 20, bottom: 5, left: 30 }}>
                                                 <CartesianGrid strokeDasharray="3 3" horizontal={false} stroke="#E5E7EB" />
                                                 <XAxis type="number" axisLine={false} tickLine={false} hide />
                                                 <YAxis dataKey="name" type="category" axisLine={false} tickLine={false} tick={{ fill: '#374151', fontSize: 13, fontWeight: 500 }} dx={-10} />
-                                                <Tooltip cursor={{ fill: 'rgba(255, 107, 0, 0.05)' }} contentStyle={{ borderRadius: '12px', border: 'none', boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)' }} formatter={(value: any) => [value.toLocaleString() + ' 회', '취사 수']} />
+                                                <Tooltip
+                                                    cursor={{ fill: 'rgba(255, 107, 0, 0.05)' }}
+                                                    contentStyle={{ borderRadius: '12px', border: 'none', boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)' }}
+                                                    formatter={(value: any) => {
+                                                        const p = total > 0 ? ((Number(value) / total) * 100).toFixed(1) : '0.0';
+                                                        return [`${value.toLocaleString()} 회 (${p}%)`, '취사 수'];
+                                                    }}
+                                                />
                                                 <Bar dataKey="count" fill="#FF6B00" radius={[0, 6, 6, 0]} barSize={24}>
                                                     {consolidated.map((entry: any, index: number) => <Cell key={`cell-${index}`} fill={index === 0 ? '#FF6B00' : '#FCA5A5'} />)}
                                                 </Bar>
@@ -209,6 +319,49 @@ export default function UsageDashboard() {
                             </div>
                         </div>
 
+                        {/* 2. 인기 취사 메뉴 랭킹 (어플 제어) */}
+                        <div className="bg-white dark:bg-[#1F2937] p-6 rounded-2xl shadow-[0_2px_10px_-3px_rgba(6,81,237,0.1)] border border-gray-100 dark:border-gray-800 overflow-visible">
+                            <div className="flex items-center justify-between mb-6">
+                                <div className="flex items-center gap-2">
+                                    <h3 className="text-lg font-bold text-gray-900 dark:text-white flex items-center gap-2">
+                                        <Zap className="text-orange-500" size={18} />
+                                        인기 취사 메뉴 랭킹 (어플 주도)
+                                    </h3>
+                                    <InfoTooltip text="조회 기간 동안 '어플리케이션(App) 제어'를 통해 실행된 취사 메뉴 TOP 15입니다." />
+                                </div>
+                                <span className="text-xs font-medium text-orange-600 bg-orange-50 px-2 py-1 rounded-md">Smart App</span>
+                            </div>
+                            <div className="h-[450px] w-full">
+                                <ResponsiveContainer width="100%" height="100%">
+                                    {(() => {
+                                        const consolidated = consolidateRecipes(topAppRecipes);
+                                        const total = (topAppRecipes || []).reduce((sum: number, r: any) => sum + (Number(r.count) || 0), 0);
+                                        return (
+                                            <BarChart data={consolidated} layout="vertical" margin={{ top: 5, right: 20, bottom: 5, left: 30 }}>
+                                                <CartesianGrid strokeDasharray="3 3" horizontal={false} stroke="#E5E7EB" />
+                                                <XAxis type="number" axisLine={false} tickLine={false} hide />
+                                                <YAxis dataKey="name" type="category" axisLine={false} tickLine={false} tick={{ fill: '#374151', fontSize: 13, fontWeight: 500 }} dx={-10} />
+                                                <Tooltip
+                                                    cursor={{ fill: 'rgba(255, 107, 0, 0.05)' }}
+                                                    contentStyle={{ borderRadius: '12px', border: 'none', boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)' }}
+                                                    formatter={(value: any) => {
+                                                        const p = total > 0 ? ((Number(value) / total) * 100).toFixed(1) : '0.0';
+                                                        return [`${value.toLocaleString()} 회 (${p}%)`, '취사 수'];
+                                                    }}
+                                                />
+                                                <Bar dataKey="count" fill="#F97316" radius={[0, 6, 6, 0]} barSize={24}>
+                                                    {consolidated.map((entry: any, index: number) => <Cell key={`cell-${index}`} fill={index === 0 ? '#F97316' : '#FED7AA'} />)}
+                                                </Bar>
+                                            </BarChart>
+                                        );
+                                    })()}
+                                </ResponsiveContainer>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 overflow-visible mt-6">
+                        {/* 3. 요일별 누적 취사량 */}
                         <div className="bg-white dark:bg-[#1F2937] p-6 rounded-2xl shadow-[0_2px_10px_-3px_rgba(6,81,237,0.1)] border border-gray-100 dark:border-gray-800 flex flex-col overflow-visible">
                             <div className="flex items-center justify-between mb-2">
                                 <h3 className="text-lg font-bold text-gray-900 dark:text-white flex items-center gap-2">
@@ -233,9 +386,8 @@ export default function UsageDashboard() {
                                 </ResponsiveContainer>
                             </div>
                         </div>
-                    </div>
 
-                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 overflow-visible mt-6">
+                        {/* 4. 시간대별 활동량 */}
                         <div className="bg-white dark:bg-[#1F2937] p-6 rounded-2xl shadow-[0_2px_10px_-3px_rgba(6,81,237,0.1)] border border-gray-100 dark:border-gray-800 overflow-visible">
                             <div className="flex justify-between items-center mb-6">
                                 <h3 className="text-lg font-bold text-gray-900 dark:text-white flex items-center gap-2">
@@ -257,8 +409,10 @@ export default function UsageDashboard() {
                                 </ResponsiveContainer>
                             </div>
                         </div>
+                    </div>
 
-                        {/* 예약 설정 시간대 패턴 (From Smart Tab) */}
+                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 overflow-visible mt-6">
+                        {/* 5. 예약 설정 시간대 패턴 */}
                         <div className="bg-white dark:bg-[#1F2937] p-6 rounded-2xl shadow-[0_2px_10px_-3px_rgba(6,81,237,0.1)] border border-gray-100 dark:border-gray-800 overflow-visible">
                             <div className="flex justify-between items-center mb-6">
                                 <div className="flex items-center gap-2">
@@ -282,10 +436,8 @@ export default function UsageDashboard() {
                                 </ResponsiveContainer>
                             </div>
                         </div>
-                    </div>
 
-                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 overflow-visible mt-6">
-                        {/* 보온 시간 분포 (Moved Down) */}
+                        {/* 6. 보온 시간 분포 */}
                         <div className="bg-white dark:bg-[#1F2937] p-6 rounded-2xl shadow-[0_2px_10px_-3px_rgba(6,81,237,0.1)] border border-gray-100 dark:border-gray-800 overflow-visible">
                             <div className="flex justify-between items-center mb-6">
                                 <h3 className="text-lg font-bold text-gray-900 dark:text-white flex items-center gap-2">
@@ -307,8 +459,10 @@ export default function UsageDashboard() {
                                 </ResponsiveContainer>
                             </div>
                         </div>
+                    </div>
 
-                        {/* 취사 인분 수 추이 (Moved to share grid) */}
+                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 overflow-visible mt-6">
+                        {/* 7. 취사 인분 수 추이 */}
                         <div className="bg-white dark:bg-[#1F2937] p-6 rounded-2xl shadow-[0_2px_10px_-3px_rgba(6,81,237,0.1)] border border-gray-100 dark:border-gray-800 overflow-visible">
                             <div className="flex justify-between items-center mb-6">
                                 <div className="flex items-center gap-2">
@@ -332,9 +486,8 @@ export default function UsageDashboard() {
                                 </ResponsiveContainer>
                             </div>
                         </div>
-                    </div>
 
-                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 overflow-visible mt-6">
+                        {/* 8. 맞춤형 밥맛 실사용률 */}
                         <div className="bg-white dark:bg-[#1F2937] p-6 rounded-2xl shadow-[0_2px_10px_-3px_rgba(6,81,237,0.1)] border border-gray-100 dark:border-gray-800 flex flex-col overflow-visible">
                             <div className="flex justify-between items-center mb-2">
                                 <div className="flex items-center gap-2">
@@ -368,7 +521,6 @@ export default function UsageDashboard() {
                                 ))}
                             </div>
                         </div>
-                        <div className="invisible lg:visible"></div>
                     </div>
 
                     <div className="bg-white dark:bg-[#1F2937] p-6 rounded-2xl shadow-[0_2px_10px_-3px_rgba(6,81,237,0.1)] border border-gray-100 dark:border-gray-800 mt-6 overflow-visible animate-fade-in" style={{ animationDelay: '0.1s' }}>
@@ -447,6 +599,112 @@ export default function UsageDashboard() {
                     </div>
                 </>
             )}
+        </div>
+    );
+}
+
+/** 요일별 상세 분석 컴포넌트 */
+function DayOfWeekBehaviorDetails({ data }: { data: any }) {
+    const [selectedDay, setSelectedDay] = useState(new Date().getDay() + 1); // 1(일) ~ 7(토)
+    const dayNames = [
+        { id: 1, name: '일요일', short: '일' },
+        { id: 2, name: '월요일', short: '월' },
+        { id: 3, name: '화요일', short: '화' },
+        { id: 4, name: '수요일', short: '수' },
+        { id: 5, name: '목요일', short: '목' },
+        { id: 6, name: '금요일', short: '금' },
+        { id: 7, name: '토요일', short: '토' },
+    ];
+
+    const currentData = data?.[selectedDay] || { topRecipes: [], servings: [] };
+    const COLORS = ['#FF6B00', '#FF8533', '#FFA166', '#FFBD99', '#FFD9CC', '#FFF0E6'];
+
+    return (
+        <div className="bg-white dark:bg-gray-800 rounded-2xl p-6 border border-gray-100 dark:border-gray-700 shadow-sm">
+            <div className="mb-6 flex flex-col md:flex-row md:items-center justify-between gap-4">
+                <div className="flex items-center gap-2">
+                    <h3 className="font-bold flex items-center gap-2 text-gray-900 dark:text-white text-lg">
+                        <Calendar className="text-[#FF6B00]" size={20} />
+                        요일별 취사 행동 상세 분석
+                    </h3>
+                    <InfoTooltip text="선택한 요일에 주로 어떤 메뉴를 취사하고, 몇 인분의 양을 가장 많이 하는지 상세 분석합니다." />
+                </div>
+
+                <div className="flex gap-1 bg-gray-50 dark:bg-gray-900/50 p-1 rounded-xl border border-gray-100 dark:border-gray-700">
+                    {dayNames.map((d) => (
+                        <button
+                            key={d.id}
+                            onClick={() => setSelectedDay(d.id)}
+                            className={`px-3 py-1.5 rounded-lg text-sm font-bold transition-all ${selectedDay === d.id
+                                ? 'bg-white dark:bg-gray-800 text-[#FF6B00] shadow-sm'
+                                : 'text-gray-400 hover:text-gray-600 dark:hover:text-gray-200'
+                                }`}
+                        >
+                            {d.short}
+                        </button>
+                    ))}
+                </div>
+            </div>
+
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                {/* 왼쪽: Top 5 메뉴 */}
+                <div className="space-y-4">
+                    <h4 className="text-sm font-bold text-gray-500 dark:text-gray-400 flex items-center gap-2">
+                        <TrendingUp size={14} /> 주요 취사 메뉴 TOP 5
+                    </h4>
+                    <div className="space-y-3">
+                        {currentData.topRecipes.length > 0 ? (
+                            currentData.topRecipes.map((r: any, idx: number) => (
+                                <div key={idx} className="flex items-center gap-3">
+                                    <div className="w-6 h-6 rounded-full bg-orange-100 dark:bg-orange-900/30 text-orange-600 dark:text-orange-400 flex items-center justify-center text-xs font-bold shrink-0">
+                                        {idx + 1}
+                                    </div>
+                                    <div className="flex-1">
+                                        <div className="flex justify-between text-sm mb-1">
+                                            <span className="font-medium text-gray-900 dark:text-white">{r.name}</span>
+                                            <span className="font-bold text-gray-600 dark:text-gray-400">{r.count.toLocaleString()}건</span>
+                                        </div>
+                                        <div className="w-full bg-gray-100 dark:bg-gray-700 rounded-full h-1.5">
+                                            <div
+                                                className="bg-[#FF6B00] h-1.5 rounded-full"
+                                                style={{ width: `${(r.count / currentData.topRecipes[0].count) * 100}%` }}
+                                            />
+                                        </div>
+                                    </div>
+                                </div>
+                            ))
+                        ) : (
+                            <div className="py-10 text-center text-gray-400 text-sm">데이터가 없습니다.</div>
+                        )}
+                    </div>
+                </div>
+
+                {/* 오른쪽: 인분 수 분포 */}
+                <div className="space-y-4">
+                    <h4 className="text-sm font-bold text-gray-500 dark:text-gray-400 flex items-center gap-2">
+                        <Hash size={14} /> 인분 수 분포 (1~6인분)
+                    </h4>
+                    <div className="h-[200px]">
+                        <ResponsiveContainer width="100%" height="100%">
+                            <BarChart data={currentData.servings} layout="vertical" margin={{ left: 10, right: 30 }}>
+                                <CartesianGrid strokeDasharray="3 3" horizontal={false} stroke="#E5E7EB" opacity={0.5} />
+                                <XAxis type="number" hide />
+                                <YAxis dataKey="name" type="category" axisLine={false} tickLine={false} tick={{ fontSize: 12, fontWeight: 600 }} width={60} />
+                                <Tooltip
+                                    contentStyle={{ backgroundColor: '#111827', border: 'none', borderRadius: '8px', color: '#fff' }}
+                                    itemStyle={{ color: '#FF6B00' }}
+                                    cursor={{ fill: 'transparent' }}
+                                />
+                                <Bar dataKey="count" radius={[0, 4, 4, 0]} barSize={20}>
+                                    {currentData.servings.map((entry: any, index: number) => (
+                                        <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                                    ))}
+                                </Bar>
+                            </BarChart>
+                        </ResponsiveContainer>
+                    </div>
+                </div>
+            </div>
         </div>
     );
 }

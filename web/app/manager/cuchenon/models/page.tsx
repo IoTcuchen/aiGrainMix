@@ -278,7 +278,7 @@ export default function ModelsDashboard() {
                                 <Database className="text-[#FF6B00]" size={18} />
                                 기기 용량별 보온 지속시간 분포
                             </h3>
-                            <InfoTooltip text="모델 용량(3인/6인/10인)별로 보온을 얼마나 유지하는지 비중을 비교합니다. 0시간(보온안함)을 포함하며, 36시간 초과분은 제외합니다." />
+                            <InfoTooltip text="모델 용량(3인/6인/10인)별로 보온을 얼마나 유지하는지 비중을 비교합니다. 0시간(보온안함)을 포함하며, 최대 48시간 이상까지 분석합니다." />
                         </div>
 
                         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -295,15 +295,18 @@ export default function ModelsDashboard() {
                                 if (groupData.length === 0) return null;
 
                                 const aggregated = [
-                                    { name: '보온안함', value: groupData.reduce((acc: number, cur: any) => acc + cur.t0, 0) },
-                                    { name: '0-2시간', value: groupData.reduce((acc: number, cur: any) => acc + cur.t2, 0) },
-                                    { name: '2-6시간', value: groupData.reduce((acc: number, cur: any) => acc + cur.t6, 0) },
-                                    { name: '6-12시간', value: groupData.reduce((acc: number, cur: any) => acc + cur.t12, 0) },
-                                    { name: '12-24시간', value: groupData.reduce((acc: number, cur: any) => acc + cur.t15 + cur.t24, 0) },
-                                    { name: '24시간 이상', value: groupData.reduce((acc: number, cur: any) => acc + cur.t36, 0) },
+                                    { name: '보온안함', value: groupData.reduce((acc: number, cur: any) => acc + (Number(cur.t0) || 0), 0) },
+                                    { name: '0~2h', value: groupData.reduce((acc: number, cur: any) => acc + (Number(cur.t2) || 0), 0) },
+                                    { name: '2~6h', value: groupData.reduce((acc: number, cur: any) => acc + (Number(cur.t6) || 0), 0) },
+                                    { name: '6~12h', value: groupData.reduce((acc: number, cur: any) => acc + (Number(cur.t12) || 0), 0) },
+                                    { name: '12~15h', value: groupData.reduce((acc: number, cur: any) => acc + (Number(cur.t15) || 0), 0) },
+                                    { name: '15~24h', value: groupData.reduce((acc: number, cur: any) => acc + (Number(cur.t24) || 0), 0) },
+                                    { name: '24~36h', value: groupData.reduce((acc: number, cur: any) => acc + (Number(cur.t36) || 0), 0) },
+                                    { name: '36~48h', value: groupData.reduce((acc: number, cur: any) => acc + (Number(cur.t48) || 0), 0) },
+                                    { name: '48h 이상', value: groupData.reduce((acc: number, cur: any) => acc + (Number(cur.t48plus) || 0), 0) },
                                 ];
 
-                                const PIE_COLORS = ['#E5E7EB', '#94A3B8', '#60A5FA', '#10B981', '#F59E0B', '#FF6B00'];
+                                const PIE_COLORS = ['#E5E7EB', '#CBD5E1', '#94A3B8', '#64748B', '#60A5FA', '#3B82F6', '#10B981', '#F59E0B', '#FF6B00'];
 
                                 return (
                                     <div key={capacity} className="flex flex-col items-center">

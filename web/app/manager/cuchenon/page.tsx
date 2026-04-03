@@ -55,7 +55,8 @@ export default function ManagerDashboard() {
     const [metrics, setMetrics] = useState<any>({
         deviceStatus: [],
         weeklyCookTrend: [],
-        kpi: {}
+        kpi: {},
+        demographics: []
     });
 
     const fetchMetrics = (start: string, end: string) => {

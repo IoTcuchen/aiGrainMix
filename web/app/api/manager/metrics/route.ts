@@ -339,7 +339,8 @@ export async function GET(request: Request) {
                             COUNT(CASE WHEN W.WARM_TIME BETWEEN 721  AND 900  THEN 1 END) as t15,
                             COUNT(CASE WHEN W.WARM_TIME BETWEEN 901  AND 1440 THEN 1 END) as t24,
                             COUNT(CASE WHEN W.WARM_TIME BETWEEN 1441 AND 2160 THEN 1 END) as t36,
-                            COUNT(CASE WHEN W.WARM_TIME > 2160               THEN 1 END) as t36plus
+                            COUNT(CASE WHEN W.WARM_TIME BETWEEN 2161 AND 2880 THEN 1 END) as t48,
+                            COUNT(CASE WHEN W.WARM_TIME > 2880               THEN 1 END) as t48plus
                      FROM SC_DEVICE_WARM_LOG W
                      JOIN SC_MODEL M ON W.MODEL_KEY = M.MODEL_KEY
                      WHERE W.REG_DT >= ? AND W.REG_DT <= ? AND ${EXCLUDED}
@@ -370,7 +371,7 @@ export async function GET(request: Request) {
                     t0: Number(r.t0) || 0, t2: Number(r.t2) || 0,
                     t6: Number(r.t6) || 0, t12: Number(r.t12) || 0,
                     t15: Number(r.t15) || 0, t24: Number(r.t24) || 0,
-                    t36: Number(r.t36) || 0, t36plus: Number(r.t36plus) || 0
+                    t36: Number(r.t36) || 0, t48: Number(r.t48) || 0, t48plus: Number(r.t48plus) || 0
                 }))
             };
         }
@@ -381,19 +382,31 @@ export async function GET(request: Request) {
         else if (tab === 'usage') {
             const [
                 [recipeRows],
+                [appRecipeRows],
                 hourlyRows,
                 [warmRows],
                 [dayOfWeekRows],
                 [soakSteamRows],
                 [servingRows],
                 [tasteRows],
-                resvRows
+                resvRows,
+                [funcRows],
+                [dayOfWeekDetailsRows]
             ] = await Promise.all([
                 pool.execute(
                     `SELECT sr.RECIPE_NM as name, COUNT(*) as count
                      FROM SC_COOKER_LOG scl
                      INNER JOIN SC_RECIPE sr ON scl.RECIPE_KEY = sr.RECIPE_KEY
                      WHERE scl.REG_DT >= ? AND scl.REG_DT <= ?
+                     GROUP BY sr.RECIPE_NM ORDER BY count DESC LIMIT 100`,
+                    [startDateTime, endDateTime]
+                ),
+                pool.execute(
+                    `SELECT sr.RECIPE_NM as name, COUNT(*) as count
+                     FROM SC_COOKER_LOG scl
+                     INNER JOIN SC_RECIPE sr ON scl.RECIPE_KEY = sr.RECIPE_KEY
+                     WHERE scl.REG_DT >= ? AND scl.REG_DT <= ?
+                       AND scl.APP_CTRL_YN = 'Y'
                      GROUP BY sr.RECIPE_NM ORDER BY count DESC LIMIT 100`,
                     [startDateTime, endDateTime]
                 ),
@@ -406,7 +419,9 @@ export async function GET(request: Request) {
                         COUNT(CASE WHEN WARM_TIME BETWEEN 361  AND 720  THEN 1 END) as t12,
                         COUNT(CASE WHEN WARM_TIME BETWEEN 721  AND 900  THEN 1 END) as t15,
                         COUNT(CASE WHEN WARM_TIME BETWEEN 901  AND 1440 THEN 1 END) as t24,
-                        COUNT(CASE WHEN WARM_TIME BETWEEN 1441 AND 2160 THEN 1 END) as t36
+                        COUNT(CASE WHEN WARM_TIME BETWEEN 1441 AND 2160 THEN 1 END) as t36,
+                        COUNT(CASE WHEN WARM_TIME BETWEEN 2161 AND 2880 THEN 1 END) as t48,
+                        COUNT(CASE WHEN WARM_TIME > 2880               THEN 1 END) as t48plus
                      FROM SC_DEVICE_WARM_LOG
                      WHERE REG_DT >= ? AND REG_DT <= ?`,
                     [startDateTime, endDateTime]
@@ -420,22 +435,22 @@ export async function GET(request: Request) {
                 ),
                 pool.execute(
                     `SELECT sr.RECIPE_NM as menu,
-                            C.SOAK_LEVEL as soak, C.STEAM_LEVEL as steam, COUNT(*) as count
-                     FROM SC_COOKER_LOG C
-                     JOIN SC_RECIPE sr ON C.RECIPE_KEY = sr.RECIPE_KEY
-                     WHERE C.REG_DT >= ? AND C.REG_DT <= ?
-                       AND (C.SOAK_LEVEL > 0 OR C.STEAM_LEVEL > 0)
-                     GROUP BY sr.RECIPE_NM, C.SOAK_LEVEL, C.STEAM_LEVEL`,
+                             C.SOAK_LEVEL as soak, C.STEAM_LEVEL as steam, COUNT(*) as count
+                      FROM SC_COOKER_LOG C
+                      JOIN SC_RECIPE sr ON C.RECIPE_KEY = sr.RECIPE_KEY
+                      WHERE C.REG_DT >= ? AND C.REG_DT <= ?
+                        AND (C.SOAK_LEVEL > 0 OR C.STEAM_LEVEL > 0)
+                      GROUP BY sr.RECIPE_NM, C.SOAK_LEVEL, C.STEAM_LEVEL`,
                     [startDateTime, endDateTime]
                 ),
                 pool.execute(
                     `SELECT C.SERVING_CNT as servingSize, COUNT(*) as count
-                     FROM SC_COOKER_LOG C
-                     JOIN SC_MODEL M ON C.MODEL_KEY = M.MODEL_KEY
-                     WHERE C.REG_DT >= ? AND C.REG_DT <= ?
-                       AND C.SERVING_CNT >= 0 AND C.SERVING_CNT <= 5
-                       AND NOT (M.MODEL_NM LIKE '%PR03%' AND C.SERVING_CNT > 2)
-                     GROUP BY C.SERVING_CNT ORDER BY C.SERVING_CNT ASC`,
+                      FROM SC_COOKER_LOG C
+                      JOIN SC_MODEL M ON C.MODEL_KEY = M.MODEL_KEY
+                      WHERE C.REG_DT >= ? AND C.REG_DT <= ?
+                        AND C.SERVING_CNT >= 0 AND C.SERVING_CNT <= 5
+                        AND NOT (M.MODEL_NM LIKE '%PR03%' AND C.SERVING_CNT > 2)
+                      GROUP BY C.SERVING_CNT ORDER BY C.SERVING_CNT ASC`,
                     [startDateTime, endDateTime]
                 ),
                 pool.execute(
@@ -444,12 +459,42 @@ export async function GET(request: Request) {
                         SUM(CASE WHEN STEAM_LEVEL > 0 THEN 1 ELSE 0 END) as steamUsed,
                         SUM(CASE WHEN SOAK_LEVEL = 0 AND STEAM_LEVEL = 0 THEN 1 ELSE 0 END) as noneUsed,
                         COUNT(*) as total
-                     FROM SC_COOKER_LOG
-                     WHERE REG_DT >= ? AND REG_DT <= ?`,
+                      FROM SC_COOKER_LOG
+                      WHERE REG_DT >= ? AND REG_DT <= ?`,
                     [startDateTime, endDateTime]
                 ),
                 // 공유 캐시 사용
-                getResvTimeTrend()
+                getResvTimeTrend(),
+                pool.execute(
+                    `SELECT
+                        (SELECT COUNT(*) FROM SC_DEVICE_WARM_LOG WHERE REG_DT >= ? AND REG_DT <= ?) as warm,
+                        (SELECT COUNT(*) FROM SC_DEVICE_WARM_LOG WHERE REG_DT >= ? AND REG_DT <= ? AND APP_CTRL_YN = 'Y') as warmApp,
+                        (SELECT COUNT(*) FROM SC_DEVICE_RESV_TIME WHERE REG_DT >= ? AND REG_DT <= ?) as resv,
+                        (SELECT COUNT(*) FROM SC_COOKER_LOG c JOIN SC_RECIPE r ON c.RECIPE_KEY = r.RECIPE_KEY WHERE c.REG_DT >= ? AND c.REG_DT <= ? AND r.RECIPE_NM = '내솥불림') as soak,
+                        (SELECT COUNT(*) FROM SC_COOKER_LOG c JOIN SC_RECIPE r ON c.RECIPE_KEY = r.RECIPE_KEY WHERE c.REG_DT >= ? AND c.REG_DT <= ? AND r.RECIPE_NM = '내솥불림' AND c.APP_CTRL_YN = 'Y') as soakApp,
+                        (SELECT COUNT(*) FROM SC_COOKER_CLEAN WHERE REG_DT >= ? AND REG_DT <= ?) as clean`,
+                    [
+                        startDateTime, endDateTime, // warm
+                        startDateTime, endDateTime, // warmApp
+                        startDateTime, endDateTime, // resv
+                        startDateTime, endDateTime, // soak
+                        startDateTime, endDateTime, // soakApp
+                        startDateTime, endDateTime  // clean
+                    ]
+                ),
+                pool.execute(
+                    `SELECT
+                        DAYOFWEEK(scl.REG_DT) as dayIndex,
+                        sr.RECIPE_NM as menu,
+                        scl.SERVING_CNT as servingSize,
+                        COUNT(*) as count
+                     FROM SC_COOKER_LOG scl
+                     JOIN SC_RECIPE sr ON scl.RECIPE_KEY = sr.RECIPE_KEY
+                     WHERE scl.REG_DT >= ? AND scl.REG_DT <= ?
+                     GROUP BY dayIndex, menu, servingSize
+                     ORDER BY dayIndex ASC, count DESC`,
+                    [startDateTime, endDateTime]
+                )
             ]);
 
             const hourlyTrend = Array.from({ length: 24 }).map((_, i) => ({
@@ -464,6 +509,9 @@ export async function GET(request: Request) {
                 }
             });
 
+            const diffDays = Math.max(1, (endDate.getTime() - startDate.getTime()) / (1000 * 3600 * 24));
+            const weeklyDivisor = Math.max(0.1, diffDays / 7);
+
             const warmRow = (warmRows as any[])[0] || {};
             const warmTimeData = [
                 { name: '보온안함', count: Number(warmRow.t0) || 0 },
@@ -472,7 +520,9 @@ export async function GET(request: Request) {
                 { name: '6~12시간', count: Number(warmRow.t12) || 0 },
                 { name: '12~15시간', count: Number(warmRow.t15) || 0 },
                 { name: '15~24시간', count: Number(warmRow.t24) || 0 },
-                { name: '24시간 이상', count: Number(warmRow.t36) || 0 }
+                { name: '24~36시간', count: Number(warmRow.t36) || 0 },
+                { name: '36~48시간', count: Number(warmRow.t48) || 0 },
+                { name: '48시간 이상', count: Number(warmRow.t48plus) || 0 }
             ];
 
             const dayNames = ['일', '월', '화', '수', '목', '금', '토'];
@@ -496,8 +546,22 @@ export async function GET(request: Request) {
                 if (!isNaN(hh) && hh >= 0 && hh < 24) resvTimeTrend[hh].count = Number(row.count) || 0;
             });
 
+            const fr = (funcRows as any[])[0] || { warm: 0, warmApp: 0, resv: 0, soak: 0, soakApp: 0, clean: 0 };
+            const functionRanking = [
+                { name: '보온', count: Number(fr.warm), appCount: Number(fr.warmApp) },
+                { name: '예약', count: Number(fr.resv) },
+                { name: '내솥불림', count: Number(fr.soak), appCount: Number(fr.soakApp) },
+                { name: '자동세척', count: Number(fr.clean) }
+            ].sort((a, b) => b.count - a.count);
+
             data = {
                 topRecipes: consolidateRecipes(recipeRows as any[]),
+                topAppRecipes: consolidateRecipes(appRecipeRows as any[]),
+                topRecipesWeekly: consolidateRecipes(recipeRows as any[], 5).map(r => ({
+                    name: r.name,
+                    avgWeekly: Number((r.count / weeklyDivisor).toFixed(1))
+                })),
+                functionRanking,
                 hourlyTrend,
                 warmTimeStatus: warmTimeData,
                 dayOfWeekTrend,
@@ -532,7 +596,34 @@ export async function GET(request: Request) {
                     name: `${Number(r.servingSize) + 1}인분`, count: Number(r.count)
                 })),
                 customTasteTrend,
-                resvTimeTrend
+                resvTimeTrend,
+                dayOfWeekDetails: (() => {
+                    const days: any = {};
+                    for (let i = 1; i <= 7; i++) {
+                        const dayRows = (dayOfWeekDetailsRows as any[]).filter(r => Number(r.dayIndex) === i);
+
+                        // Top 5 recipes for this day
+                        const menuCounts = new Map<string, number>();
+                        dayRows.forEach(r => {
+                            const name = normalizeRecipeName(r.menu);
+                            menuCounts.set(name, (menuCounts.get(name) || 0) + Number(r.count));
+                        });
+                        const topRecipes = Array.from(menuCounts.entries())
+                            .sort((a, b) => b[1] - a[1])
+                            .slice(0, 5)
+                            .map(([name, count]) => ({ name, count }));
+
+                        // Serving size distribution (1-6 portions)
+                        const servings = Array.from({ length: 6 }).map((_, idx) => ({
+                            name: `${idx + 1}인분`,
+                            count: dayRows.filter(r => Number(r.servingSize) === idx)
+                                .reduce((acc, curr) => acc + Number(curr.count), 0)
+                        }));
+
+                        days[i] = { topRecipes, servings };
+                    }
+                    return days;
+                })()
             };
         }
 
