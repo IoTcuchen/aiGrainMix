@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import {
     LineChart, Line, BarChart, Bar, Cell, PieChart, Pie,
-    XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer
+    XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, LabelList
 } from 'recharts';
 import { HelpCircle, Clock, Calendar, Hash, BarChart3, Database, TrendingUp, Heart, Zap } from 'lucide-react';
 
@@ -16,6 +16,25 @@ const InfoTooltip = ({ text }: { text: string }) => (
         </div>
     </div>
 );
+
+const renderCustomBarLabel = (props: any, total: number, isVertical: boolean) => {
+    const { x, y, width, height, value } = props;
+    if (value === undefined || value === null) return null;
+    const percentage = total > 0 ? ((Number(value) / total) * 100).toFixed(1) : '0.0';
+    if (isVertical) {
+        return (
+            <text x={x + width + 5} y={y + height / 2 + 1} fill="#6B7280" textAnchor="start" dominantBaseline="central" fontSize={11} fontWeight={600}>
+                {Number(value).toLocaleString()}회 / {percentage}%
+            </text>
+        );
+    } else {
+        return (
+            <text x={x + width / 2} y={y - 10} fill="#6B7280" textAnchor="middle" dominantBaseline="auto" fontSize={11} fontWeight={600}>
+                {Number(value).toLocaleString()}회 / {percentage}%
+            </text>
+        );
+    }
+};
 
 /** 레시피 이름 정규화 (백미찰진밥 -> 찰진백미 등) */
 function normalizeRecipeName(name: string | null): string {
@@ -105,10 +124,10 @@ export default function UsageDashboard() {
     const handleSearch = () => {
         if (startDate && endDate) {
             const diffDays = (new Date(endDate).getTime() - new Date(startDate).getTime()) / (1000 * 60 * 60 * 24);
-            if (diffDays > 184) {
-                alert('최대 조회 기간은 6개월입니다.\nDB 고부하를 방지하기 위해 최대 6개월까지 설정 가능합니다.');
-                return;
-            }
+            // if (diffDays > 184) {
+            //     alert('최대 조회 기간은 6개월입니다.\nDB 고부하를 방지하기 위해 최대 6개월까지 설정 가능합니다.');
+            //     return;
+            // }
             localStorage.setItem('dashStart', startDate);
             localStorage.setItem('dashEnd', endDate);
             fetchMetrics(startDate, endDate);
@@ -297,7 +316,7 @@ export default function UsageDashboard() {
                                         const consolidated = consolidateRecipes(topRecipes);
                                         const total = (topRecipes || []).reduce((sum: number, r: any) => sum + (Number(r.count) || 0), 0);
                                         return (
-                                            <BarChart data={consolidated} layout="vertical" margin={{ top: 5, right: 20, bottom: 5, left: 30 }}>
+                                            <BarChart data={consolidated} layout="vertical" margin={{ top: 5, right: 90, bottom: 5, left: 30 }}>
                                                 <CartesianGrid strokeDasharray="3 3" horizontal={false} stroke="#E5E7EB" />
                                                 <XAxis type="number" axisLine={false} tickLine={false} hide />
                                                 <YAxis dataKey="name" type="category" axisLine={false} tickLine={false} tick={{ fill: '#374151', fontSize: 13, fontWeight: 500 }} dx={-10} />
@@ -311,6 +330,7 @@ export default function UsageDashboard() {
                                                 />
                                                 <Bar dataKey="count" fill="#FF6B00" radius={[0, 6, 6, 0]} barSize={24}>
                                                     {consolidated.map((entry: any, index: number) => <Cell key={`cell-${index}`} fill={index === 0 ? '#FF6B00' : '#FCA5A5'} />)}
+                                                    <LabelList dataKey="count" content={(props: any) => renderCustomBarLabel(props, total, true)} />
                                                 </Bar>
                                             </BarChart>
                                         );
@@ -337,7 +357,7 @@ export default function UsageDashboard() {
                                         const consolidated = consolidateRecipes(topAppRecipes);
                                         const total = (topAppRecipes || []).reduce((sum: number, r: any) => sum + (Number(r.count) || 0), 0);
                                         return (
-                                            <BarChart data={consolidated} layout="vertical" margin={{ top: 5, right: 20, bottom: 5, left: 30 }}>
+                                            <BarChart data={consolidated} layout="vertical" margin={{ top: 5, right: 90, bottom: 5, left: 30 }}>
                                                 <CartesianGrid strokeDasharray="3 3" horizontal={false} stroke="#E5E7EB" />
                                                 <XAxis type="number" axisLine={false} tickLine={false} hide />
                                                 <YAxis dataKey="name" type="category" axisLine={false} tickLine={false} tick={{ fill: '#374151', fontSize: 13, fontWeight: 500 }} dx={-10} />
@@ -351,6 +371,7 @@ export default function UsageDashboard() {
                                                 />
                                                 <Bar dataKey="count" fill="#F97316" radius={[0, 6, 6, 0]} barSize={24}>
                                                     {consolidated.map((entry: any, index: number) => <Cell key={`cell-${index}`} fill={index === 0 ? '#F97316' : '#FED7AA'} />)}
+                                                    <LabelList dataKey="count" content={(props: any) => renderCustomBarLabel(props, total, true)} />
                                                 </Bar>
                                             </BarChart>
                                         );
