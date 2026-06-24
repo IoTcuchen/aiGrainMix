@@ -4,5 +4,8 @@ pydantic
 langgraph
 langchain-openai
 langchain-core
+langchain-community
 python-dotenv
 openai
+sqlalchemy
+typing-extensions
