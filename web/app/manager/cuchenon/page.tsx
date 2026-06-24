@@ -99,10 +99,10 @@ export default function ManagerDashboard() {
     const handleSearch = () => {
         if (startDate && endDate) {
             const diffDays = (new Date(endDate).getTime() - new Date(startDate).getTime()) / (1000 * 60 * 60 * 24);
-            if (diffDays > 184) {
-                alert('최대 조회 기간은 6개월입니다.\nDB 고부하를 방지하기 위해 최대 6개월까지 설정 가능합니다.');
-                return;
-            }
+            // if (diffDays > 184) {
+            //     alert('최대 조회 기간은 6개월입니다.\nDB 고부하를 방지하기 위해 최대 6개월까지 설정 가능합니다.');
+            //     return;
+            // }
             localStorage.setItem('dashStart', startDate);
             localStorage.setItem('dashEnd', endDate);
             fetchMetrics(startDate, endDate);
@@ -177,7 +177,7 @@ export default function ManagerDashboard() {
                 <>
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                         <StatCard title="활성 기기 (온라인)" value={(kpi.activeDevices || 0).toLocaleString()} label="전체 연동률 확인" icon={Router} trend="" tooltip="현재 통신이 연결되어 온라인 상태인 기기의 수입니다." />
-                        <StatCard title="오늘 취사 횟수" value={(kpi.totalCooksToday || 0).toLocaleString()} label="당일 기준 로그 집계" icon={ChefHat} trend="" tooltip="서버 시간 기준 오늘 하루 동안 발생한 전체 취사 횟수입니다." />
+                        <StatCard title="오늘 실시간 취사 횟수" value={(kpi.totalCooksToday || 0).toLocaleString()} label="당일 기준 로그 집계" icon={ChefHat} trend="" tooltip="서버 시간 기준 오늘 하루 동안 발생한 전체 취사 횟수입니다." />
                         <StatCard title="총 등록 기기" value={(kpi.totalDevices || 0).toLocaleString()} label="누적 등록 수" icon={Activity} trend="" tooltip="오프라인 기기를 포함한 데이터베이스 상의 전체 모수 기기입니다." />
 
                         <div className="bg-white dark:bg-[#1F2937] p-6 rounded-2xl shadow-[0_2px_10px_-3px_rgba(6,81,237,0.1)] border border-gray-100 dark:border-gray-800 flex items-center justify-between">
@@ -255,74 +255,79 @@ export default function ManagerDashboard() {
                         </div>
                     </div>
 
-                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-6">
-                        {/* 월별 신규 연동 추이 */}
-                        <div className="bg-white dark:bg-gray-800 rounded-2xl p-6 border border-gray-100 dark:border-gray-700 shadow-sm">
-                            <div className="mb-4 flex items-center gap-2">
-                                <h3 className="font-bold flex items-center gap-2 text-gray-900 dark:text-white">
+                    {/* 월별 신규 연동 추이 */}
+                    <div className="bg-white dark:bg-[#1F2937] p-6 rounded-2xl shadow-[0_2px_10px_-3px_rgba(6,81,237,0.1)] border border-gray-100 dark:border-gray-800 mt-6">
+                        <div className="flex justify-between items-center mb-6">
+                            <div className="flex items-center gap-2">
+                                <h3 className="text-lg font-bold flex items-center gap-2 text-gray-900 dark:text-white">
                                     <Smartphone className="text-[#FF6B00]" size={18} />
                                     월별 신규 스마트 기기 연동(가입) 대수
                                 </h3>
                                 <InfoTooltip text="매달 새롭게 서버와 연동을 완료한 활성 기기 등록 추이량입니다." />
                             </div>
-                            <div className="h-72">
-                                <ResponsiveContainer width="100%" height="100%">
-                                    <LineChart data={metrics.monthlyRegistrations}>
-                                        <CartesianGrid strokeDasharray="3 3" vertical={false} />
-                                        <XAxis dataKey="month" tick={{ fill: '#6B7280', fontSize: 12 }} axisLine={false} tickLine={false} />
-                                        <YAxis tick={{ fill: '#6B7280', fontSize: 12 }} allowDecimals={false} axisLine={false} tickLine={false} />
-                                        <Tooltip
-                                            contentStyle={{ borderRadius: '12px', border: 'none', boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)' }}
-                                            formatter={(value) => [`${value} 대`, '신규 연동']}
-                                        />
-                                        <Line
-                                            type="monotone"
-                                            dataKey="count"
-                                            stroke="#10B981"
-                                            strokeWidth={3}
-                                            dot={{ r: 4, fill: '#10B981', strokeWidth: 2, stroke: '#fff' }}
-                                            activeDot={{ r: 6 }}
-                                            animationDuration={1500}
-                                        />
-                                    </LineChart>
-                                </ResponsiveContainer>
-                            </div>
+                            <span className="text-xs font-medium text-gray-500 bg-gray-100 dark:bg-gray-800 px-2 py-1 rounded-md">{periodText}</span>
                         </div>
+                        <div className="h-[350px] w-full">
+                            <ResponsiveContainer width="100%" height="100%">
+                                <LineChart data={metrics.monthlyRegistrations} margin={{ top: 5, right: 20, bottom: 5, left: 0 }}>
+                                    <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#E5E7EB" />
+                                    <XAxis dataKey="month" tick={{ fill: '#6B7280', fontSize: 12 }} axisLine={false} tickLine={false} dy={10} />
+                                    <YAxis tick={{ fill: '#6B7280', fontSize: 12 }} allowDecimals={false} axisLine={false} tickLine={false} dx={-10} />
+                                    <Tooltip
+                                        contentStyle={{ borderRadius: '12px', border: 'none', boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)' }}
+                                        formatter={(value) => [`${value} 대`, '신규 연동']}
+                                        cursor={{ stroke: '#10B981', strokeWidth: 1, strokeDasharray: '4 4' }}
+                                    />
+                                    <Line
+                                        type="monotone"
+                                        dataKey="count"
+                                        stroke="#10B981"
+                                        strokeWidth={3}
+                                        dot={{ r: 4, fill: '#10B981', strokeWidth: 2, stroke: '#fff' }}
+                                        activeDot={{ r: 6, fill: '#10B981', stroke: '#fff', strokeWidth: 2 }}
+                                        animationDuration={1500}
+                                    />
+                                </LineChart>
+                            </ResponsiveContainer>
+                        </div>
+                    </div>
 
-                        {/* 모델별 스마트 파워 (표로 변경) */}
-                        <div className="bg-white dark:bg-gray-800 rounded-2xl p-6 border border-gray-100 dark:border-gray-700 shadow-sm">
-                            <div className="mb-4 flex items-center gap-2">
-                                <h3 className="font-bold flex items-center gap-2 text-gray-900 dark:text-white">
+                    {/* 모델별 스마트 파워 (표로 변경) */}
+                    <div className="bg-white dark:bg-[#1F2937] p-6 rounded-2xl shadow-[0_2px_10px_-3px_rgba(6,81,237,0.1)] border border-gray-100 dark:border-gray-800 mt-6">
+                        <div className="flex justify-between items-center mb-6">
+                            <div className="flex items-center gap-2">
+                                <h3 className="text-lg font-bold flex items-center gap-2 text-gray-900 dark:text-white">
                                     <Cpu className="text-[#FF6B00]" size={18} />
                                     모델별 스마트앱 제어 활성화 현황
                                 </h3>
                                 <InfoTooltip text="해당 기기의 총 누적 취사량(전체 모수) 중, 스마트 앱으로 원격 조작한 비율과 앱 제어 비중을 표출합니다." />
                             </div>
-                            <div className="overflow-hidden border border-gray-100 dark:border-gray-700 rounded-xl">
-                                <table className="w-full text-sm text-left">
-                                    <thead className="text-xs text-gray-500 uppercase bg-gray-50 dark:bg-gray-900/50">
-                                        <tr>
-                                            <th className="px-4 py-3 font-semibold text-gray-900 dark:text-white">모델명</th>
-                                            <th className="px-4 py-3 text-right font-semibold text-gray-900 dark:text-white">총 취사</th>
-                                            <th className="px-4 py-3 text-right font-semibold text-gray-900 dark:text-white">앱 제어</th>
-                                            <th className="px-4 py-3 text-right font-semibold text-[#FF6B00]">앱 비중</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody className="divide-y divide-gray-100 dark:divide-gray-800">
-                                        {metrics.modelPerformance?.map((item: any, idx: number) => {
-                                            const pct = item.total > 0 ? ((item.app / item.total) * 100).toFixed(1) : '0.0';
-                                            return (
-                                                <tr key={idx} className="hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors">
-                                                    <td className="px-4 py-3 font-bold text-gray-900 dark:text-white border-r border-gray-50 dark:border-gray-700">{item.name}</td>
-                                                    <td className="px-4 py-3 text-right font-mono text-gray-600 dark:text-gray-400">{item.total.toLocaleString()}</td>
-                                                    <td className="px-4 py-3 text-right font-mono text-blue-500 dark:text-blue-400">{item.app.toLocaleString()}</td>
-                                                    <td className="px-4 py-3 text-right font-bold text-[#FF6B00] bg-orange-50/30 dark:bg-orange-950/20">{pct}%</td>
-                                                </tr>
-                                            );
-                                        })}
-                                    </tbody>
-                                </table>
-                            </div>
+                            <span className="text-xs font-medium text-gray-500 bg-gray-100 dark:bg-gray-800 px-2 py-1 rounded-md">{periodText}</span>
+                        </div>
+                        <div className="overflow-hidden border border-gray-100 dark:border-gray-700 rounded-xl">
+                            <table className="w-full text-sm text-left">
+                                <thead className="text-xs text-gray-500 uppercase bg-gray-50 dark:bg-gray-900/50">
+                                    <tr>
+                                        <th className="px-4 py-3 font-semibold text-gray-900 dark:text-white">모델명</th>
+                                        <th className="px-4 py-3 text-right font-semibold text-gray-900 dark:text-white">총 취사</th>
+                                        <th className="px-4 py-3 text-right font-semibold text-gray-900 dark:text-white">앱 제어</th>
+                                        <th className="px-4 py-3 text-right font-semibold text-[#FF6B00]">앱 비중</th>
+                                    </tr>
+                                </thead>
+                                <tbody className="divide-y divide-gray-100 dark:divide-gray-800">
+                                    {metrics.modelPerformance?.map((item: any, idx: number) => {
+                                        const pct = item.total > 0 ? ((item.app / item.total) * 100).toFixed(1) : '0.0';
+                                        return (
+                                            <tr key={idx} className="hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors">
+                                                <td className="px-4 py-3 font-bold text-gray-900 dark:text-white border-r border-gray-50 dark:border-gray-700">{item.name}</td>
+                                                <td className="px-4 py-3 text-right font-mono text-gray-600 dark:text-gray-400">{item.total.toLocaleString()}</td>
+                                                <td className="px-4 py-3 text-right font-mono text-blue-500 dark:text-blue-400">{item.app.toLocaleString()}</td>
+                                                <td className="px-4 py-3 text-right font-bold text-[#FF6B00] bg-orange-50/30 dark:bg-orange-950/20">{pct}%</td>
+                                            </tr>
+                                        );
+                                    })}
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </>

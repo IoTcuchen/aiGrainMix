@@ -173,45 +173,36 @@ export async function GET(request: Request) {
         //  TAB: overview
         // ════════════════════════════════════════
         if (tab === 'overview') {
-            const [
-                [deviceRows],
-                [trendRows],
-                [todayRows],
-                [monthlyRegsRows],
-                [dataVolumeRows],
-                modelPerfRows,
-                [userRows]
-            ] = await Promise.all([
-                pool.execute(`SELECT CONN_YN as status, COUNT(*) as count FROM SC_DEVICE_STATUS GROUP BY CONN_YN`),
-                pool.execute(
-                    `SELECT DAY as dateStr, COUNT(*) as count
-                     FROM SC_DEVICE_COOK_LOG
-                     WHERE DAY BETWEEN ? AND ?
-                     GROUP BY DAY ORDER BY DAY ASC`,
-                    [startYMD, endYMD]
-                ),
-                pool.execute(
-                    `SELECT COUNT(*) as count FROM SC_DEVICE_COOK_LOG WHERE DAY = ?`,
-                    [todayStr]
-                ).catch(() => [[{ count: 0 }]]),
-                pool.execute(
-                    `SELECT DATE_FORMAT(REG_DT, '%Y-%m') as month, COUNT(*) as count
-                     FROM SC_DEVICE_STATUS
-                     WHERE REG_DT >= ? AND REG_DT <= ?
-                     GROUP BY month ORDER BY month ASC`,
-                    [startDateTime, endDateTime]
-                ),
-                pool.execute(
-                    `SELECT
-                        (SELECT COUNT(*) FROM SC_COOKER_LOG     WHERE REG_DT >= ? AND REG_DT <= ?) as cook,
-                        (SELECT COUNT(*) FROM SC_DEVICE_WARM_LOG WHERE REG_DT >= ? AND REG_DT <= ?) as warm,
-                        (SELECT COUNT(*) FROM SC_DEVICE_RESV_TIME WHERE REG_DT >= ? AND REG_DT <= ?) as resv`,
-                    [startDateTime, endDateTime, startDateTime, endDateTime, startDateTime, endDateTime]
-                ),
-                // 공유 캐시 사용
-                getModelAppRatio(false, 10),
-                pool.execute(`SELECT COUNT(*) as count FROM SC_MEM`)
-            ]);
+            const [deviceRows] = await pool.execute(`SELECT CONN_YN as status, COUNT(*) as count FROM SC_DEVICE_STATUS GROUP BY CONN_YN`);
+            const [trendRows] = await pool.execute(
+                `SELECT DAY as dateStr, COUNT(*) as count
+                 FROM SC_DEVICE_COOK_LOG
+                 WHERE DAY BETWEEN ? AND ?
+                 GROUP BY DAY ORDER BY DAY ASC`,
+                [startYMD, endYMD]
+            );
+            const [todayRows] = await pool.execute(
+                `SELECT COUNT(*) as count FROM SC_DEVICE_COOK_LOG WHERE DAY = ?`,
+                [todayStr]
+            ).catch(() => [[{ count: 0 }]] as any);
+            const [monthlyRegsRows] = await pool.execute(
+                `SELECT DATE_FORMAT(REG_DT, '%Y-%m') as month, COUNT(*) as count
+                 FROM SC_DEVICE_STATUS
+                 WHERE REG_DT >= ? AND REG_DT <= ?
+                 GROUP BY month ORDER BY month ASC`,
+                [startDateTime, endDateTime]
+            );
+            const [dataVolumeRows] = await pool.execute(
+                `SELECT
+                    (SELECT COUNT(*) FROM SC_COOKER_LOG     WHERE REG_DT >= ? AND REG_DT <= ?) as cook,
+                    (SELECT COUNT(*) FROM SC_DEVICE_WARM_LOG WHERE REG_DT >= ? AND REG_DT <= ?) as warm,
+                    (SELECT COUNT(*) FROM SC_DEVICE_RESV_TIME WHERE REG_DT >= ? AND REG_DT <= ?) as resv`,
+                [startDateTime, endDateTime, startDateTime, endDateTime, startDateTime, endDateTime]
+            );
+
+            // 공유 캐시 사용
+            const modelPerfRows = await getModelAppRatio(false, 10);
+            const [userRows] = await pool.execute(`SELECT COUNT(*) as count FROM SC_MEM`);
 
             let onlineCount = 0; let offlineCount = 0;
             (deviceRows as any[]).forEach(row => {
@@ -290,35 +281,28 @@ export async function GET(request: Request) {
         else if (tab === 'models') {
             const EXCLUDED = `M.MODEL_NM NOT IN ('HEN-ID6A1WLA', 'CEN-ID6A0WSA')`;
 
-            const [
-                [connRows],
-                [cookRows],
-                // 3중 조인 → 2중 조인. RECIPE_KEY·MODEL_KEY는 앱 레벨에서 이름 매핑
-                [servingRows],
-                [warmRows]
-            ] = await Promise.all([
-                pool.execute(
-                    `SELECT M.MODEL_NM as modelName,
+            const [connRows] = await pool.execute(
+                `SELECT M.MODEL_NM as modelName,
                             COUNT(*) as totalCount,
                             SUM(CASE WHEN D.REG_DT >= ? AND D.REG_DT <= ? THEN 1 ELSE 0 END) as newCount
                      FROM SC_DEVICE_STATUS D
                      JOIN SC_MODEL M ON D.MODEL_KEY = M.MODEL_KEY
                      WHERE D.REG_DT <= ? AND ${EXCLUDED}
                      GROUP BY M.MODEL_NM ORDER BY totalCount DESC`,
-                    [startDateTime, endDateTime, endDateTime]
-                ),
-                pool.execute(
-                    `SELECT M.MODEL_NM as modelName, COUNT(*) as totalCooks,
+                [startDateTime, endDateTime, endDateTime]
+            );
+            const [cookRows] = await pool.execute(
+                `SELECT M.MODEL_NM as modelName, COUNT(*) as totalCooks,
                             SUM(CASE WHEN C.APP_CTRL_YN = 'Y' THEN 1 ELSE 0 END) as appCooks
                      FROM SC_COOKER_LOG C
                      JOIN SC_MODEL M ON C.MODEL_KEY = M.MODEL_KEY
                      WHERE C.REG_DT >= ? AND C.REG_DT <= ? AND ${EXCLUDED}
                      GROUP BY M.MODEL_NM ORDER BY totalCooks DESC`,
-                    [startDateTime, endDateTime]
-                ),
-                // ── 개선: SC_RECIPE 조인 제거, 앱에서 RECIPE_KEY → 이름 매핑 ──
-                pool.execute(
-                    `SELECT M.MODEL_NM as modelName,
+                [startDateTime, endDateTime]
+            );
+            // ── 개선: SC_RECIPE 조인 제거, 앱에서 RECIPE_KEY → 이름 매핑 ──
+            const [servingRows] = await pool.execute(
+                `SELECT M.MODEL_NM as modelName,
                             sr.RECIPE_NM as recipeNm,
                             C.SERVING_CNT as servingSize,
                             COUNT(*) as count
@@ -328,10 +312,10 @@ export async function GET(request: Request) {
                      WHERE C.REG_DT >= ? AND C.REG_DT <= ?
                        AND C.SERVING_CNT >= 0 AND ${EXCLUDED}
                      GROUP BY M.MODEL_NM, sr.RECIPE_NM, C.SERVING_CNT`,
-                    [startDateTime, endDateTime]
-                ),
-                pool.execute(
-                    `SELECT M.MODEL_NM as modelName,
+                [startDateTime, endDateTime]
+            );
+            const [warmRows] = await pool.execute(
+                `SELECT M.MODEL_NM as modelName,
                             COUNT(CASE WHEN W.WARM_TIME = 0            THEN 1 END) as t0,
                             COUNT(CASE WHEN W.WARM_TIME BETWEEN 1   AND 120  THEN 1 END) as t2,
                             COUNT(CASE WHEN W.WARM_TIME BETWEEN 121  AND 360  THEN 1 END) as t6,
@@ -345,9 +329,8 @@ export async function GET(request: Request) {
                      JOIN SC_MODEL M ON W.MODEL_KEY = M.MODEL_KEY
                      WHERE W.REG_DT >= ? AND W.REG_DT <= ? AND ${EXCLUDED}
                      GROUP BY M.MODEL_NM`,
-                    [startDateTime, endDateTime]
-                )
-            ]);
+                [startDateTime, endDateTime]
+            );
 
             data = {
                 connections: (connRows as any[]).map(r => ({
@@ -380,39 +363,26 @@ export async function GET(request: Request) {
         //  TAB: usage
         // ════════════════════════════════════════
         else if (tab === 'usage') {
-            const [
-                [recipeRows],
-                [appRecipeRows],
-                hourlyRows,
-                [warmRows],
-                [dayOfWeekRows],
-                [soakSteamRows],
-                [servingRows],
-                [tasteRows],
-                resvRows,
-                [funcRows],
-                [dayOfWeekDetailsRows]
-            ] = await Promise.all([
-                pool.execute(
-                    `SELECT sr.RECIPE_NM as name, COUNT(*) as count
+            const [recipeRows] = await pool.execute(
+                `SELECT sr.RECIPE_NM as name, COUNT(*) as count
                      FROM SC_COOKER_LOG scl
                      INNER JOIN SC_RECIPE sr ON scl.RECIPE_KEY = sr.RECIPE_KEY
                      WHERE scl.REG_DT >= ? AND scl.REG_DT <= ?
                      GROUP BY sr.RECIPE_NM ORDER BY count DESC LIMIT 100`,
-                    [startDateTime, endDateTime]
-                ),
-                pool.execute(
-                    `SELECT sr.RECIPE_NM as name, COUNT(*) as count
+                [startDateTime, endDateTime]
+            );
+            const [appRecipeRows] = await pool.execute(
+                `SELECT sr.RECIPE_NM as name, COUNT(*) as count
                      FROM SC_COOKER_LOG scl
                      INNER JOIN SC_RECIPE sr ON scl.RECIPE_KEY = sr.RECIPE_KEY
                      WHERE scl.REG_DT >= ? AND scl.REG_DT <= ?
                        AND scl.APP_CTRL_YN = 'Y'
                      GROUP BY sr.RECIPE_NM ORDER BY count DESC LIMIT 100`,
-                    [startDateTime, endDateTime]
-                ),
-                getHourlyTrend(),
-                pool.execute(
-                    `SELECT
+                [startDateTime, endDateTime]
+            );
+            const hourlyRows = await getHourlyTrend();
+            const [warmRows] = await pool.execute(
+                `SELECT
                         COUNT(CASE WHEN WARM_TIME = 0            THEN 1 END) as t0,
                         COUNT(CASE WHEN WARM_TIME BETWEEN 1   AND 120  THEN 1 END) as t2,
                         COUNT(CASE WHEN WARM_TIME BETWEEN 121  AND 360  THEN 1 END) as t6,
@@ -424,66 +394,66 @@ export async function GET(request: Request) {
                         COUNT(CASE WHEN WARM_TIME > 2880               THEN 1 END) as t48plus
                      FROM SC_DEVICE_WARM_LOG
                      WHERE REG_DT >= ? AND REG_DT <= ?`,
-                    [startDateTime, endDateTime]
-                ),
-                pool.execute(
-                    `SELECT DAYOFWEEK(REG_DT) as dayIndex, COUNT(*) as count
+                [startDateTime, endDateTime]
+            );
+            const [dayOfWeekRows] = await pool.execute(
+                `SELECT DAYOFWEEK(REG_DT) as dayIndex, COUNT(*) as count
                      FROM SC_COOKER_LOG
                      WHERE REG_DT >= ? AND REG_DT <= ?
                      GROUP BY dayIndex ORDER BY dayIndex ASC`,
-                    [startDateTime, endDateTime]
-                ),
-                pool.execute(
-                    `SELECT sr.RECIPE_NM as menu,
+                [startDateTime, endDateTime]
+            );
+            const [soakSteamRows] = await pool.execute(
+                `SELECT sr.RECIPE_NM as menu,
                              C.SOAK_LEVEL as soak, C.STEAM_LEVEL as steam, COUNT(*) as count
                       FROM SC_COOKER_LOG C
                       JOIN SC_RECIPE sr ON C.RECIPE_KEY = sr.RECIPE_KEY
                       WHERE C.REG_DT >= ? AND C.REG_DT <= ?
                         AND (C.SOAK_LEVEL > 0 OR C.STEAM_LEVEL > 0)
                       GROUP BY sr.RECIPE_NM, C.SOAK_LEVEL, C.STEAM_LEVEL`,
-                    [startDateTime, endDateTime]
-                ),
-                pool.execute(
-                    `SELECT C.SERVING_CNT as servingSize, COUNT(*) as count
+                [startDateTime, endDateTime]
+            );
+            const [servingRows] = await pool.execute(
+                `SELECT C.SERVING_CNT as servingSize, COUNT(*) as count
                       FROM SC_COOKER_LOG C
                       JOIN SC_MODEL M ON C.MODEL_KEY = M.MODEL_KEY
                       WHERE C.REG_DT >= ? AND C.REG_DT <= ?
                         AND C.SERVING_CNT >= 0 AND C.SERVING_CNT <= 5
                         AND NOT (M.MODEL_NM LIKE '%PR03%' AND C.SERVING_CNT > 2)
                       GROUP BY C.SERVING_CNT ORDER BY C.SERVING_CNT ASC`,
-                    [startDateTime, endDateTime]
-                ),
-                pool.execute(
-                    `SELECT
+                [startDateTime, endDateTime]
+            );
+            const [tasteRows] = await pool.execute(
+                `SELECT
                         SUM(CASE WHEN SOAK_LEVEL > 0  THEN 1 ELSE 0 END) as soakUsed,
                         SUM(CASE WHEN STEAM_LEVEL > 0 THEN 1 ELSE 0 END) as steamUsed,
                         SUM(CASE WHEN SOAK_LEVEL = 0 AND STEAM_LEVEL = 0 THEN 1 ELSE 0 END) as noneUsed,
                         COUNT(*) as total
                       FROM SC_COOKER_LOG
                       WHERE REG_DT >= ? AND REG_DT <= ?`,
-                    [startDateTime, endDateTime]
-                ),
-                // 공유 캐시 사용
-                getResvTimeTrend(),
-                pool.execute(
-                    `SELECT
+                [startDateTime, endDateTime]
+            );
+            // 공유 캐시 사용
+            const resvRows = await getResvTimeTrend();
+            const [funcRows] = await pool.execute(
+                `SELECT
                         (SELECT COUNT(*) FROM SC_DEVICE_WARM_LOG WHERE REG_DT >= ? AND REG_DT <= ?) as warm,
                         (SELECT COUNT(*) FROM SC_DEVICE_WARM_LOG WHERE REG_DT >= ? AND REG_DT <= ? AND APP_CTRL_YN = 'Y') as warmApp,
                         (SELECT COUNT(*) FROM SC_DEVICE_RESV_TIME WHERE REG_DT >= ? AND REG_DT <= ?) as resv,
                         (SELECT COUNT(*) FROM SC_COOKER_LOG c JOIN SC_RECIPE r ON c.RECIPE_KEY = r.RECIPE_KEY WHERE c.REG_DT >= ? AND c.REG_DT <= ? AND r.RECIPE_NM = '내솥불림') as soak,
                         (SELECT COUNT(*) FROM SC_COOKER_LOG c JOIN SC_RECIPE r ON c.RECIPE_KEY = r.RECIPE_KEY WHERE c.REG_DT >= ? AND c.REG_DT <= ? AND r.RECIPE_NM = '내솥불림' AND c.APP_CTRL_YN = 'Y') as soakApp,
                         (SELECT COUNT(*) FROM SC_COOKER_CLEAN WHERE REG_DT >= ? AND REG_DT <= ?) as clean`,
-                    [
-                        startDateTime, endDateTime, // warm
-                        startDateTime, endDateTime, // warmApp
-                        startDateTime, endDateTime, // resv
-                        startDateTime, endDateTime, // soak
-                        startDateTime, endDateTime, // soakApp
-                        startDateTime, endDateTime  // clean
-                    ]
-                ),
-                pool.execute(
-                    `SELECT
+                [
+                    startDateTime, endDateTime, // warm
+                    startDateTime, endDateTime, // warmApp
+                    startDateTime, endDateTime, // resv
+                    startDateTime, endDateTime, // soak
+                    startDateTime, endDateTime, // soakApp
+                    startDateTime, endDateTime  // clean
+                ]
+            );
+            const [dayOfWeekDetailsRows] = await pool.execute(
+                `SELECT
                         DAYOFWEEK(scl.REG_DT) as dayIndex,
                         sr.RECIPE_NM as menu,
                         scl.SERVING_CNT as servingSize,
@@ -493,9 +463,8 @@ export async function GET(request: Request) {
                      WHERE scl.REG_DT >= ? AND scl.REG_DT <= ?
                      GROUP BY dayIndex, menu, servingSize
                      ORDER BY dayIndex ASC, count DESC`,
-                    [startDateTime, endDateTime]
-                )
-            ]);
+                [startDateTime, endDateTime]
+            );
 
             const hourlyTrend = Array.from({ length: 24 }).map((_, i) => ({
                 hour: `${i}시`, count: 0, appCount: 0, manualCount: 0
@@ -631,12 +600,10 @@ export async function GET(request: Request) {
         //  TAB: smart  (공유 캐시 헬퍼 최대 활용)
         // ════════════════════════════════════════
         else if (tab === 'smart') {
-            const [appCtrlRows, resvRows, modelAppRows, hourlyRows] = await Promise.all([
-                getAppCtrlRatio(),
-                getResvTimeTrend(),
-                getModelAppRatio(false, 10),
-                getHourlyTrend()
-            ]);
+            const appCtrlRows = await getAppCtrlRatio();
+            const resvRows = await getResvTimeTrend();
+            const modelAppRows = await getModelAppRatio(false, 10);
+            const hourlyRows = await getHourlyTrend();
 
             const yCount = (appCtrlRows as any[])[0]?.Y_CNT || 0;
             const nCount = (appCtrlRows as any[])[0]?.N_CNT || 0;
@@ -679,13 +646,8 @@ export async function GET(request: Request) {
         // ════════════════════════════════════════
         else if (tab === 'insights') {
             // ── 개선: powerUserLogs를 서브쿼리로 통합 → 직렬 2-trip → 단일 쿼리 ──
-            const [
-                [retentionRows],
-                [errorRows],
-                [powerUserRows]
-            ] = await Promise.all([
-                pool.execute(
-                    `SELECT
+            const [retentionRows] = await pool.execute(
+                `SELECT
                         TIMESTAMPDIFF(MONTH, D.REG_DT, C.REG_DT) as month_diff,
                         COUNT(DISTINCT C.DEVICE_KEY) as active_devices
                      FROM SC_COOKER_LOG C
@@ -694,18 +656,18 @@ export async function GET(request: Request) {
                        AND C.REG_DT >= ? AND C.REG_DT <= ?
                        AND C.REG_DT >= D.REG_DT
                      GROUP BY month_diff ORDER BY month_diff ASC`,
-                    [startDateTime, endDateTime]
-                ),
-                pool.execute(
-                    `SELECT ERR_1 as code, COUNT(*) as count
+                [startDateTime, endDateTime]
+            );
+            const [errorRows] = await pool.execute(
+                `SELECT ERR_1 as code, COUNT(*) as count
                      FROM SC_DEVICE_ERR
                      WHERE REG_DT >= ? AND REG_DT <= ?
                      GROUP BY ERR_1 ORDER BY count DESC LIMIT 20`,
-                    [startDateTime, endDateTime]
-                ),
-                // ── 서브쿼리로 top device 조회 + 로그 조회를 단일 쿼리로 통합 ──
-                pool.execute(
-                    `SELECT C.REG_DT as logTime,
+                [startDateTime, endDateTime]
+            );
+            // ── 서브쿼리로 top device 조회 + 로그 조회를 단일 쿼리로 통합 ──
+            const [powerUserRows] = await pool.execute(
+                `SELECT C.REG_DT as logTime,
                             sr.RECIPE_NM as menu,
                             C.DEVICE_KEY as deviceKey,
                             C.APP_CTRL_YN as appCtrl,
@@ -722,9 +684,8 @@ export async function GET(request: Request) {
                        AND C.REG_DT >= ? AND C.REG_DT <= ?
                        AND NOT (M.MODEL_NM LIKE '%PR03%' AND C.SERVING_CNT > 2)
                      ORDER BY C.REG_DT DESC LIMIT 30`,
-                    [startDateTime, endDateTime, startDateTime, endDateTime]
-                )
-            ]);
+                [startDateTime, endDateTime, startDateTime, endDateTime]
+            );
 
             const topDeviceKey = (powerUserRows as any[])[0]?.deviceKey || 'N/A';
             const powerUserLogs = (powerUserRows as any[]).map(r => ({
@@ -750,27 +711,21 @@ export async function GET(request: Request) {
         //  TAB: report
         // ════════════════════════════════════════
         else if (tab === 'report') {
-            const [
-                [monthlyRegsRows],
-                [dataVolumeRows],
-                modelPerfRows
-            ] = await Promise.all([
-                pool.execute(
-                    `SELECT DATE_FORMAT(REG_DT, '%Y-%m') as month, COUNT(*) as count
+            const [monthlyRegsRows] = await pool.execute(
+                `SELECT DATE_FORMAT(REG_DT, '%Y-%m') as month, COUNT(*) as count
                      FROM SC_DEVICE_STATUS
                      WHERE REG_DT >= ? AND REG_DT <= ?
                      GROUP BY month ORDER BY month ASC`,
-                    [startDateTime, endDateTime]
-                ),
-                pool.execute(
-                    `SELECT
+                [startDateTime, endDateTime]
+            );
+            const [dataVolumeRows] = await pool.execute(
+                `SELECT
                         (SELECT COUNT(*) FROM SC_COOKER_LOG      WHERE REG_DT >= ? AND REG_DT <= ?) as cook,
                         (SELECT COUNT(*) FROM SC_DEVICE_WARM_LOG  WHERE REG_DT >= ? AND REG_DT <= ?) as warm,
                         (SELECT COUNT(*) FROM SC_DEVICE_RESV_TIME WHERE REG_DT >= ? AND REG_DT <= ?) as resv`,
-                    [startDateTime, endDateTime, startDateTime, endDateTime, startDateTime, endDateTime]
-                ),
-                getModelAppRatio(true, 15)
-            ]);
+                [startDateTime, endDateTime, startDateTime, endDateTime, startDateTime, endDateTime]
+            );
+            const modelPerfRows = await getModelAppRatio(true, 15);
 
             const dr = (dataVolumeRows as any[])[0] || { cook: 0, warm: 0, resv: 0 };
             data = {
