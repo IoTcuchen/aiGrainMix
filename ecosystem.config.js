@@ -12,9 +12,8 @@ module.exports = {
     },
     {
       name: "ai_agent",
-      cwd: "/home/ubuntu/aiGrainMix/agent",
-      script: "api/index.py",
-      interpreter: "/home/ubuntu/aiGrainMix/agent/venv/bin/python",
+      script: "/home/ubuntu/aiGrainMix/agent/start_agent.sh",
+      interpreter: "bash",
     },
   ],
 };
