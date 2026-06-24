@@ -744,6 +744,37 @@ export async function GET(request: Request) {
             };
         }
 
+        // ════════════════════════════════════════
+        //  TAB: special (과제특화)
+        // ════════════════════════════════════════
+        else if (tab === 'special') {
+            const [specialRows] = await pool.execute(
+                `SELECT DATE_FORMAT(C.REG_DT, '%Y-%m') as month,
+                        SUM(CASE WHEN r.RECIPE_NM IN ('찰진백미', '백미찰진밥', '백미고슬밥', '고슬백미밥') THEN 1 ELSE 0 END) as whiteRice,
+                        SUM(CASE WHEN r.RECIPE_NM IN ('혼합잡곡', '혼합잡곡밥', '현미100') THEN 1 ELSE 0 END) as mixedGrains
+                 FROM SC_COOKER_LOG C
+                 JOIN SC_RECIPE r ON C.RECIPE_KEY = r.RECIPE_KEY
+                 WHERE C.REG_DT >= ? AND C.REG_DT <= ?
+                 GROUP BY month ORDER BY month ASC`,
+                [startDateTime, endDateTime]
+            );
+
+            let cumulativeWhiteRice = 0;
+            let cumulativeMixedGrains = 0;
+
+            data = {
+                specialTrend: (specialRows as any[]).map(r => {
+                    cumulativeWhiteRice += Number(r.whiteRice) || 0;
+                    cumulativeMixedGrains += Number(r.mixedGrains) || 0;
+                    return {
+                        name: r.month,
+                        whiteRice: cumulativeWhiteRice,
+                        mixedGrains: cumulativeMixedGrains
+                    };
+                })
+            };
+        }
+
         setCached(tabCacheKey, data);
 
         // ── SQLite 영구 캐시 저장 (비동기 시도, 실패해도 응답에 영향 없음) ──

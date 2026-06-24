@@ -2,7 +2,7 @@
 import React from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { LayoutDashboard, Activity, Coffee, Smartphone, TrendingUp, Cpu, History } from 'lucide-react';
+import { LayoutDashboard, Activity, Coffee, Smartphone, TrendingUp, Cpu, History, Target } from 'lucide-react';
 
 export default function ManagerLayout({
     children,
@@ -18,6 +18,7 @@ export default function ManagerLayout({
         { href: '/manager/cuchenon/smart', icon: <Smartphone size={20} />, label: '스마트 제어 분석' },
         { href: '/manager/cuchenon/history', icon: <History size={20} />, label: '조회 이력' },
         { href: '/manager/cuchenon/journey', icon: <Activity size={20} />, label: '동작 Flow' },
+        { href: '/manager/cuchenon/special', icon: <Target size={20} />, label: '과제특화' },
     ];
 
     return (
