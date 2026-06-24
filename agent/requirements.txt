@@ -8,4 +8,5 @@ langchain-community
 python-dotenv
 openai
 sqlalchemy
+pymysql
 typing-extensions
