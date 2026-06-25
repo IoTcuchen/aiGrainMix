@@ -16,7 +16,7 @@ await build({
     target: ['es2020'],
     platform: 'browser',
     outfile: path.join(root, 'public/history-viewer.js'),
-    jsx: 'automatic',
+    jsx: 'transform',
     loader: { '.tsx': 'tsx', '.ts': 'ts' },
     define: {
         'process.env.NODE_ENV': '"production"',
