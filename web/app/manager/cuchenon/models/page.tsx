@@ -121,6 +121,19 @@ export default function ModelsDashboard() {
         window.dispatchEvent(new CustomEvent('dashboard-search'));
     };
 
+    const setStartByMonth = (m: string) => setStartDate(m ? `${m}-01` : '');
+    const setEndByMonth = (m: string) => {
+        if (!m) { setEndDate(''); return; }
+        const today = new Date();
+        const todayMonth = `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, '0')}`;
+        if (m === todayMonth) {
+            setEndDate(`${m}-${String(today.getDate()).padStart(2, '0')}`);
+            return;
+        }
+        const [y, mo] = m.split('-').map(Number);
+        setEndDate(`${m}-${String(new Date(y, mo, 0).getDate()).padStart(2, '0')}`);
+    };
+
     if (!mounted) return null;
 
     const calculateDays = (start: string, end: string) => {
@@ -150,16 +163,16 @@ export default function ModelsDashboard() {
                 <div className="flex flex-wrap items-center gap-3">
                     <div className="flex items-center bg-gray-50 dark:bg-gray-800 rounded-xl p-1 border border-gray-100 dark:border-gray-700">
                         <input
-                            type="date"
-                            value={startDate}
-                            onChange={(e) => setStartDate(e.target.value)}
+                            type="month"
+                            value={startDate.slice(0, 7)}
+                            onChange={(e) => setStartByMonth(e.target.value)}
                             className="bg-transparent border-none text-sm font-medium focus:ring-0 text-gray-700 dark:text-gray-300 w-[130px]"
                         />
                         <span className="text-gray-400">~</span>
                         <input
-                            type="date"
-                            value={endDate}
-                            onChange={(e) => setEndDate(e.target.value)}
+                            type="month"
+                            value={endDate.slice(0, 7)}
+                            onChange={(e) => setEndByMonth(e.target.value)}
                             className="bg-transparent border-none text-sm font-medium focus:ring-0 text-gray-700 dark:text-gray-300 w-[130px]"
                         />
                         <button

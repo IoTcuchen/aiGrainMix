@@ -87,6 +87,19 @@ export default function InsightsDashboard() {
         fetchMetrics(startStr, endStr);
     };
 
+    const setStartByMonth = (m: string) => setStartDate(m ? `${m}-01` : '');
+    const setEndByMonth = (m: string) => {
+        if (!m) { setEndDate(''); return; }
+        const today = new Date();
+        const todayMonth = `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, '0')}`;
+        if (m === todayMonth) {
+            setEndDate(`${m}-${String(today.getDate()).padStart(2, '0')}`);
+            return;
+        }
+        const [y, mo] = m.split('-').map(Number);
+        setEndDate(`${m}-${String(new Date(y, mo, 0).getDate()).padStart(2, '0')}`);
+    };
+
     if (!mounted) return null;
 
     const { servingSizeTrend, customTasteTrend, tasteLevelDist, retentionTrend, errorCodes, powerUser } = metrics;
@@ -107,9 +120,9 @@ export default function InsightsDashboard() {
                 <div className="flex items-center gap-4">
                     <button onClick={handleAllTime} className="px-4 py-1.5 bg-gray-100 hover:bg-gray-200 dark:bg-[#1F2937] dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-lg transition-colors font-semibold border border-gray-200 dark:border-gray-700 shadow-sm text-sm">전체 기간</button>
                     <div className="flex items-center gap-2 bg-white dark:bg-gray-800 p-1.5 px-3 rounded-lg border border-gray-200 dark:border-gray-700 shadow-sm text-sm">
-                        <input type="date" className="bg-transparent border-none outline-none text-gray-700 dark:text-gray-300 cursor-pointer" value={startDate} onChange={(e) => setStartDate(e.target.value)} />
+                        <input type="month" className="bg-transparent border-none outline-none text-gray-700 dark:text-gray-300 cursor-pointer" value={startDate.slice(0, 7)} onChange={(e) => setStartByMonth(e.target.value)} />
                         <span className="text-gray-400">~</span>
-                        <input type="date" className="bg-transparent border-none outline-none text-gray-700 dark:text-gray-300 cursor-pointer" value={endDate} onChange={(e) => setEndDate(e.target.value)} />
+                        <input type="month" className="bg-transparent border-none outline-none text-gray-700 dark:text-gray-300 cursor-pointer" value={endDate.slice(0, 7)} onChange={(e) => setEndByMonth(e.target.value)} />
                         <button onClick={handleSearch} className="px-3 py-1 bg-[#FF6B00] text-white rounded-md hover:bg-orange-600 transition-colors font-medium shadow-sm">조회</button>
                     </div>
                 </div>

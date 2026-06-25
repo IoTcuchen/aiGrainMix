@@ -409,6 +409,7 @@ export async function GET(request: Request) {
                       FROM SC_COOKER_LOG C
                       JOIN SC_RECIPE sr ON C.RECIPE_KEY = sr.RECIPE_KEY
                       WHERE C.REG_DT >= ? AND C.REG_DT <= ?
+                        AND sr.SOAK_STEAM_YN = 'Y'
                         AND (C.SOAK_LEVEL > 0 OR C.STEAM_LEVEL > 0)
                       GROUP BY sr.RECIPE_NM, C.SOAK_LEVEL, C.STEAM_LEVEL`,
                 [startDateTime, endDateTime]
