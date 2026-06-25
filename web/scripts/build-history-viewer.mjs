@@ -21,9 +21,8 @@ await build({
     define: {
         'process.env.NODE_ENV': '"production"',
     },
-    alias: {
-        '@': root,
-    },
+    // tsconfig의 paths(@/*)를 esbuild가 해석하도록 명시
+    tsconfig: path.join(root, 'tsconfig.json'),
     logLevel: 'info',
 });
 console.log('[history-viewer] built successfully');
