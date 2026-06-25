@@ -663,11 +663,10 @@ function DayOfWeekBehaviorDetails({ data }: { data: any }) {
         { id: 7, name: '토요일', short: '토' },
     ];
 
-    const currentData = data?.[selectedDay] || { topRecipes: [], servings: [] };
     const COLORS = ['#FF6B00', '#FF8533', '#FFA166', '#FFBD99', '#FFD9CC', '#FFF0E6'];
 
     return (
-        <div className="bg-white dark:bg-gray-800 rounded-2xl p-6 border border-gray-100 dark:border-gray-700 shadow-sm">
+        <div data-dayofweek-root className="bg-white dark:bg-gray-800 rounded-2xl p-6 border border-gray-100 dark:border-gray-700 shadow-sm">
             <div className="mb-6 flex flex-col md:flex-row md:items-center justify-between gap-4">
                 <div className="flex items-center gap-2">
                     <h3 className="font-bold flex items-center gap-2 text-gray-900 dark:text-white text-lg">
@@ -681,6 +680,7 @@ function DayOfWeekBehaviorDetails({ data }: { data: any }) {
                     {dayNames.map((d) => (
                         <button
                             key={d.id}
+                            data-day-trigger={d.id}
                             onClick={() => setSelectedDay(d.id)}
                             className={`px-3 py-1.5 rounded-lg text-sm font-bold transition-all ${selectedDay === d.id
                                 ? 'bg-white dark:bg-gray-800 text-[#FF6B00] shadow-sm'
@@ -693,65 +693,75 @@ function DayOfWeekBehaviorDetails({ data }: { data: any }) {
                 </div>
             </div>
 
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                {/* 왼쪽: Top 5 메뉴 */}
-                <div className="space-y-4">
-                    <h4 className="text-sm font-bold text-gray-500 dark:text-gray-400 flex items-center gap-2">
-                        <TrendingUp size={14} /> 주요 취사 메뉴 TOP 5
-                    </h4>
-                    <div className="space-y-3">
-                        {currentData.topRecipes.length > 0 ? (
-                            currentData.topRecipes.map((r: any, idx: number) => (
-                                <div key={idx} className="flex items-center gap-3">
-                                    <div className="w-6 h-6 rounded-full bg-orange-100 dark:bg-orange-900/30 text-orange-600 dark:text-orange-400 flex items-center justify-center text-xs font-bold shrink-0">
-                                        {idx + 1}
-                                    </div>
-                                    <div className="flex-1">
-                                        <div className="flex justify-between text-sm mb-1">
-                                            <span className="font-medium text-gray-900 dark:text-white">{r.name}</span>
-                                            <span className="font-bold text-gray-600 dark:text-gray-400">{r.count.toLocaleString()}건</span>
+            {dayNames.map((d) => {
+                const dayData = data?.[d.id] || { topRecipes: [], servings: [] };
+                return (
+                    <div
+                        key={d.id}
+                        data-day-panel={d.id}
+                        style={{ display: selectedDay === d.id ? '' : 'none' }}
+                        className="grid grid-cols-1 lg:grid-cols-2 gap-8"
+                    >
+                        {/* 왼쪽: Top 5 메뉴 */}
+                        <div className="space-y-4">
+                            <h4 className="text-sm font-bold text-gray-500 dark:text-gray-400 flex items-center gap-2">
+                                <TrendingUp size={14} /> 주요 취사 메뉴 TOP 5
+                            </h4>
+                            <div className="space-y-3">
+                                {dayData.topRecipes.length > 0 ? (
+                                    dayData.topRecipes.map((r: any, idx: number) => (
+                                        <div key={idx} className="flex items-center gap-3">
+                                            <div className="w-6 h-6 rounded-full bg-orange-100 dark:bg-orange-900/30 text-orange-600 dark:text-orange-400 flex items-center justify-center text-xs font-bold shrink-0">
+                                                {idx + 1}
+                                            </div>
+                                            <div className="flex-1">
+                                                <div className="flex justify-between text-sm mb-1">
+                                                    <span className="font-medium text-gray-900 dark:text-white">{r.name}</span>
+                                                    <span className="font-bold text-gray-600 dark:text-gray-400">{r.count.toLocaleString()}건</span>
+                                                </div>
+                                                <div className="w-full bg-gray-100 dark:bg-gray-700 rounded-full h-1.5">
+                                                    <div
+                                                        className="bg-[#FF6B00] h-1.5 rounded-full"
+                                                        style={{ width: `${(r.count / dayData.topRecipes[0].count) * 100}%` }}
+                                                    />
+                                                </div>
+                                            </div>
                                         </div>
-                                        <div className="w-full bg-gray-100 dark:bg-gray-700 rounded-full h-1.5">
-                                            <div
-                                                className="bg-[#FF6B00] h-1.5 rounded-full"
-                                                style={{ width: `${(r.count / currentData.topRecipes[0].count) * 100}%` }}
-                                            />
-                                        </div>
-                                    </div>
-                                </div>
-                            ))
-                        ) : (
-                            <div className="py-10 text-center text-gray-400 text-sm">데이터가 없습니다.</div>
-                        )}
-                    </div>
-                </div>
+                                    ))
+                                ) : (
+                                    <div className="py-10 text-center text-gray-400 text-sm">데이터가 없습니다.</div>
+                                )}
+                            </div>
+                        </div>
 
-                {/* 오른쪽: 인분 수 분포 */}
-                <div className="space-y-4">
-                    <h4 className="text-sm font-bold text-gray-500 dark:text-gray-400 flex items-center gap-2">
-                        <Hash size={14} /> 인분 수 분포 (1~6인분)
-                    </h4>
-                    <div className="h-[200px]">
-                        <ResponsiveContainer width="100%" height="100%">
-                            <BarChart data={currentData.servings} layout="vertical" margin={{ left: 10, right: 30 }}>
-                                <CartesianGrid strokeDasharray="3 3" horizontal={false} stroke="#E5E7EB" opacity={0.5} />
-                                <XAxis type="number" hide />
-                                <YAxis dataKey="name" type="category" axisLine={false} tickLine={false} tick={{ fontSize: 12, fontWeight: 600 }} width={60} />
-                                <Tooltip
-                                    contentStyle={{ backgroundColor: '#111827', border: 'none', borderRadius: '8px', color: '#fff' }}
-                                    itemStyle={{ color: '#FF6B00' }}
-                                    cursor={{ fill: 'transparent' }}
-                                />
-                                <Bar dataKey="count" radius={[0, 4, 4, 0]} barSize={20}>
-                                    {currentData.servings.map((entry: any, index: number) => (
-                                        <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-                                    ))}
-                                </Bar>
-                            </BarChart>
-                        </ResponsiveContainer>
+                        {/* 오른쪽: 인분 수 분포 */}
+                        <div className="space-y-4">
+                            <h4 className="text-sm font-bold text-gray-500 dark:text-gray-400 flex items-center gap-2">
+                                <Hash size={14} /> 인분 수 분포 (1~6인분)
+                            </h4>
+                            <div className="h-[200px]">
+                                <ResponsiveContainer width="100%" height="100%">
+                                    <BarChart data={dayData.servings} layout="vertical" margin={{ left: 10, right: 30 }}>
+                                        <CartesianGrid strokeDasharray="3 3" horizontal={false} stroke="#E5E7EB" opacity={0.5} />
+                                        <XAxis type="number" hide />
+                                        <YAxis dataKey="name" type="category" axisLine={false} tickLine={false} tick={{ fontSize: 12, fontWeight: 600 }} width={60} />
+                                        <Tooltip
+                                            contentStyle={{ backgroundColor: '#111827', border: 'none', borderRadius: '8px', color: '#fff' }}
+                                            itemStyle={{ color: '#FF6B00' }}
+                                            cursor={{ fill: 'transparent' }}
+                                        />
+                                        <Bar dataKey="count" radius={[0, 4, 4, 0]} barSize={20}>
+                                            {dayData.servings.map((_entry: any, index: number) => (
+                                                <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                                            ))}
+                                        </Bar>
+                                    </BarChart>
+                                </ResponsiveContainer>
+                            </div>
+                        </div>
                     </div>
-                </div>
-            </div>
+                );
+            })}
         </div>
     );
 }
